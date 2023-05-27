@@ -35,11 +35,13 @@ export default function Tooltip({children, className, label, style}: any) {
     <div
       className={styles.Container}
       onMouseMove={onMouseMove}
-      ref={containerRef}>
+      ref={containerRef}
+    >
       <div
         className={`${styles.Tooltip} ${tooltipClassName} ${className || ''}`}
         ref={tooltipRef}
-        style={style}>
+        style={style}
+      >
         {label}
       </div>
       {children}

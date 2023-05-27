@@ -30,7 +30,8 @@ export default function UpdateExistingIssue({
         href={url}
         rel="noopener noreferrer"
         target="_blank"
-        title="Report bug">
+        title="Report bug"
+      >
         {title}
       </a>
     </div>

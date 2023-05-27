@@ -98,7 +98,7 @@ function getEntriesForResource(
 
 function accessResult<Input, Key, Value>(
   resource: any,
-  fetch: Input => Thenable<Value>,
+  fetch: (Input) => Thenable<Value>,
   input: Input,
   key: Key,
 ): Result<Value> {
@@ -107,14 +107,14 @@ function accessResult<Input, Key, Value>(
   if (entry === undefined) {
     const thenable = fetch(input);
     thenable.then(
-      value => {
+      (value) => {
         if (newResult.status === Pending) {
           const resolvedResult: ResolvedResult<Value> = (newResult: any);
           resolvedResult.status = Resolved;
           resolvedResult.value = value;
         }
       },
-      error => {
+      (error) => {
         if (newResult.status === Pending) {
           const rejectedResult: RejectedResult = (newResult: any);
           rejectedResult.status = Rejected;
@@ -134,8 +134,8 @@ function accessResult<Input, Key, Value>(
 }
 
 export function createResource<Input, Key, Value>(
-  fetch: Input => Thenable<Value>,
-  hashInput: Input => Key,
+  fetch: (Input) => Thenable<Value>,
+  hashInput: (Input) => Key,
   config?: Config = {},
 ): Resource<Input, Key, Value> {
   const resource = {

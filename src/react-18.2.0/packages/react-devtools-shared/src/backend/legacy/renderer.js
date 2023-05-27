@@ -137,16 +137,13 @@ export function attach(
   global: Object,
 ): RendererInterface {
   const idToInternalInstanceMap: Map<number, InternalInstance> = new Map();
-  const internalInstanceToIDMap: WeakMap<
-    InternalInstance,
-    number,
-  > = new WeakMap();
-  const internalInstanceToRootIDMap: WeakMap<
-    InternalInstance,
-    number,
-  > = new WeakMap();
+  const internalInstanceToIDMap: WeakMap<InternalInstance, number> =
+    new WeakMap();
+  const internalInstanceToRootIDMap: WeakMap<InternalInstance, number> =
+    new WeakMap();
 
-  let getInternalIDForNative: GetFiberIDForNative = ((null: any): GetFiberIDForNative);
+  let getInternalIDForNative: GetFiberIDForNative =
+    ((null: any): GetFiberIDForNative);
   let findNativeNodeForInternalID: (id: number) => ?NativeType;
   let getFiberForNative = (node: NativeType) => {
     // Not implemented.
@@ -155,9 +152,8 @@ export function attach(
 
   if (renderer.ComponentTree) {
     getInternalIDForNative = (node, findNearestUnfilteredAncestor) => {
-      const internalInstance = renderer.ComponentTree.getClosestInstanceFromNode(
-        node,
-      );
+      const internalInstance =
+        renderer.ComponentTree.getClosestInstanceFromNode(node);
       return internalInstanceToIDMap.get(internalInstance) || null;
     };
     findNativeNodeForInternalID = (id: number) => {
@@ -451,7 +447,7 @@ export function attach(
     if (internalInstance != null) {
       internalInstanceToRootIDMap.set(internalInstance, rootID);
       recordMount(internalInstance, id, parentID);
-      getChildren(internalInstance).forEach(child =>
+      getChildren(internalInstance).forEach((child) =>
         crawlAndRecordInitialMounts(getID(child), id, rootID),
       );
     }
@@ -497,8 +493,8 @@ export function attach(
     const operations = new Array(
       // Identify which renderer this update is coming from.
       2 + // [rendererID, rootFiberID]
-      // How big is the string table?
-      1 + // [stringTableLength]
+        // How big is the string table?
+        1 + // [stringTableLength]
         // Then goes the actual string table.
         pendingStringTableLength +
         // All unmounts are batched in a single message.
@@ -599,7 +595,7 @@ export function attach(
   // so that we can send their data along if the element is re-rendered.
   function mergeInspectedPaths(path: Array<string | number>) {
     let current = currentlyInspectedPaths;
-    path.forEach(key => {
+    path.forEach((key) => {
       if (!current[key]) {
         current[key] = {};
       }

@@ -64,7 +64,7 @@ function dialogReducer(state, action) {
   switch (action.type) {
     case 'HIDE':
       return {
-        dialogs: state.dialogs.filter(dialog => dialog.id !== action.id),
+        dialogs: state.dialogs.filter((dialog) => dialog.id !== action.id),
       };
     case 'SHOW':
       return {
@@ -116,7 +116,7 @@ function ModalDialog(_: {||}) {
 
   return (
     <div className={styles.Background}>
-      {dialogs.map(dialog => (
+      {dialogs.map((dialog) => (
         <ModalDialogImpl
           key={dialog.id}
           canBeDismissed={dialog.canBeDismissed}
@@ -174,7 +174,8 @@ function ModalDialogImpl({
           <Button
             autoFocus={true}
             className={styles.Button}
-            onClick={dismissModal}>
+            onClick={dismissModal}
+          >
             Okay
           </Button>
         </div>

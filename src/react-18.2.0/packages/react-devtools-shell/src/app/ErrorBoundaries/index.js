@@ -28,7 +28,8 @@ class ErrorBoundary extends React.Component {
             borderRadius: '0.25rem',
             margin: '0.5rem',
             padding: '0.5rem',
-          }}>
+          }}
+        >
           An error was thrown.
         </div>
       );
@@ -42,7 +43,8 @@ class ErrorBoundary extends React.Component {
           borderRadius: '0.25rem',
           margin: '0.5rem',
           padding: '0.5rem',
-        }}>
+        }}
+      >
         {children}
       </div>
     );

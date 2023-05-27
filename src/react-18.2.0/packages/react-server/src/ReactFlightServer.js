@@ -151,7 +151,7 @@ export function createRequest(
     identifierPrefix: identifierPrefix || '',
     identifierCount: 1,
     onError: onError === undefined ? defaultErrorHandler : onError,
-    toJSON: function(key: string, value: ReactModel): ReactJSONValue {
+    toJSON: function (key: string, value: ReactModel): ReactJSONValue {
       return resolveModelToJSON(request, this, key, value);
     },
   };
@@ -223,7 +223,7 @@ function attemptResolveElement(
       case REACT_PROVIDER_TYPE: {
         pushProvider(type._context, props.value);
         if (__DEV__) {
-          const extraKeys = Object.keys(props).filter(value => {
+          const extraKeys = Object.keys(props).filter((value) => {
             if (value === 'children' || value === 'value') {
               return false;
             }
@@ -342,7 +342,7 @@ function isSimpleObject(object): boolean {
 
 function objectName(object): string {
   const name = Object.prototype.toString.call(object);
-  return name.replace(/^\[object (.*)\]$/, function(m, p0) {
+  return name.replace(/^\[object (.*)\]$/, function (m, p0) {
     return p0;
   });
 }
@@ -670,9 +670,9 @@ export function resolveModelToJSON(
       throw new Error(
         'Functions cannot be passed directly to client components ' +
           "because they're not serializable. " +
-          `Remove ${describeKeyForErrorMessage(key)} (${value.displayName ||
-            value.name ||
-            'function'}) from this object, or avoid the entire object: ${describeObjectForErrorMessage(
+          `Remove ${describeKeyForErrorMessage(key)} (${
+            value.displayName || value.name || 'function'
+          }) from this object, or avoid the entire object: ${describeObjectForErrorMessage(
             parent,
           )}`,
       );

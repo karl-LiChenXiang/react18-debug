@@ -319,7 +319,7 @@ function updatePlaceholderReactVersionInCompiledArtifacts(
   )
     .trim()
     .split('\n')
-    .filter(filename => filename.endsWith('.js'));
+    .filter((filename) => filename.endsWith('.js'));
 
   for (const artifactFilename of artifactFilenames) {
     const originalText = fs.readFileSync(artifactFilename, 'utf8');

@@ -76,8 +76,10 @@ function TimelineContextController({children}: Props) {
 
   // Recreate view state any time new profiling data is imported.
   const viewState = useMemo<ViewState>(() => {
-    const horizontalScrollStateChangeCallbacks: Set<HorizontalScrollStateChangeCallback> = new Set();
-    const searchRegExpStateChangeCallbacks: Set<SearchRegExpStateChangeCallback> = new Set();
+    const horizontalScrollStateChangeCallbacks: Set<HorizontalScrollStateChangeCallback> =
+      new Set();
+    const searchRegExpStateChangeCallbacks: Set<SearchRegExpStateChangeCallback> =
+      new Set();
 
     const horizontalScrollState = {
       offset: 0,
@@ -86,14 +88,14 @@ function TimelineContextController({children}: Props) {
 
     const state: ViewState = {
       horizontalScrollState,
-      onHorizontalScrollStateChange: callback => {
+      onHorizontalScrollStateChange: (callback) => {
         horizontalScrollStateChangeCallbacks.add(callback);
       },
-      onSearchRegExpStateChange: callback => {
+      onSearchRegExpStateChange: (callback) => {
         searchRegExpStateChangeCallbacks.add(callback);
       },
       searchRegExp: null,
-      updateHorizontalScrollState: scrollState => {
+      updateHorizontalScrollState: (scrollState) => {
         if (
           horizontalScrollState.offset === scrollState.offset &&
           horizontalScrollState.length === scrollState.length
@@ -104,14 +106,14 @@ function TimelineContextController({children}: Props) {
         horizontalScrollState.offset = scrollState.offset;
         horizontalScrollState.length = scrollState.length;
 
-        horizontalScrollStateChangeCallbacks.forEach(callback => {
+        horizontalScrollStateChangeCallbacks.forEach((callback) => {
           callback(scrollState);
         });
       },
       updateSearchRegExpState: (searchRegExp: RegExp | null) => {
         state.searchRegExp = searchRegExp;
 
-        searchRegExpStateChangeCallbacks.forEach(callback => {
+        searchRegExpStateChangeCallbacks.forEach((callback) => {
           callback(searchRegExp);
         });
       },

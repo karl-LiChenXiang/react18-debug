@@ -185,8 +185,8 @@ export function launchEditor(
   } else {
     childProcess = spawn(editor, args, {stdio: 'inherit'});
   }
-  childProcess.on('error', function() {});
-  childProcess.on('exit', function(errorCode) {
+  childProcess.on('error', function () {});
+  childProcess.on('exit', function (errorCode) {
     childProcess = null;
   });
 }

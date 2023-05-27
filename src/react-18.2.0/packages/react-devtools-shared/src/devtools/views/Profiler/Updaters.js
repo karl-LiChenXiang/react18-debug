@@ -35,7 +35,8 @@ export default function Updaters({commitTree, updaters}: Props) {
             <button
               key={id}
               className={styles.Updater}
-              onClick={() => selectFiber(id, displayName)}>
+              onClick={() => selectFiber(id, displayName)}
+            >
               {displayName} {key ? `key="${key}"` : ''}
             </button>
           );

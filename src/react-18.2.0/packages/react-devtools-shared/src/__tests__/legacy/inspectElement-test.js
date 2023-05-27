@@ -36,7 +36,7 @@ describe('InspectedElementContext', () => {
         path,
         rendererID,
       })
-      .then(data =>
+      .then((data) =>
         backendAPI.convertInspectedElementBackendToFrontend(data.value),
       );
 

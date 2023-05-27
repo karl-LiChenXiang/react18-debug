@@ -130,10 +130,8 @@ export function InspectedElementContextController({children}: Props) {
         if (parseHookNames || alreadyLoadedHookNames) {
           const hookNamesModule = loadModule(hookNamesModuleLoader);
           if (hookNamesModule !== null) {
-            const {
-              parseHookNames: loadHookNamesFunction,
-              purgeCachedMetadata,
-            } = hookNamesModule;
+            const {parseHookNames: loadHookNamesFunction, purgeCachedMetadata} =
+              hookNamesModule;
 
             purgeCachedMetadataRef.current = purgeCachedMetadata;
 
@@ -155,12 +153,13 @@ export function InspectedElementContextController({children}: Props) {
     }
   }
 
-  const toggleParseHookNames: ToggleParseHookNames = useCallback<ToggleParseHookNames>(() => {
-    startTransition(() => {
-      setParseHookNames(value => !value);
-      refresh();
-    });
-  }, [setParseHookNames]);
+  const toggleParseHookNames: ToggleParseHookNames =
+    useCallback<ToggleParseHookNames>(() => {
+      startTransition(() => {
+        setParseHookNames((value) => !value);
+        refresh();
+      });
+    }, [setParseHookNames]);
 
   const inspectPaths: InspectPathFunction = useCallback<InspectPathFunction>(
     (path: Path) => {

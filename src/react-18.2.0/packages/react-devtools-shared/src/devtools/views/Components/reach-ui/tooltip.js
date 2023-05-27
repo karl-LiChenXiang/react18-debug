@@ -26,7 +26,8 @@ const Tooltip = ({
     <ReachTooltip
       className={`${tooltipStyles.Tooltip} ${className}`}
       style={style}
-      {...props}>
+      {...props}
+    >
       {children}
     </ReachTooltip>
   );

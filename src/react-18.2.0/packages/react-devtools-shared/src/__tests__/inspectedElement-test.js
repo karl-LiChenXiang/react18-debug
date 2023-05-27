@@ -59,18 +59,18 @@ describe('InspectedElement', () => {
     TestRenderer = utils.requireTestRenderer();
     TestRendererAct = require('jest-react').act;
 
-    BridgeContext = require('react-devtools-shared/src/devtools/views/context')
-      .BridgeContext;
-    InspectedElementContext = require('react-devtools-shared/src/devtools/views/Components/InspectedElementContext')
-      .InspectedElementContext;
-    InspectedElementContextController = require('react-devtools-shared/src/devtools/views/Components/InspectedElementContext')
-      .InspectedElementContextController;
-    SettingsContextController = require('react-devtools-shared/src/devtools/views/Settings/SettingsContext')
-      .SettingsContextController;
-    StoreContext = require('react-devtools-shared/src/devtools/views/context')
-      .StoreContext;
-    TreeContextController = require('react-devtools-shared/src/devtools/views/Components/TreeContext')
-      .TreeContextController;
+    BridgeContext =
+      require('react-devtools-shared/src/devtools/views/context').BridgeContext;
+    InspectedElementContext =
+      require('react-devtools-shared/src/devtools/views/Components/InspectedElementContext').InspectedElementContext;
+    InspectedElementContextController =
+      require('react-devtools-shared/src/devtools/views/Components/InspectedElementContext').InspectedElementContextController;
+    SettingsContextController =
+      require('react-devtools-shared/src/devtools/views/Settings/SettingsContext').SettingsContextController;
+    StoreContext =
+      require('react-devtools-shared/src/devtools/views/context').StoreContext;
+    TreeContextController =
+      require('react-devtools-shared/src/devtools/views/Components/TreeContext').TreeContextController;
 
     // Used by inspectElementAtIndex() helper function
     utils.act(() => {
@@ -111,7 +111,8 @@ describe('InspectedElement', () => {
         <SettingsContextController>
           <TreeContextController
             defaultSelectedElementID={defaultSelectedElementID}
-            defaultSelectedElementIndex={defaultSelectedElementIndex}>
+            defaultSelectedElementIndex={defaultSelectedElementIndex}
+          >
             <React.Suspense fallback="Loading...">
               <InspectedElementContextController>
                 {children}
@@ -157,7 +158,8 @@ describe('InspectedElement', () => {
         <ErrorBoundary>
           <Contexts
             defaultSelectedElementID={id}
-            defaultSelectedElementIndex={index}>
+            defaultSelectedElementIndex={index}
+          >
             <React.Suspense fallback={null}>
               <Suspender id={id} index={index} />
             </React.Suspense>
@@ -263,10 +265,10 @@ describe('InspectedElement', () => {
           <LegacyContextProvider>
             <LegacyContextConsumer />
           </LegacyContextProvider>
-          <BoolContext.Consumer>{value => null}</BoolContext.Consumer>
+          <BoolContext.Consumer>{(value) => null}</BoolContext.Consumer>
           <ModernContextType />
           <ModernContext.Provider value={contextData}>
-            <ModernContext.Consumer>{value => null}</ModernContext.Consumer>
+            <ModernContext.Consumer>{(value) => null}</ModernContext.Consumer>
           </ModernContext.Provider>
         </React.Fragment>,
         container,
@@ -364,7 +366,7 @@ describe('InspectedElement', () => {
     let targetRenderCount = 0;
 
     const Wrapper = ({children}) => children;
-    const Target = React.memo(props => {
+    const Target = React.memo((props) => {
       targetRenderCount++;
       // Even though his hook isn't referenced, it's used to observe backend rendering.
       React.useState(0);
@@ -428,7 +430,7 @@ describe('InspectedElement', () => {
     let targetRenderCount = 0;
 
     const Wrapper = ({children}) => children;
-    const Target = React.memo(props => {
+    const Target = React.memo((props) => {
       targetRenderCount++;
       // Even though his hook isn't referenced, it's used to observe backend rendering.
       React.useState(0);
@@ -497,7 +499,7 @@ describe('InspectedElement', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
     jest.spyOn(console, 'warn').mockImplementation(() => {});
 
-    const Target = React.memo(props => {
+    const Target = React.memo((props) => {
       targetRenderCount++;
       console.error('error');
       console.info('info');
@@ -616,8 +618,8 @@ describe('InspectedElement', () => {
     const instance = new Class();
 
     const proxyInstance = new Proxy(() => {}, {
-      get: function(_, name) {
-        return function() {
+      get: function (_, name) {
+        return function () {
           return null;
         };
       },
@@ -1777,7 +1779,8 @@ describe('InspectedElement', () => {
       ),
     );
 
-    let copyPath: CopyInspectedElementPath = ((null: any): CopyInspectedElementPath);
+    let copyPath: CopyInspectedElementPath =
+      ((null: any): CopyInspectedElementPath);
 
     const id = ((store.getElementIDAtIndex(0): any): number);
     await inspectElementAtIndex(0, () => {
@@ -1864,7 +1867,8 @@ describe('InspectedElement', () => {
 
     const id = ((store.getElementIDAtIndex(0): any): number);
 
-    let copyPath: CopyInspectedElementPath = ((null: any): CopyInspectedElementPath);
+    let copyPath: CopyInspectedElementPath =
+      ((null: any): CopyInspectedElementPath);
 
     await inspectElementAtIndex(0, () => {
       copyPath = (path: Array<string | number>) => {
@@ -1969,7 +1973,7 @@ describe('InspectedElement', () => {
       {},
       {
         get: (target, prop, receiver) => {
-          target[prop] = value => {};
+          target[prop] = (value) => {};
           return target[prop];
         },
       },
@@ -2320,7 +2324,8 @@ describe('InspectedElement', () => {
         root = TestRenderer.create(
           <Contexts
             defaultSelectedElementID={id}
-            defaultSelectedElementIndex={index}>
+            defaultSelectedElementIndex={index}
+          >
             <React.Suspense fallback={null}>
               <Suspender target={id} />
             </React.Suspense>
@@ -2817,7 +2822,7 @@ describe('InspectedElement', () => {
       const targetErrorBoundaryID = ((store.getElementIDAtIndex(
         0,
       ): any): number);
-      const inspect = index => {
+      const inspect = (index) => {
         // HACK: Recreate TestRenderer instance so we can inspect different elements
         utils.withErrorsOrWarningsIgnored(
           ['An update to %s inside a test was not wrapped in act'],
@@ -2829,7 +2834,7 @@ describe('InspectedElement', () => {
         );
         return inspectElementAtIndex(index);
       };
-      const toggleError = async forceError => {
+      const toggleError = async (forceError) => {
         await withErrorsOrWarningsIgnored(['ErrorBoundary'], async () => {
           await TestUtilsAct(() => {
             bridge.send('overrideError', {

@@ -1581,7 +1581,7 @@ function abortTask(task: Task, request: Request, reason: mixed): void {
 
     // If this boundary was still pending then we haven't already cancelled its fallbacks.
     // We'll need to abort the fallbacks, which will also error that parent boundary.
-    boundary.fallbackAbortableTasks.forEach(fallbackTask =>
+    boundary.fallbackAbortableTasks.forEach((fallbackTask) =>
       abortTask(fallbackTask, request, reason),
     );
     boundary.fallbackAbortableTasks.clear();
@@ -2178,7 +2178,7 @@ export function startFlowing(request: Request, destination: Destination): void {
 export function abort(request: Request, reason: mixed): void {
   try {
     const abortableTasks = request.abortableTasks;
-    abortableTasks.forEach(task => abortTask(task, request, reason));
+    abortableTasks.forEach((task) => abortTask(task, request, reason));
     abortableTasks.clear();
     if (request.destination !== null) {
       flushCompletedQueues(request, request.destination);

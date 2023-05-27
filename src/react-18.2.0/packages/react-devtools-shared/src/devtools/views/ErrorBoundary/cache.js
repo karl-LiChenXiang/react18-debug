@@ -76,7 +76,7 @@ export function findGitHubIssue(errorMessage: string): GitHubIssue | null {
     };
     const wake = () => {
       // This assumes they won't throw.
-      callbacks.forEach(callback => callback());
+      callbacks.forEach((callback) => callback());
       callbacks.clear();
     };
     const newRecord: Record<GitHubIssue> = (record = {
@@ -87,13 +87,14 @@ export function findGitHubIssue(errorMessage: string): GitHubIssue | null {
     let didTimeout = false;
 
     searchGitHubIssues(errorMessage)
-      .then(maybeItem => {
+      .then((maybeItem) => {
         if (didTimeout) {
           return;
         }
 
         if (maybeItem) {
-          const resolvedRecord = ((newRecord: any): ResolvedRecord<GitHubIssue>);
+          const resolvedRecord =
+            ((newRecord: any): ResolvedRecord<GitHubIssue>);
           resolvedRecord.status = Resolved;
           resolvedRecord.value = maybeItem;
         } else {
@@ -104,7 +105,7 @@ export function findGitHubIssue(errorMessage: string): GitHubIssue | null {
 
         wake();
       })
-      .catch(error => {
+      .catch((error) => {
         const thrownRecord = ((newRecord: any): RejectedRecord);
         thrownRecord.status = Rejected;
         thrownRecord.value = null;

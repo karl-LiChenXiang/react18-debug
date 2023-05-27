@@ -424,10 +424,10 @@ function createReactNoop(reconciler: Function, useMutation: boolean) {
       typeof queueMicrotask === 'function'
         ? queueMicrotask
         : typeof Promise !== 'undefined'
-        ? callback =>
+        ? (callback) =>
             Promise.resolve(null)
               .then(callback)
-              .catch(error => {
+              .catch((error) => {
                 setTimeout(() => {
                   throw error;
                 });
@@ -670,8 +670,10 @@ function createReactNoop(reconciler: Function, useMutation: boolean) {
         return childToJSX(child[0], null);
       }
       // $FlowFixMe
-      const children = child.map(c => childToJSX(c, null));
-      if (children.every(c => typeof c === 'string' || typeof c === 'number')) {
+      const children = child.map((c) => childToJSX(c, null));
+      if (
+        children.every((c) => typeof c === 'string' || typeof c === 'number')
+      ) {
         return children.join('');
       }
       return children;
@@ -952,9 +954,7 @@ function createReactNoop(reconciler: Function, useMutation: boolean) {
       return Scheduler.unstable_clearYields();
     },
 
-    flushWithHostCounters(
-      fn: () => void,
-    ):
+    flushWithHostCounters(fn: () => void):
       | {|
           hostDiffCounter: number,
           hostUpdateCounter: number,

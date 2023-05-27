@@ -25,7 +25,8 @@ export default function ProfilingNotSupported() {
           className={styles.Link}
           href="https://fb.me/react-devtools-profiling"
           rel="noopener noreferrer"
-          target="_blank">
+          target="_blank"
+        >
           reactjs.org/link/profiling
         </a>
         .

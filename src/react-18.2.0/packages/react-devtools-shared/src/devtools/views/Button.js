@@ -31,7 +31,8 @@ export default function Button({
     <button
       className={`${styles.Button} ${className}`}
       data-testname={testName}
-      {...rest}>
+      {...rest}
+    >
       <span className={`${styles.ButtonContent} ${className}`} tabIndex={-1}>
         {children}
       </span>

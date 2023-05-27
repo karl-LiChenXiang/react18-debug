@@ -40,7 +40,7 @@ export function collapseLayoutIntoViews(layout: Layout) {
 /**
  * A no-operation layout; does not modify the layout.
  */
-export const noopLayout: Layouter = layout => layout;
+export const noopLayout: Layouter = (layout) => layout;
 
 /**
  * Layer views on top of each other. All views' frames will be set to `containerFrame`.
@@ -52,7 +52,7 @@ export const noopLayout: Layouter = layout => layout;
  * - `containerHeightLayout`.
  */
 export const layeredLayout: Layouter = (layout, containerFrame) => {
-  return layout.map(layoutInfo => ({...layoutInfo, frame: containerFrame}));
+  return layout.map((layoutInfo) => ({...layoutInfo, frame: containerFrame}));
 };
 
 /**
@@ -61,7 +61,7 @@ export const layeredLayout: Layouter = (layout, containerFrame) => {
  */
 export const verticallyStackedLayout: Layouter = (layout, containerFrame) => {
   let currentY = containerFrame.origin.y;
-  return layout.map(layoutInfo => {
+  return layout.map((layoutInfo) => {
     const desiredSize = layoutInfo.view.desiredSize();
     const height = desiredSize
       ? desiredSize.height
@@ -82,7 +82,7 @@ export const verticallyStackedLayout: Layouter = (layout, containerFrame) => {
  * A layouter that aligns all frames' lefts to the container frame's left.
  */
 export const alignToContainerXLayout: Layouter = (layout, containerFrame) => {
-  return layout.map(layoutInfo => ({
+  return layout.map((layoutInfo) => ({
     ...layoutInfo,
     frame: {
       origin: {
@@ -98,7 +98,7 @@ export const alignToContainerXLayout: Layouter = (layout, containerFrame) => {
  * A layouter that aligns all frames' tops to the container frame's top.
  */
 export const alignToContainerYLayout: Layouter = (layout, containerFrame) => {
-  return layout.map(layoutInfo => ({
+  return layout.map((layoutInfo) => ({
     ...layoutInfo,
     frame: {
       origin: {
@@ -114,7 +114,7 @@ export const alignToContainerYLayout: Layouter = (layout, containerFrame) => {
  * A layouter that sets all frames' widths to `containerFrame.size.width`.
  */
 export const containerWidthLayout: Layouter = (layout, containerFrame) => {
-  return layout.map(layoutInfo => ({
+  return layout.map((layoutInfo) => ({
     ...layoutInfo,
     frame: {
       origin: layoutInfo.frame.origin,
@@ -130,7 +130,7 @@ export const containerWidthLayout: Layouter = (layout, containerFrame) => {
  * A layouter that sets all frames' heights to `containerFrame.size.height`.
  */
 export const containerHeightLayout: Layouter = (layout, containerFrame) => {
-  return layout.map(layoutInfo => ({
+  return layout.map((layoutInfo) => ({
     ...layoutInfo,
     frame: {
       origin: layoutInfo.frame.origin,
@@ -146,8 +146,8 @@ export const containerHeightLayout: Layouter = (layout, containerFrame) => {
  * A layouter that sets all frames' heights to the desired height of its view.
  * If the view has no desired size, the frame's height is set to 0.
  */
-export const desiredHeightLayout: Layouter = layout => {
-  return layout.map(layoutInfo => {
+export const desiredHeightLayout: Layouter = (layout) => {
+  return layout.map((layoutInfo) => {
     const desiredSize = layoutInfo.view.desiredSize();
     const height = desiredSize ? desiredSize.height : 0;
     return {
@@ -166,11 +166,11 @@ export const desiredHeightLayout: Layouter = layout => {
 /**
  * A layouter that sets all frames' heights to the height of the tallest frame.
  */
-export const uniformMaxSubviewHeightLayout: Layouter = layout => {
+export const uniformMaxSubviewHeightLayout: Layouter = (layout) => {
   const maxHeight = Math.max(
-    ...layout.map(layoutInfo => layoutInfo.frame.size.height),
+    ...layout.map((layoutInfo) => layoutInfo.frame.size.height),
   );
-  return layout.map(layoutInfo => ({
+  return layout.map((layoutInfo) => ({
     ...layoutInfo,
     frame: {
       origin: layoutInfo.frame.origin,
@@ -191,7 +191,7 @@ export const atLeastContainerHeightLayout: Layouter = (
   layout,
   containerFrame,
 ) => {
-  return layout.map(layoutInfo => ({
+  return layout.map((layoutInfo) => ({
     ...layoutInfo,
     frame: {
       origin: layoutInfo.frame.origin,

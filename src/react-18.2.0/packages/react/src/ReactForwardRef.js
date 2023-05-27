@@ -7,9 +7,7 @@
 
 import {REACT_FORWARD_REF_TYPE, REACT_MEMO_TYPE} from 'shared/ReactSymbols';
 
-export function forwardRef<Props, ElementType: React$ElementType>(
-  render: (props: Props, ref: React$Ref<ElementType>) => React$Node,
-) {
+export function forwardRef(render) {
   if (__DEV__) {
     if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
       console.error(
@@ -52,10 +50,10 @@ export function forwardRef<Props, ElementType: React$ElementType>(
     Object.defineProperty(elementType, 'displayName', {
       enumerable: false,
       configurable: true,
-      get: function() {
+      get: function () {
         return ownName;
       },
-      set: function(name) {
+      set: function (name) {
         ownName = name;
 
         // The inner component shouldn't inherit this display name in most cases,

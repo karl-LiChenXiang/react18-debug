@@ -100,7 +100,7 @@ function Components(_: {||}) {
     onResizeEnd = () =>
       dispatch({type: 'ACTION_SET_IS_RESIZING', payload: false});
 
-    onResize = event => {
+    onResize = (event) => {
       const resizeElement = resizeElementRef.current;
       const wrapperElement = wrapperElementRef.current;
 
@@ -157,7 +157,8 @@ function Components(_: {||}) {
           className={styles.Components}
           onMouseMove={onResize}
           onMouseLeave={onResizeEnd}
-          onMouseUp={onResizeEnd}>
+          onMouseUp={onResizeEnd}
+        >
           <Fragment>
             <div ref={resizeElementRef} className={styles.TreeWrapper}>
               <Tree />

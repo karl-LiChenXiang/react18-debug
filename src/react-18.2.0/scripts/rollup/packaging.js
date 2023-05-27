@@ -140,7 +140,7 @@ for (const bundle of Bundles.bundles) {
   let hasBundle = entryPointsToHasBundle.get(bundle.entry);
   if (!hasBundle) {
     const hasNonFBBundleTypes = bundle.bundleTypes.some(
-      type =>
+      (type) =>
         type !== FB_WWW_DEV && type !== FB_WWW_PROD && type !== FB_WWW_PROFILING
     );
     entryPointsToHasBundle.set(bundle.entry, hasNonFBBundleTypes);
@@ -234,7 +234,7 @@ async function prepareNpmPackages() {
     return;
   }
   const builtPackageFolders = readdirSync('build/node_modules').filter(
-    dir => dir.charAt(0) !== '.'
+    (dir) => dir.charAt(0) !== '.'
   );
   await Promise.all(builtPackageFolders.map(prepareNpmPackage));
 }

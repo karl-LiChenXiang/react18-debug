@@ -16,7 +16,7 @@ import type {
 
 type NamesToPlugins = {
   [key: PluginName]: LegacyPluginModule<AnyNativeEvent>,
-  ...,
+  ...
 };
 type EventPluginOrder = null | Array<PluginName>;
 

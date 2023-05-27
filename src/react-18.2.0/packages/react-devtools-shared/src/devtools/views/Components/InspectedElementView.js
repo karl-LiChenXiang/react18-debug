@@ -60,13 +60,8 @@ export default function InspectedElementView({
   toggleParseHookNames,
 }: Props) {
   const {id} = element;
-  const {
-    owners,
-    rendererPackageName,
-    rendererVersion,
-    rootType,
-    source,
-  } = inspectedElement;
+  const {owners, rendererPackageName, rendererVersion, rootType, source} =
+    inspectedElement;
 
   const bridge = useContext(BridgeContext);
   const store = useContext(StoreContext);
@@ -147,10 +142,11 @@ export default function InspectedElementView({
         {showRenderedBy && (
           <div
             className={styles.Owners}
-            data-testname="InspectedElementView-Owners">
+            data-testname="InspectedElementView-Owners"
+          >
             <div className={styles.OwnersHeader}>rendered by</div>
             {showOwnersList &&
-              ((owners: any): Array<SerializedElement>).map(owner => (
+              ((owners: any): Array<SerializedElement>).map((owner) => (
                 <OwnerView
                   key={owner.id}
                   displayName={owner.displayName || 'Anonymous'}
@@ -205,13 +201,15 @@ export default function InspectedElementView({
               <Fragment>
                 <ContextMenuItem
                   onClick={copyInspectedElementPath}
-                  title="Copy value to clipboard">
+                  title="Copy value to clipboard"
+                >
                   <Icon className={styles.ContextMenuIcon} type="copy" /> Copy
                   value to clipboard
                 </ContextMenuItem>
                 <ContextMenuItem
                   onClick={storeAsGlobal}
-                  title="Store as global variable">
+                  title="Store as global variable"
+                >
                   <Icon
                     className={styles.ContextMenuIcon}
                     type="store-as-global-variable"
@@ -222,7 +220,8 @@ export default function InspectedElementView({
                   pathType === 'function' && (
                     <ContextMenuItem
                       onClick={() => viewAttributeSourceFunction(id, path)}
-                      title="Go to definition">
+                      title="Go to definition"
+                    >
                       <Icon className={styles.ContextMenuIcon} type="code" /> Go
                       to definition
                     </ContextMenuItem>
@@ -296,10 +295,8 @@ function OwnerView({
   type,
 }: OwnerViewProps) {
   const dispatch = useContext(TreeDispatcherContext);
-  const {
-    highlightNativeElement,
-    clearHighlightNativeElement,
-  } = useHighlightNativeElement();
+  const {highlightNativeElement, clearHighlightNativeElement} =
+    useHighlightNativeElement();
 
   const handleClick = useCallback(
     () =>
@@ -321,11 +318,13 @@ function OwnerView({
       disabled={!isInStore}
       onClick={handleClick}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
+      onMouseLeave={onMouseLeave}
+    >
       <span className={styles.OwnerContent}>
         <span
           className={`${styles.Owner} ${isInStore ? '' : styles.NotInStore}`}
-          title={displayName}>
+          title={displayName}
+        >
           {displayName}
         </span>
         <Badge hocDisplayNames={hocDisplayNames} type={type} />

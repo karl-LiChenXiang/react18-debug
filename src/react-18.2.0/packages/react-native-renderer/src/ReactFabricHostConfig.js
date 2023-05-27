@@ -304,7 +304,7 @@ class ReactFabricHostComponent {
     }
 
     // TODO: optimize this path to make remove cheaper
-    eventListeners[eventType] = namedEventListeners.filter(listenerObj => {
+    eventListeners[eventType] = namedEventListeners.filter((listenerObj) => {
       return !(
         listenerObj.listener === listener &&
         listenerObj.options.capture === capture

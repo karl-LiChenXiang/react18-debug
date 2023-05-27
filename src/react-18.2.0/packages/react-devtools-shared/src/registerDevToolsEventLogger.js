@@ -62,7 +62,7 @@ export function registerDevToolsEventLogger(surface: string) {
 
       const iframe = document.createElement('iframe');
       iframe.src = loggingUrl;
-      iframe.onload = function(...args) {
+      iframe.onload = function (...args) {
         handleLoggingIFrameLoaded(iframe);
       };
       body.appendChild(iframe);

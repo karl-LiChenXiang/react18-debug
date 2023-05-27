@@ -11,7 +11,7 @@ import type {InternalInstance} from './renderer';
 
 export function decorate(object: Object, attr: string, fn: Function): Function {
   const old = object[attr];
-  object[attr] = function(instance: InternalInstance) {
+  object[attr] = function (instance: InternalInstance) {
     return fn.call(this, old, arguments);
   };
   return old;

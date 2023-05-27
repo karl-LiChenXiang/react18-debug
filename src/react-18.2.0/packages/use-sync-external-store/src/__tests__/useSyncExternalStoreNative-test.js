@@ -50,7 +50,7 @@ describe('useSyncExternalStore (userspace shim, server rendering)', () => {
     Scheduler = require('scheduler');
     act = require('jest-react').act;
 
-    if (gate(flags => flags.source)) {
+    if (gate((flags) => flags.source)) {
       // The `shim/with-selector` module composes the main
       // `use-sync-external-store` entrypoint. In the compiled artifacts, this
       // is resolved to the `shim` implementation by our build config, but when
@@ -66,10 +66,10 @@ describe('useSyncExternalStore (userspace shim, server rendering)', () => {
         ),
       );
     }
-    useSyncExternalStore = require('use-sync-external-store/shim')
-      .useSyncExternalStore;
-    useSyncExternalStoreWithSelector = require('use-sync-external-store/shim/with-selector')
-      .useSyncExternalStoreWithSelector;
+    useSyncExternalStore =
+      require('use-sync-external-store/shim').useSyncExternalStore;
+    useSyncExternalStoreWithSelector =
+      require('use-sync-external-store/shim/with-selector').useSyncExternalStoreWithSelector;
   });
 
   function Text({text}) {
@@ -84,7 +84,7 @@ describe('useSyncExternalStore (userspace shim, server rendering)', () => {
       set(text) {
         currentState = text;
         ReactNoop.batchedUpdates(() => {
-          listeners.forEach(listener => listener());
+          listeners.forEach((listener) => listener());
         });
       },
       subscribe(listener) {
@@ -129,7 +129,7 @@ describe('useSyncExternalStore (userspace shim, server rendering)', () => {
         store.subscribe,
         store.getState,
         null,
-        state => ({a: state.a}),
+        (state) => ({a: state.a}),
         (state1, state2) => state1.a === state2.a,
       );
       return <Text text={'A' + a} />;
@@ -139,7 +139,7 @@ describe('useSyncExternalStore (userspace shim, server rendering)', () => {
         store.subscribe,
         store.getState,
         null,
-        state => {
+        (state) => {
           return {b: state.b};
         },
         (state1, state2) => state1.b === state2.b,

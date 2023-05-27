@@ -106,8 +106,8 @@ export function initBackend(
   hook.emit('react-devtools', agent);
   hook.reactDevtoolsAgent = agent;
   const onAgentShutdown = () => {
-    subs.forEach(fn => fn());
-    hook.rendererInterfaces.forEach(rendererInterface => {
+    subs.forEach((fn) => fn());
+    hook.rendererInterfaces.forEach((rendererInterface) => {
       rendererInterface.cleanup();
     });
     hook.reactDevtoolsAgent = null;
@@ -118,6 +118,6 @@ export function initBackend(
   });
 
   return () => {
-    subs.forEach(fn => fn());
+    subs.forEach((fn) => fn());
   };
 }

@@ -28,8 +28,9 @@ export default function ExpandCollapseToggle({
     <Button
       className={styles.ExpandCollapseToggle}
       disabled={disabled}
-      onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}
-      title={`${isOpen ? 'Collapse' : 'Expand'} prop value`}>
+      onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
+      title={`${isOpen ? 'Collapse' : 'Expand'} prop value`}
+    >
       <ButtonIcon type={isOpen ? 'expanded' : 'collapsed'} />
     </Button>
   );

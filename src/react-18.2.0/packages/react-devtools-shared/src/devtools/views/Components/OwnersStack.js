@@ -60,7 +60,7 @@ function dialogReducer(state, action) {
   switch (action.type) {
     case 'UPDATE_OWNER_ID':
       const selectedIndex = action.owners.findIndex(
-        owner => owner.id === action.ownerID,
+        (owner) => owner.id === action.ownerID,
       );
       return {
         ownerID: action.ownerID,
@@ -98,7 +98,7 @@ export default function OwnerStack() {
     });
   } else if (ownerID !== state.ownerID) {
     const isInStore =
-      state.owners.findIndex(owner => owner.id === ownerID) >= 0;
+      state.owners.findIndex((owner) => owner.id === ownerID) >= 0;
     dispatch({
       type: 'UPDATE_OWNER_ID',
       ownerID,
@@ -194,7 +194,8 @@ export default function OwnerStack() {
       <Button
         className={styles.IconButton}
         onClick={() => selectOwner(null)}
-        title="Back to tree view">
+        title="Back to tree view"
+      >
         <ButtonIcon type="close" />
       </Button>
     </div>
@@ -222,7 +223,8 @@ function ElementsDropdown({
       <MenuItem
         key={owner.id}
         className={`${styles.Component} ${isInStore ? '' : styles.NotInStore}`}
-        onSelect={() => (isInStore ? selectOwner(owner) : null)}>
+        onSelect={() => (isInStore ? selectOwner(owner) : null)}
+      >
         {owner.displayName}
 
         <Badge
@@ -270,7 +272,8 @@ function ElementView({isSelected, owner, selectOwner}: ElementViewProps) {
     <Toggle
       className={`${styles.Component} ${isInStore ? '' : styles.NotInStore}`}
       isChecked={isSelected}
-      onChange={handleChange}>
+      onChange={handleChange}
+    >
       {displayName}
 
       <Badge
@@ -305,7 +308,8 @@ function BackToOwnerButton({
     <Button
       className={isInStore ? undefined : styles.NotInStore}
       onClick={() => (isInStore ? selectOwner(owner) : null)}
-      title={`Up to ${owner.displayName || 'owner'}`}>
+      title={`Up to ${owner.displayName || 'owner'}`}
+    >
       <ButtonIcon type="previous" />
     </Button>
   );

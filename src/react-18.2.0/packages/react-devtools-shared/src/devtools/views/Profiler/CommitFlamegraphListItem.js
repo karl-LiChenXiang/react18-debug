@@ -72,7 +72,7 @@ function CommitFlamegraphListItem({data, index, style}: Props) {
 
   return (
     <Fragment>
-      {row.map(chartNode => {
+      {row.map((chartNode) => {
         const {
           didRender,
           id,
@@ -117,7 +117,7 @@ function CommitFlamegraphListItem({data, index, style}: Props) {
             isDimmed={index < selectedChartNodeIndex}
             key={id}
             label={label}
-            onClick={event => handleClick(event, id, name)}
+            onClick={(event) => handleClick(event, id, name)}
             onMouseEnter={() => handleMouseEnter(chartNode)}
             onMouseLeave={handleMouseLeave}
             textStyle={{color: textColor}}

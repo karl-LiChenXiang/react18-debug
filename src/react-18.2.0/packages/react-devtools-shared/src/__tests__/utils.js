@@ -150,7 +150,7 @@ export function getRendererID(): number {
   }
   const ids = Object.keys(global.agent._rendererInterfaces);
 
-  const id = ids.find(innerID => {
+  const id = ids.find((innerID) => {
     const rendererInterface = global.agent._rendererInterfaces[innerID];
     return rendererInterface.renderer.rendererPackageName === 'react-dom';
   });
@@ -203,7 +203,8 @@ export function exportImportHelper(bridge: FrontendBridge, store: Store): void {
 
   expect(profilerStore.profilingData).not.toBeNull();
 
-  const profilingDataFrontendInitial = ((profilerStore.profilingData: any): ProfilingDataFrontend);
+  const profilingDataFrontendInitial =
+    ((profilerStore.profilingData: any): ProfilingDataFrontend);
   expect(profilingDataFrontendInitial.imported).toBe(false);
 
   const profilingDataExport = prepareProfilingDataExport(

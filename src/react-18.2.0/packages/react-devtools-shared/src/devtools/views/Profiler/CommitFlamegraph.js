@@ -40,13 +40,12 @@ export type ItemData = {|
 
 export default function CommitFlamegraphAutoSizer(_: {||}) {
   const {profilerStore} = useContext(StoreContext);
-  const {rootID, selectedCommitIndex, selectFiber} = useContext(
-    ProfilerContext,
-  );
+  const {rootID, selectedCommitIndex, selectFiber} =
+    useContext(ProfilerContext);
   const {profilingCache} = profilerStore;
 
   const deselectCurrentFiber = useCallback(
-    event => {
+    (event) => {
       event.stopPropagation();
       selectFiber(null, null);
     },
@@ -98,16 +97,12 @@ type Props = {|
 |};
 
 function CommitFlamegraph({chartData, commitTree, height, width}: Props) {
-  const [
-    hoveredFiberData,
-    setHoveredFiberData,
-  ] = useState<TooltipFiberData | null>(null);
+  const [hoveredFiberData, setHoveredFiberData] =
+    useState<TooltipFiberData | null>(null);
   const {lineHeight} = useContext(SettingsContext);
   const {selectFiber, selectedFiberID} = useContext(ProfilerContext);
-  const {
-    highlightNativeElement,
-    clearHighlightNativeElement,
-  } = useHighlightNativeElement();
+  const {highlightNativeElement, clearHighlightNativeElement} =
+    useHighlightNativeElement();
 
   const selectedChartNodeIndex = useMemo<number>(() => {
     if (selectedFiberID === null) {
@@ -123,7 +118,7 @@ function CommitFlamegraph({chartData, commitTree, height, width}: Props) {
     if (selectedFiberID !== null) {
       return (
         chartData.rows[selectedChartNodeIndex].find(
-          chartNode => chartNode.id === selectedFiberID,
+          (chartNode) => chartNode.id === selectedFiberID,
         ) || null
       );
     }
@@ -189,7 +184,8 @@ function CommitFlamegraph({chartData, commitTree, height, width}: Props) {
         itemCount={chartData.depth}
         itemData={itemData}
         itemSize={lineHeight}
-        width={width}>
+        width={width}
+      >
         {CommitFlamegraphListItem}
       </FixedSizeList>
     </Tooltip>
@@ -203,7 +199,8 @@ const InnerElementType = forwardRef(({children, ...rest}, ref) => (
         id="didNotRenderPattern"
         patternUnits="userSpaceOnUse"
         width="4"
-        height="4">
+        height="4"
+      >
         <path
           d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2"
           className={styles.PatternPath}

@@ -96,9 +96,8 @@ export default function ProfilingImportExportButtons() {
 
           try {
             const profilingDataExport = ((json: any): ProfilingDataExport);
-            profilerStore.profilingData = prepareProfilingDataFrontendFromExport(
-              profilingDataExport,
-            );
+            profilerStore.profilingData =
+              prepareProfilingDataFrontendFromExport(profilingDataExport);
           } catch (error) {
             modalDialogDispatch({
               id: 'ProfilingImportExportButtons',
@@ -142,13 +141,15 @@ export default function ProfilingImportExportButtons() {
       <Button
         disabled={isProfiling}
         onClick={clickInputElement}
-        title="Load profile...">
+        title="Load profile..."
+      >
         <ButtonIcon type="import" />
       </Button>
       <Button
         disabled={isProfiling || !doesHaveInMemoryData}
         onClick={downloadData}
-        title="Save profile...">
+        title="Save profile..."
+      >
         <ButtonIcon type="export" />
       </Button>
     </Fragment>

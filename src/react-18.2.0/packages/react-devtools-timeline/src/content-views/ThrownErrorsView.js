@@ -131,7 +131,7 @@ export class ThrownErrorsView extends View {
 
     const highlightedEvents: ThrownError[] = [];
 
-    thrownErrors.forEach(thrownError => {
+    thrownErrors.forEach((thrownError) => {
       if (thrownError === _hoveredEvent) {
         highlightedEvents.push(thrownError);
         return;
@@ -148,7 +148,7 @@ export class ThrownErrorsView extends View {
 
     // Draw the highlighted items on top so they stand out.
     // This is helpful if there are multiple (overlapping) items close to each other.
-    highlightedEvents.forEach(thrownError => {
+    highlightedEvents.forEach((thrownError) => {
       this._drawSingleThrownError(
         context,
         visibleArea,

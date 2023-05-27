@@ -26,11 +26,11 @@ function writeConfig(renderer, rendererInfo, isServerSupported) {
 
   const ignoredPaths = [];
 
-  inlinedHostConfigs.forEach(otherRenderer => {
+  inlinedHostConfigs.forEach((otherRenderer) => {
     if (otherRenderer === rendererInfo) {
       return;
     }
-    otherRenderer.paths.forEach(otherPath => {
+    otherRenderer.paths.forEach((otherPath) => {
       if (rendererInfo.paths.indexOf(otherPath) !== -1) {
         return;
       }
@@ -87,7 +87,7 @@ ${disclaimer}
 
 // Write multiple configs in different folders
 // so that we can run those checks in parallel if we want.
-inlinedHostConfigs.forEach(rendererInfo => {
+inlinedHostConfigs.forEach((rendererInfo) => {
   if (rendererInfo.isFlowTyped) {
     writeConfig(
       rendererInfo.shortName,

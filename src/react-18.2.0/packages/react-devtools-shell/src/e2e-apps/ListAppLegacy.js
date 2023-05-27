@@ -35,7 +35,7 @@ class List extends React.Component {
           data-testname="AddItemInput"
           value={this.state.text}
           onChange={this.onInputChange}
-          ref={c => (this.inputRef = c)}
+          ref={(c) => (this.inputRef = c)}
         />
         <button data-testname="AddItemButton" onClick={this.addItem}>
           Add Item

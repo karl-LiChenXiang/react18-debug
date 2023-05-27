@@ -153,7 +153,7 @@ export class SchedulingEventsView extends View {
 
     const highlightedEvents: SchedulingEvent[] = [];
 
-    schedulingEvents.forEach(event => {
+    schedulingEvents.forEach((event) => {
       if (event === _hoveredEvent) {
         highlightedEvents.push(event);
         return;
@@ -170,7 +170,7 @@ export class SchedulingEventsView extends View {
 
     // Draw the highlighted items on top so they stand out.
     // This is helpful if there are multiple (overlapping) items close to each other.
-    highlightedEvents.forEach(event => {
+    highlightedEvents.forEach((event) => {
       this._drawSingleSchedulingEvent(
         context,
         visibleArea,

@@ -17,7 +17,7 @@ import styles from './WhatChanged.css';
 
 function hookIndicesToString(indices: Array<number>): string {
   // This is debatable but I think 1-based might ake for a nicer UX.
-  const numbers = indices.map(value => value + 1);
+  const numbers = indices.map((value) => value + 1);
 
   switch (numbers.length) {
     case 0:
@@ -63,14 +63,8 @@ export default function WhatChanged({fiberID}: Props) {
     return null;
   }
 
-  const {
-    context,
-    didHooksChange,
-    hooks,
-    isFirstMount,
-    props,
-    state,
-  } = changeDescription;
+  const {context, didHooksChange, hooks, isFirstMount, props, state} =
+    changeDescription;
 
   if (isFirstMount) {
     return (
@@ -99,7 +93,7 @@ export default function WhatChanged({fiberID}: Props) {
     changes.push(
       <div key="context" className={styles.Item}>
         • Context changed:
-        {context.map(key => (
+        {context.map((key) => (
           <span key={key} className={styles.Key}>
             {key}
           </span>
@@ -128,7 +122,7 @@ export default function WhatChanged({fiberID}: Props) {
     changes.push(
       <div key="props" className={styles.Item}>
         • Props changed:
-        {props.map(key => (
+        {props.map((key) => (
           <span key={key} className={styles.Key}>
             {key}
           </span>
@@ -141,7 +135,7 @@ export default function WhatChanged({fiberID}: Props) {
     changes.push(
       <div key="state" className={styles.Item}>
         • State changed:
-        {state.map(key => (
+        {state.map((key) => (
           <span key={key} className={styles.Key}>
             {key}
           </span>

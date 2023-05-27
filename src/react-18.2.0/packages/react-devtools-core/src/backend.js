@@ -36,7 +36,8 @@ installHook(window);
 
 const hook: ?DevToolsHook = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
 
-let savedComponentFilters: Array<ComponentFilter> = getDefaultComponentFilters();
+let savedComponentFilters: Array<ComponentFilter> =
+  getDefaultComponentFilters();
 
 function debug(methodName: string, ...args) {
   if (__DEBUG__) {
@@ -97,7 +98,7 @@ export function connectToDevTools(options: ?ConnectOptions) {
   ws.onclose = handleClose;
   ws.onerror = handleFailed;
   ws.onmessage = handleMessage;
-  ws.onopen = function() {
+  ws.onopen = function () {
     bridge = new Bridge({
       listen(fn) {
         messageListeners.push(fn);
@@ -137,9 +138,8 @@ export function connectToDevTools(options: ?ConnectOptions) {
         const renderer = agent.rendererInterfaces[rendererID];
         if (renderer != null) {
           // Send event for RN to highlight.
-          const nodes: ?Array<HTMLElement> = renderer.findNativeNodesForFiberID(
-            id,
-          );
+          const nodes: ?Array<HTMLElement> =
+            renderer.findNativeNodesForFiberID(id);
           if (nodes != null && nodes[0] != null) {
             agent.emit('showNativeHighlight', nodes[0]);
           }
@@ -278,7 +278,7 @@ export function connectToDevTools(options: ?ConnectOptions) {
       );
       return;
     }
-    messageListeners.forEach(fn => {
+    messageListeners.forEach((fn) => {
       try {
         fn(data);
       } catch (error) {

@@ -9,7 +9,7 @@ import voidElementTags from './voidElementTags';
 
 const HTML = '__html';
 
-function assertValidProps(tag: string, props: ?Object) {
+function assertValidProps(tag, props) {
   if (!props) {
     return;
   }

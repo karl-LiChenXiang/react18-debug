@@ -57,7 +57,7 @@ export class NativeEventsView extends View {
 
     const {duration, nativeEvents} = this._profilerData;
 
-    nativeEvents.forEach(event => {
+    nativeEvents.forEach((event) => {
       const depth = event.depth;
 
       this._maxDepth = Math.max(this._maxDepth, depth);
@@ -168,7 +168,7 @@ export class NativeEventsView extends View {
       frame,
     );
 
-    nativeEvents.forEach(event => {
+    nativeEvents.forEach((event) => {
       this._drawSingleNativeEvent(
         context,
         visibleArea,

@@ -32,8 +32,9 @@ beforeEach(() => {
  */
 function mockRenderKeys(keyLists) {
   const ReactFabric = require('react-native-renderer/fabric');
-  const createReactNativeComponentClass = require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
-    .ReactNativeViewConfigRegistry.register;
+  const createReactNativeComponentClass =
+    require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
+      .ReactNativeViewConfigRegistry.register;
   const {act} = require('jest-react');
 
   const mockContainerTag = 11;
@@ -42,16 +43,16 @@ function mockRenderKeys(keyLists) {
     uiViewClassName: 'RCTMockView',
   }));
 
-  return keyLists.map(keyList => {
+  return keyLists.map((keyList) => {
     if (Array.isArray(keyList)) {
-      const refs = keyList.map(key => undefined);
+      const refs = keyList.map((key) => undefined);
       act(() => {
         ReactFabric.render(
           <MockView>
             {keyList.map((key, index) => (
               <MockView
                 key={key}
-                ref={ref => {
+                ref={(ref) => {
                   refs[index] = ref;
                 }}
               />

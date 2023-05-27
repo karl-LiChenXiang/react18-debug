@@ -54,9 +54,8 @@ type Props = {|
 |};
 
 export default function ContextMenu({children, id}: Props) {
-  const {hideMenu, registerMenu} = useContext<RegistryContextType>(
-    RegistryContext,
-  );
+  const {hideMenu, registerMenu} =
+    useContext<RegistryContextType>(RegistryContext);
 
   const [state, setState] = useState(HIDDEN_STATE);
 
@@ -96,7 +95,7 @@ export default function ContextMenu({children, id}: Props) {
     const menu = ((menuRef.current: any): HTMLElement);
     const container = containerRef.current;
     if (container !== null) {
-      const hideUnlessContains = event => {
+      const hideUnlessContains = (event) => {
         if (!menu.contains(event.target)) {
           hideMenu();
         }

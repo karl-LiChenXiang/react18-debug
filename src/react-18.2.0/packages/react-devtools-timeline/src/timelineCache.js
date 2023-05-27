@@ -67,7 +67,7 @@ export function importFile(file: File): TimelineData | Error {
 
     const wake = () => {
       // This assumes they won't throw.
-      callbacks.forEach(callback => callback());
+      callbacks.forEach((callback) => callback());
       callbacks.clear();
     };
 
@@ -76,10 +76,11 @@ export function importFile(file: File): TimelineData | Error {
       value: wakeable,
     });
 
-    importFileWorker(file).then(data => {
+    importFileWorker(file).then((data) => {
       switch (data.status) {
         case 'SUCCESS':
-          const resolvedRecord = ((newRecord: any): ResolvedRecord<TimelineData>);
+          const resolvedRecord =
+            ((newRecord: any): ResolvedRecord<TimelineData>);
           resolvedRecord.status = Resolved;
           resolvedRecord.value = data.processedData;
           break;

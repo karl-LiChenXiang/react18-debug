@@ -32,7 +32,7 @@ export function clearErrorsAndWarnings({
   bridge: FrontendBridge,
   store: Store,
 |}): void {
-  store.rootIDToRendererID.forEach(rendererID => {
+  store.rootIDToRendererID.forEach((rendererID) => {
     bridge.send('clearErrorsAndWarnings', {rendererID});
   });
 }
@@ -243,7 +243,7 @@ export function convertInspectedElementBackendToFrontend(
     owners:
       owners === null
         ? null
-        : owners.map(owner => {
+        : owners.map((owner) => {
             const [displayName, hocDisplayNames] = separateDisplayNameAndHOCs(
               owner.displayName,
               owner.type,
@@ -279,8 +279,8 @@ export function hydrateHelper(
         // In that event it's important that we adjust the "cleaned" paths to match.
         return hydrate(
           data,
-          cleaned.map(cleanedPath => cleanedPath.slice(length)),
-          unserializable.map(unserializablePath =>
+          cleaned.map((cleanedPath) => cleanedPath.slice(length)),
+          unserializable.map((unserializablePath) =>
             unserializablePath.slice(length),
           ),
         );

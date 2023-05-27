@@ -187,7 +187,7 @@ export function patch({
       }
     };
 
-    OVERRIDE_CONSOLE_METHODS.forEach(method => {
+    OVERRIDE_CONSOLE_METHODS.forEach((method) => {
       try {
         const originalMethod = (originalConsoleMethods[method] = targetConsole[
           method
@@ -319,7 +319,7 @@ export function patchForStrictMode() {
       }
     };
 
-    overrideConsoleMethods.forEach(method => {
+    overrideConsoleMethods.forEach((method) => {
       try {
         const originalMethod = (originalConsoleMethods[method] = targetConsole[
           method
@@ -344,8 +344,10 @@ export function patchForStrictMode() {
           }
         };
 
-        overrideMethod.__REACT_DEVTOOLS_STRICT_MODE_ORIGINAL_METHOD__ = originalMethod;
-        originalMethod.__REACT_DEVTOOLS_STRICT_MODE_OVERRIDE_METHOD__ = overrideMethod;
+        overrideMethod.__REACT_DEVTOOLS_STRICT_MODE_ORIGINAL_METHOD__ =
+          originalMethod;
+        originalMethod.__REACT_DEVTOOLS_STRICT_MODE_OVERRIDE_METHOD__ =
+          overrideMethod;
 
         // $FlowFixMe property error|warn is not writable.
         targetConsole[method] = overrideMethod;

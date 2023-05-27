@@ -377,7 +377,8 @@ function reduceTreeState(store: Store, state: State, action: Action): State {
         }
         break;
       case 'SELECT_PREVIOUS_ELEMENT_WITH_ERROR_OR_WARNING_IN_TREE': {
-        const elementIndicesWithErrorsOrWarnings = store.getElementsWithErrorsAndWarnings();
+        const elementIndicesWithErrorsOrWarnings =
+          store.getElementsWithErrorsAndWarnings();
         if (elementIndicesWithErrorsOrWarnings.length === 0) {
           return state;
         }
@@ -418,7 +419,8 @@ function reduceTreeState(store: Store, state: State, action: Action): State {
         break;
       }
       case 'SELECT_NEXT_ELEMENT_WITH_ERROR_OR_WARNING_IN_TREE': {
-        const elementIndicesWithErrorsOrWarnings = store.getElementsWithErrorsAndWarnings();
+        const elementIndicesWithErrorsOrWarnings =
+          store.getElementsWithErrorsAndWarnings();
         if (elementIndicesWithErrorsOrWarnings.length === 0) {
           return state;
         }
@@ -519,10 +521,8 @@ function reduceSearchState(store: Store, state: State, action: Action): State {
         break;
       case 'HANDLE_STORE_MUTATION':
         if (searchText !== '') {
-          const [
-            addedElementIDs,
-            removedElementIDs,
-          ] = (action: ACTION_HANDLE_STORE_MUTATION).payload;
+          const [addedElementIDs, removedElementIDs] =
+            (action: ACTION_HANDLE_STORE_MUTATION).payload;
 
           removedElementIDs.forEach((parentID, id) => {
             // Prune this item from the search results.
@@ -541,7 +541,7 @@ function reduceSearchState(store: Store, state: State, action: Action): State {
             }
           });
 
-          addedElementIDs.forEach(id => {
+          addedElementIDs.forEach((id) => {
             const element = ((store.getElementByID(id): any): Element);
 
             // It's possible that multiple tree operations will fire before this action has run.
@@ -588,7 +588,7 @@ function reduceSearchState(store: Store, state: State, action: Action): State {
 
         if (searchText !== '') {
           const regExp = createRegExp(searchText);
-          store.roots.forEach(rootID => {
+          store.roots.forEach((rootID) => {
             recursivelySearchTree(store, rootID, regExp, searchResults);
           });
           if (searchResults.length > 0) {
@@ -672,7 +672,7 @@ function reduceOwnersState(store: Store, state: State, action: Action): State {
           if (selectedElementID !== null) {
             // Mutation might have caused the index of this ID to shift.
             selectedElementIndex = ownerFlatTree.findIndex(
-              element => element.id === selectedElementID,
+              (element) => element.id === selectedElementID,
             );
           }
         }
@@ -708,7 +708,7 @@ function reduceOwnersState(store: Store, state: State, action: Action): State {
           selectedElementIndex = null;
         } else {
           selectedElementIndex = ownerFlatTree.findIndex(
-            element => element.id === payload,
+            (element) => element.id === payload,
           );
 
           // If the selected element is outside of the current owners list,
@@ -844,51 +844,52 @@ function TreeContextController({
   // The store is mutable, but the Store itself is global and lives for the lifetime of the DevTools,
   // so it's okay for the reducer to have an empty dependencies array.
   const reducer = useMemo(
-    () => (state: State, action: Action): State => {
-      const {type} = action;
-      switch (type) {
-        case 'GO_TO_NEXT_SEARCH_RESULT':
-        case 'GO_TO_PREVIOUS_SEARCH_RESULT':
-        case 'HANDLE_STORE_MUTATION':
-        case 'RESET_OWNER_STACK':
-        case 'SELECT_ELEMENT_AT_INDEX':
-        case 'SELECT_ELEMENT_BY_ID':
-        case 'SELECT_CHILD_ELEMENT_IN_TREE':
-        case 'SELECT_NEXT_ELEMENT_IN_TREE':
-        case 'SELECT_NEXT_ELEMENT_WITH_ERROR_OR_WARNING_IN_TREE':
-        case 'SELECT_NEXT_SIBLING_IN_TREE':
-        case 'SELECT_OWNER_LIST_NEXT_ELEMENT_IN_TREE':
-        case 'SELECT_OWNER_LIST_PREVIOUS_ELEMENT_IN_TREE':
-        case 'SELECT_PARENT_ELEMENT_IN_TREE':
-        case 'SELECT_PREVIOUS_ELEMENT_IN_TREE':
-        case 'SELECT_PREVIOUS_ELEMENT_WITH_ERROR_OR_WARNING_IN_TREE':
-        case 'SELECT_PREVIOUS_SIBLING_IN_TREE':
-        case 'SELECT_OWNER':
-        case 'UPDATE_INSPECTED_ELEMENT_ID':
-        case 'SET_SEARCH_TEXT':
-          state = reduceTreeState(store, state, action);
-          state = reduceSearchState(store, state, action);
-          state = reduceOwnersState(store, state, action);
-          state = reduceSuspenseState(store, state, action);
+    () =>
+      (state: State, action: Action): State => {
+        const {type} = action;
+        switch (type) {
+          case 'GO_TO_NEXT_SEARCH_RESULT':
+          case 'GO_TO_PREVIOUS_SEARCH_RESULT':
+          case 'HANDLE_STORE_MUTATION':
+          case 'RESET_OWNER_STACK':
+          case 'SELECT_ELEMENT_AT_INDEX':
+          case 'SELECT_ELEMENT_BY_ID':
+          case 'SELECT_CHILD_ELEMENT_IN_TREE':
+          case 'SELECT_NEXT_ELEMENT_IN_TREE':
+          case 'SELECT_NEXT_ELEMENT_WITH_ERROR_OR_WARNING_IN_TREE':
+          case 'SELECT_NEXT_SIBLING_IN_TREE':
+          case 'SELECT_OWNER_LIST_NEXT_ELEMENT_IN_TREE':
+          case 'SELECT_OWNER_LIST_PREVIOUS_ELEMENT_IN_TREE':
+          case 'SELECT_PARENT_ELEMENT_IN_TREE':
+          case 'SELECT_PREVIOUS_ELEMENT_IN_TREE':
+          case 'SELECT_PREVIOUS_ELEMENT_WITH_ERROR_OR_WARNING_IN_TREE':
+          case 'SELECT_PREVIOUS_SIBLING_IN_TREE':
+          case 'SELECT_OWNER':
+          case 'UPDATE_INSPECTED_ELEMENT_ID':
+          case 'SET_SEARCH_TEXT':
+            state = reduceTreeState(store, state, action);
+            state = reduceSearchState(store, state, action);
+            state = reduceOwnersState(store, state, action);
+            state = reduceSuspenseState(store, state, action);
 
-          // If the selected ID is in a collapsed subtree, reset the selected index to null.
-          // We'll know the correct index after the layout effect will toggle the tree,
-          // and the store tree is mutated to account for that.
-          if (
-            state.selectedElementID !== null &&
-            store.isInsideCollapsedSubTree(state.selectedElementID)
-          ) {
-            return {
-              ...state,
-              selectedElementIndex: null,
-            };
-          }
+            // If the selected ID is in a collapsed subtree, reset the selected index to null.
+            // We'll know the correct index after the layout effect will toggle the tree,
+            // and the store tree is mutated to account for that.
+            if (
+              state.selectedElementID !== null &&
+              store.isInsideCollapsedSubTree(state.selectedElementID)
+            ) {
+              return {
+                ...state,
+                selectedElementIndex: null,
+              };
+            }
 
-          return state;
-        default:
-          throw new Error(`Unrecognized action "${type}"`);
-      }
-    },
+            return state;
+          default:
+            throw new Error(`Unrecognized action "${type}"`);
+        }
+      },
     [store],
   );
 
@@ -1000,12 +1001,12 @@ function recursivelySearchTree(
   } else if (
     hocDisplayNames != null &&
     hocDisplayNames.length > 0 &&
-    hocDisplayNames.some(name => regExp.test(name)) === true
+    hocDisplayNames.some((name) => regExp.test(name)) === true
   ) {
     searchResults.push(elementID);
   }
 
-  children.forEach(childID =>
+  children.forEach((childID) =>
     recursivelySearchTree(store, childID, regExp, searchResults),
   );
 }
@@ -1015,7 +1016,7 @@ function getNearestResultIndex(
   searchResults: Array<number>,
   selectedElementIndex: number,
 ): number {
-  const index = searchResults.findIndex(id => {
+  const index = searchResults.findIndex((id) => {
     const innerIndex = store.getIndexOfElementID(id);
     return innerIndex !== null && innerIndex >= selectedElementIndex;
   });

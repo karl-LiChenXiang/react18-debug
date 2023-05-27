@@ -107,7 +107,7 @@ class Surface extends React.Component {
 
     return (
       <Tag
-        ref={ref => (this._tagRef = ref)}
+        ref={(ref) => (this._tagRef = ref)}
         accessKey={props.accessKey}
         className={props.className}
         draggable={props.draggable}
@@ -125,9 +125,9 @@ class Text extends React.Component {
     super(props);
     // We allow reading these props. Ideally we could expose the Text node as
     // ref directly.
-    ['height', 'width', 'x', 'y'].forEach(key => {
+    ['height', 'width', 'x', 'y'].forEach((key) => {
       Object.defineProperty(this, key, {
-        get: function() {
+        get: function () {
           return this._text ? this._text[key] : undefined;
         },
       });
@@ -137,7 +137,7 @@ class Text extends React.Component {
     // This means you can't have children that render into strings...
     const T = TYPES.TEXT;
     return (
-      <T {...this.props} ref={t => (this._text = t)}>
+      <T {...this.props} ref={(t) => (this._text = t)}>
         {childrenAsString(this.props.children)}
       </T>
     );

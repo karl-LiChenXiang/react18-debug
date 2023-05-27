@@ -1020,7 +1020,7 @@ function classError(hook) {
 if (!process.env.CI) {
   let only = [];
   let skipped = [];
-  [...tests.valid, ...tests.invalid].forEach(t => {
+  [...tests.valid, ...tests.invalid].forEach((t) => {
     if (t.skip) {
       delete t.skip;
       skipped.push(t);
@@ -1030,7 +1030,7 @@ if (!process.env.CI) {
       only.push(t);
     }
   });
-  const predicate = t => {
+  const predicate = (t) => {
     if (only.length > 0) {
       return only.indexOf(t) !== -1;
     }

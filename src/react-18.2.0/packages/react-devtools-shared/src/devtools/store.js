@@ -344,10 +344,10 @@ export default class Store extends EventEmitter<{|
     // Filter updates are expensive to apply (since they impact the entire tree).
     // Let's determine if they've changed and avoid doing this work if they haven't.
     const prevEnabledComponentFilters = this._componentFilters.filter(
-      filter => filter.isEnabled,
+      (filter) => filter.isEnabled,
     );
     const nextEnabledComponentFilters = value.filter(
-      filter => filter.isEnabled,
+      (filter) => filter.isEnabled,
     );
     let haveEnabledFiltersChanged =
       prevEnabledComponentFilters.length !== nextEnabledComponentFilters.length;
@@ -584,9 +584,10 @@ export default class Store extends EventEmitter<{|
     }
   }
 
-  getErrorAndWarningCountForElementID(
-    id: number,
-  ): {|errorCount: number, warningCount: number|} {
+  getErrorAndWarningCountForElementID(id: number): {|
+    errorCount: number,
+    warningCount: number,
+  |} {
     return this._errorsAndWarnings.get(id) || {errorCount: 0, warningCount: 0};
   }
 
@@ -673,7 +674,7 @@ export default class Store extends EventEmitter<{|
         // Perhaps the easiest way to do this is to walk up the tree until we reach either:
         // (1) another node that's already in the tree, or (2) the root (owner)
         // at which point, our depth is just the depth of that node plus one.
-        sortedIDs.forEach(id => {
+        sortedIDs.forEach((id) => {
           const innerElement = this._idToElement.get(id);
           if (innerElement != null) {
             let parentID = innerElement.parentID;
@@ -813,7 +814,7 @@ export default class Store extends EventEmitter<{|
       // Only re-calculate weights and emit an "update" event if the store was mutated.
       if (didMutate) {
         let weightAcrossRoots = 0;
-        this._roots.forEach(rootID => {
+        this._roots.forEach((rootID) => {
           const {weight} = ((this.getElementByID(rootID): any): Element);
           weightAcrossRoots += weight;
         });
@@ -862,7 +863,7 @@ export default class Store extends EventEmitter<{|
     if (element) {
       callback(element);
 
-      element.children.forEach(child =>
+      element.children.forEach((child) =>
         this._recursivelyUpdateSubtree(child, callback),
       );
     }
@@ -1029,10 +1030,8 @@ export default class Store extends EventEmitter<{|
             ): any): Element);
             parentElement.children.push(id);
 
-            const [
-              displayNameWithoutHOCs,
-              hocDisplayNames,
-            ] = separateDisplayNameAndHOCs(displayName, type);
+            const [displayNameWithoutHOCs, hocDisplayNames] =
+              separateDisplayNameAndHOCs(displayName, type);
 
             const element: Element = {
               children: [],
@@ -1097,7 +1096,7 @@ export default class Store extends EventEmitter<{|
                 debug('Remove', `node ${id} root`);
               }
 
-              this._roots = this._roots.filter(rootID => rootID !== id);
+              this._roots = this._roots.filter((rootID) => rootID !== id);
               this._rootIDToRendererID.delete(id);
               this._rootIDToCapabilities.delete(id);
 
@@ -1146,7 +1145,7 @@ export default class Store extends EventEmitter<{|
             debug(`Remove root ${id}`);
           }
 
-          const recursivelyDeleteElements = elementID => {
+          const recursivelyDeleteElements = (elementID) => {
             const element = this._idToElement.get(elementID);
             this._idToElement.delete(elementID);
             if (element) {
@@ -1162,7 +1161,7 @@ export default class Store extends EventEmitter<{|
 
           this._rootIDToCapabilities.delete(id);
           this._rootIDToRendererID.delete(id);
-          this._roots = this._roots.filter(rootID => rootID !== id);
+          this._roots = this._roots.filter((rootID) => rootID !== id);
           this._weightAcrossRoots -= root.weight;
           break;
         }
@@ -1218,7 +1217,7 @@ export default class Store extends EventEmitter<{|
           // If elements have already been mounted in this subtree, update them.
           // (In practice, this likely only applies to the root element.)
           if (mode === StrictMode) {
-            this._recursivelyUpdateSubtree(id, element => {
+            this._recursivelyUpdateSubtree(id, (element) => {
               element.isStrictModeNonCompliant = false;
             });
           }
@@ -1269,7 +1268,7 @@ export default class Store extends EventEmitter<{|
       let errorCount = 0;
       let warningCount = 0;
 
-      this._errorsAndWarnings.forEach(entry => {
+      this._errorsAndWarnings.forEach((entry) => {
         errorCount += entry.errorCount;
         warningCount += entry.warningCount;
       });
@@ -1280,8 +1279,8 @@ export default class Store extends EventEmitter<{|
 
     if (haveRootsChanged) {
       const prevRootSupportsProfiling = this._rootSupportsBasicProfiling;
-      const prevRootSupportsTimelineProfiling = this
-        ._rootSupportsTimelineProfiling;
+      const prevRootSupportsTimelineProfiling =
+        this._rootSupportsTimelineProfiling;
 
       this._hasOwnerMetadata = false;
       this._rootSupportsBasicProfiling = false;

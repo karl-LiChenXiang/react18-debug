@@ -60,7 +60,7 @@ export class NetworkMeasuresView extends View {
 
     const {duration, networkMeasures} = this._profilerData;
 
-    networkMeasures.forEach(event => {
+    networkMeasures.forEach((event) => {
       const depth = event.depth;
 
       this._maxDepth = Math.max(this._maxDepth, depth);
@@ -232,7 +232,7 @@ export class NetworkMeasuresView extends View {
       frame,
     );
 
-    networkMeasures.forEach(networkMeasure => {
+    networkMeasures.forEach((networkMeasure) => {
       this._drawSingleNetworkMeasure(
         context,
         networkMeasure,

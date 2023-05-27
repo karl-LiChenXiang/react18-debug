@@ -154,9 +154,7 @@ const getCurrentTime =
     ? () => performance.now()
     : () => Date.now();
 
-export function getInternalReactConstants(
-  version: string,
-): {|
+export function getInternalReactConstants(version: string): {|
   getDisplayNameForFiber: getDisplayNameForFiberType,
   getTypeSymbol: getTypeSymbolType,
   ReactPriorityLevels: ReactPriorityLevelsType,
@@ -578,13 +576,8 @@ export function attach(
     ReactTypeOfSideEffect,
     StrictModeBits,
   } = getInternalReactConstants(version);
-  const {
-    DidCapture,
-    Hydrating,
-    NoFlags,
-    PerformedWork,
-    Placement,
-  } = ReactTypeOfSideEffect;
+  const {DidCapture, Hydrating, NoFlags, PerformedWork, Placement} =
+    ReactTypeOfSideEffect;
   const {
     CacheComponent,
     ClassComponent,
@@ -860,12 +853,7 @@ export function attach(
         'color: purple;',
         'color: black;',
       );
-      console.log(
-        new Error().stack
-          .split('\n')
-          .slice(1)
-          .join('\n'),
-      );
+      console.log(new Error().stack.split('\n').slice(1).join('\n'));
       console.groupEnd();
     }
   };
@@ -884,7 +872,7 @@ export function attach(
     hideElementsWithDisplayNames.clear();
     hideElementsWithPaths.clear();
 
-    componentFilters.forEach(componentFilter => {
+    componentFilters.forEach((componentFilter) => {
       if (!componentFilter.isEnabled) {
         return;
       }
@@ -944,7 +932,7 @@ export function attach(
     }
 
     // Recursively unmount all roots.
-    hook.getFiberRoots(rendererID).forEach(root => {
+    hook.getFiberRoots(rendererID).forEach((root) => {
       currentRootID = getOrGenerateFiberID(root.current);
       // The TREE_OPERATION_REMOVE_ROOT operation serves two purposes:
       // 1. It avoids sending unnecessary bridge traffic to clear a root.
@@ -960,7 +948,7 @@ export function attach(
     rootDisplayNameCounter.clear();
 
     // Recursively re-mount all roots with new filter criteria applied.
-    hook.getFiberRoots(rendererID).forEach(root => {
+    hook.getFiberRoots(rendererID).forEach((root) => {
       currentRootID = getOrGenerateFiberID(root.current);
       setRootPseudoKey(currentRootID, root.current);
       mountFiberRecursively(root.current, null, false, false);
@@ -1230,7 +1218,7 @@ export function attach(
       untrackFibersTimeoutID = null;
     }
 
-    untrackFibersSet.forEach(fiber => {
+    untrackFibersSet.forEach((fiber) => {
       const fiberID = getFiberIDUnsafe(fiber);
       if (fiberID !== null) {
         idToArbitraryFiberMap.delete(fiberID);
@@ -1741,7 +1729,7 @@ export function attach(
 
     if (!shouldFilterFiber(fiber)) {
       if (messageCountMap != null) {
-        messageCountMap.forEach(count => {
+        messageCountMap.forEach((count) => {
           newCount += count;
         });
       }
@@ -1755,7 +1743,7 @@ export function attach(
   function recordPendingErrorsAndWarnings() {
     clearPendingErrorsAndWarningsAfterDelay();
 
-    fibersWithChangedErrorOrWarningCounts.forEach(fiber => {
+    fibersWithChangedErrorOrWarningCounts.forEach((fiber) => {
       const fiberID = getFiberIDUnsafe(fiber);
       if (fiberID === null) {
         // Don't send updates for Fibers that didn't mount due to e.g. Suspense or an error boundary.
@@ -1811,8 +1799,8 @@ export function attach(
     const operations = new Array(
       // Identify which renderer this update is coming from.
       2 + // [rendererID, rootFiberID]
-      // How big is the string table?
-      1 + // [stringTableLength]
+        // How big is the string table?
+        1 + // [stringTableLength]
         // Then goes the actual string table.
         pendingStringTableLength +
         // All unmounts are batched in a single message.
@@ -2083,9 +2071,8 @@ export function attach(
 
       // If we have the tree selection from previous reload, try to match this Fiber.
       // Also remember whether to do the same for siblings.
-      const mightSiblingsBeOnTrackedPath = updateTrackedPathStateBeforeMount(
-        fiber,
-      );
+      const mightSiblingsBeOnTrackedPath =
+        updateTrackedPathStateBeforeMount(fiber);
 
       const shouldIncludeInTree = !shouldFilterFiber(fiber);
       if (shouldIncludeInTree) {
@@ -2243,7 +2230,8 @@ export function attach(
           // Note that we should do this for any fiber we performed work on, regardless of its actualDuration value.
           // In some cases actualDuration might be 0 for fibers we worked on (particularly if we're using Date.now)
           // In other cases (e.g. Memo) actualDuration might be greater than 0 even if we "bailed out".
-          const metadata = ((currentCommitProfilingMetadata: any): CommitProfilingData);
+          const metadata =
+            ((currentCommitProfilingMetadata: any): CommitProfilingData);
           metadata.durations.push(id, actualDuration, selfDuration);
           metadata.maxActualDuration = Math.max(
             metadata.maxActualDuration,
@@ -2513,7 +2501,7 @@ export function attach(
             const hostFibers = findAllCurrentHostFibers(
               getFiberIDThrows(nextFiber),
             );
-            hostFibers.forEach(hostFiber => {
+            hostFibers.forEach((hostFiber) => {
               traceUpdatesForNodes.add(hostFiber.stateNode);
             });
           }
@@ -2584,7 +2572,7 @@ export function attach(
     ) {
       // We may have already queued up some operations before the frontend connected
       // If so, let the frontend know about them.
-      localPendingOperationsQueue.forEach(operations => {
+      localPendingOperationsQueue.forEach((operations) => {
         hook.emit('operations', operations);
       });
     } else {
@@ -2594,7 +2582,7 @@ export function attach(
         mightBeOnTrackedPath = true;
       }
       // If we have not been profiling, then we can just walk the tree and build up its current state as-is.
-      hook.getFiberRoots(rendererID).forEach(root => {
+      hook.getFiberRoots(rendererID).forEach((root) => {
         currentRootID = getOrGenerateFiberID(root.current);
         setRootPseudoKey(currentRootID, root.current);
 
@@ -2624,7 +2612,7 @@ export function attach(
   function getUpdatersList(root): Array<SerializedElement> | null {
     return root.memoizedUpdaters != null
       ? Array.from(root.memoizedUpdaters)
-          .filter(fiber => getFiberIDUnsafe(fiber) !== null)
+          .filter((fiber) => getFiberIDUnsafe(fiber) !== null)
           .map(fiberToSerializedElement)
       : null;
   }
@@ -2643,11 +2631,11 @@ export function attach(
   function handlePostCommitFiberRoot(root) {
     if (isProfiling && rootSupportsProfiling(root)) {
       if (currentCommitProfilingMetadata !== null) {
-        const {effectDuration, passiveEffectDuration} = getEffectDurations(
-          root,
-        );
+        const {effectDuration, passiveEffectDuration} =
+          getEffectDurations(root);
         currentCommitProfilingMetadata.effectDuration = effectDuration;
-        currentCommitProfilingMetadata.passiveEffectDuration = passiveEffectDuration;
+        currentCommitProfilingMetadata.passiveEffectDuration =
+          passiveEffectDuration;
       }
     }
   }
@@ -2727,9 +2715,10 @@ export function attach(
 
     if (isProfiling && isProfilingSupported) {
       if (!shouldBailoutWithPendingOperations()) {
-        const commitProfilingMetadata = ((rootToCommitProfilingMetadataMap: any): CommitProfilingMetadataMap).get(
-          currentRootID,
-        );
+        const commitProfilingMetadata =
+          ((rootToCommitProfilingMetadataMap: any): CommitProfilingMetadataMap).get(
+            currentRootID,
+          );
 
         if (commitProfilingMetadata != null) {
           commitProfilingMetadata.push(
@@ -2806,7 +2795,7 @@ export function attach(
         }
       }
       const hostFibers = findAllCurrentHostFibers(id);
-      return hostFibers.map(hostFiber => hostFiber.stateNode).filter(Boolean);
+      return hostFibers.map((hostFiber) => hostFiber.stateNode).filter(Boolean);
     } catch (err) {
       // The fiber might have unmounted by now.
       return null;
@@ -3423,7 +3412,7 @@ export function attach(
   // so that we can send their data along if the element is re-rendered.
   function mergeInspectedPaths(path: Array<string | number>) {
     let current = currentlyInspectedPaths;
-    path.forEach(key => {
+    path.forEach((key) => {
       if (!current[key]) {
         current[key] = {};
       }
@@ -3966,7 +3955,8 @@ export function attach(
   let isProfiling: boolean = false;
   let profilingStartTime: number = 0;
   let recordChangeDescriptions: boolean = false;
-  let rootToCommitProfilingMetadataMap: CommitProfilingMetadataMap | null = null;
+  let rootToCommitProfilingMetadataMap: CommitProfilingMetadataMap | null =
+    null;
 
   function getProfilingData(): ProfilingDataBackend {
     const dataForRoots: Array<ProfilingDataForRootBackend> = [];
@@ -4100,7 +4090,7 @@ export function attach(
     initialIDToRootMap = new Map(idToRootMap);
     idToContextsMap = new Map();
 
-    hook.getFiberRoots(rendererID).forEach(root => {
+    hook.getFiberRoots(rendererID).forEach((root) => {
       const rootID = getFiberIDThrows(root.current);
       ((displayNamesByRootID: any): DisplayNamesByRootID).set(
         rootID,

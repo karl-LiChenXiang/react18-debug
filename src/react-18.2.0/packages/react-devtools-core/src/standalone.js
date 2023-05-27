@@ -208,7 +208,7 @@ function openProfiler() {
 
 function initialize(socket: WebSocket) {
   const listeners = [];
-  socket.onmessage = event => {
+  socket.onmessage = (event) => {
     let data;
     try {
       if (typeof event.data === 'string') {
@@ -224,7 +224,7 @@ function initialize(socket: WebSocket) {
       log.error('Failed to parse JSON', event.data);
       return;
     }
-    listeners.forEach(fn => {
+    listeners.forEach((fn) => {
       try {
         fn(data);
       } catch (error) {
@@ -267,7 +267,7 @@ function initialize(socket: WebSocket) {
 let startServerTimeoutID: TimeoutID | null = null;
 
 function connectToSocket(socket: WebSocket) {
-  socket.onerror = err => {
+  socket.onerror = (err) => {
     onDisconnected();
     log.error('Error with websocket connection', err);
   };
@@ -278,7 +278,7 @@ function connectToSocket(socket: WebSocket) {
   initialize(socket);
 
   return {
-    close: function() {
+    close: function () {
       onDisconnected();
     },
   };
@@ -316,7 +316,7 @@ function startServer(
       );
     }
     connected = socket;
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       connected = null;
       onDisconnected();
       log.error('Error with websocket connection', error);
@@ -329,7 +329,7 @@ function startServer(
     initialize(socket);
   });
 
-  server.on('error', event => {
+  server.on('error', (event) => {
     onError(event);
     log.error('Failed to start the DevTools server', event);
     startServerTimeoutID = setTimeout(() => startServer(port), 1000);
@@ -371,7 +371,7 @@ function startServer(
     );
   });
 
-  httpServer.on('error', event => {
+  httpServer.on('error', (event) => {
     onError(event);
     statusListener('Failed to start the server.', 'error');
     startServerTimeoutID = setTimeout(() => startServer(port), 1000);
@@ -385,7 +385,7 @@ function startServer(
   });
 
   return {
-    close: function() {
+    close: function () {
       connected = null;
       onDisconnected();
       if (startServerTimeoutID !== null) {

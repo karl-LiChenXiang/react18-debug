@@ -15,8 +15,8 @@ function Component(props) {
     return state;
   });
   props.callback(InnerComponent);
- 
+
   return null;
-};
+}
 
 module.exports = {Component};

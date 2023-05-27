@@ -23,7 +23,7 @@ class App extends PureComponent {
     const multiplier = input.length !== 0 ? input.length : 1;
     const complexity =
       (parseInt(window.location.search.substring(1), 10) / 100) * 25 || 25;
-    const data = _.range(5).map(t =>
+    const data = _.range(5).map((t) =>
       _.range(complexity * multiplier).map((j, i) => {
         return {
           x: j,
@@ -36,17 +36,17 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', e => {
+    window.addEventListener('keydown', (e) => {
       if (e.key.toLowerCase() === '?') {
         e.preventDefault();
-        this.setState(state => ({
+        this.setState((state) => ({
           showClock: !state.showClock,
         }));
       }
     });
   }
 
-  handleChartClick = e => {
+  handleChartClick = (e) => {
     if (this.state.showDemo) {
       if (e.shiftKey) {
         this.setState({showDemo: false});
@@ -54,7 +54,7 @@ class App extends PureComponent {
       return;
     }
     if (this.state.strategy !== 'async') {
-      this.setState(state => ({
+      this.setState((state) => ({
         showDemo: !state.showDemo,
       }));
       return;
@@ -71,7 +71,7 @@ class App extends PureComponent {
     });
   };
 
-  debouncedHandleChange = _.debounce(value => {
+  debouncedHandleChange = _.debounce((value) => {
     if (this.state.strategy === 'debounced') {
       this.setState({value: value});
     }
@@ -91,7 +91,7 @@ class App extends PureComponent {
     );
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const value = e.target.value;
     const {strategy} = this.state;
     switch (strategy) {

@@ -28,7 +28,7 @@ describe('Stylex plugin utils', () => {
   });
 
   afterEach(() => {
-    styleElements.forEach(styleElement => {
+    styleElements.forEach((styleElement) => {
       document.head.removeChild(styleElement);
     });
   });

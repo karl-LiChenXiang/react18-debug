@@ -24,7 +24,7 @@ type Props = {|
 export default function ContextMenuItem({children, onClick, title}: Props) {
   const {hideMenu} = useContext<RegistryContextType>(RegistryContext);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     onClick();
     hideMenu();
   };
@@ -33,7 +33,8 @@ export default function ContextMenuItem({children, onClick, title}: Props) {
     <div
       className={styles.ContextMenuItem}
       onClick={handleClick}
-      onTouchEnd={handleClick}>
+      onTouchEnd={handleClick}
+    >
       {children}
     </div>
   );

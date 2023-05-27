@@ -9,10 +9,7 @@ import {REACT_MEMO_TYPE} from 'shared/ReactSymbols';
 
 import isValidElementType from 'shared/isValidElementType';
 
-export function memo<Props>(
-  type: React$ElementType,
-  compare?: (oldProps: Props, newProps: Props) => boolean,
-) {
+export function memo(type, compare) {
   if (__DEV__) {
     if (!isValidElementType(type)) {
       console.error(
@@ -32,10 +29,10 @@ export function memo<Props>(
     Object.defineProperty(elementType, 'displayName', {
       enumerable: false,
       configurable: true,
-      get: function() {
+      get: function () {
         return ownName;
       },
-      set: function(name) {
+      set: function (name) {
         ownName = name;
 
         // The inner component shouldn't inherit this display name in most cases,

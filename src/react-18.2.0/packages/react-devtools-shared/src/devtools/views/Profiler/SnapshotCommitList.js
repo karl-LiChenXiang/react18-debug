@@ -283,7 +283,8 @@ function List({
       <div
         ref={divRef}
         style={{height, width}}
-        onMouseLeave={() => setHoveredCommitIndex(null)}>
+        onMouseLeave={() => setHoveredCommitIndex(null)}
+      >
         <FixedSizeList
           className={styles.List}
           layout="horizontal"
@@ -292,7 +293,8 @@ function List({
           itemData={itemData}
           itemSize={itemSize}
           ref={(listRef: any) /* Flow bug? */}
-          width={width}>
+          width={width}
+        >
           {SnapshotCommitListItem}
         </FixedSizeList>
       </div>

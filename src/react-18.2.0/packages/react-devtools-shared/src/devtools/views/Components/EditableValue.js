@@ -58,7 +58,7 @@ export default function EditableValue({
     overrideValue(path, target.checked);
   };
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event) => {
     // Prevent keydown events from e.g. change selected element in the tree
     event.stopPropagation();
 

@@ -40,13 +40,12 @@ export type ItemData = {|
 
 export default function CommitRankedAutoSizer(_: {||}) {
   const {profilerStore} = useContext(StoreContext);
-  const {rootID, selectedCommitIndex, selectFiber} = useContext(
-    ProfilerContext,
-  );
+  const {rootID, selectedCommitIndex, selectFiber} =
+    useContext(ProfilerContext);
   const {profilingCache} = profilerStore;
 
   const deselectCurrentFiber = useCallback(
-    event => {
+    (event) => {
       event.stopPropagation();
       selectFiber(null, null);
     },
@@ -96,16 +95,12 @@ type Props = {|
 |};
 
 function CommitRanked({chartData, commitTree, height, width}: Props) {
-  const [
-    hoveredFiberData,
-    setHoveredFiberData,
-  ] = useState<TooltipFiberData | null>(null);
+  const [hoveredFiberData, setHoveredFiberData] =
+    useState<TooltipFiberData | null>(null);
   const {lineHeight} = useContext(SettingsContext);
   const {selectedFiberID, selectFiber} = useContext(ProfilerContext);
-  const {
-    highlightNativeElement,
-    clearHighlightNativeElement,
-  } = useHighlightNativeElement();
+  const {highlightNativeElement, clearHighlightNativeElement} =
+    useHighlightNativeElement();
 
   const selectedFiberIndex = useMemo(
     () => getNodeIndex(chartData, selectedFiberID),
@@ -164,7 +159,8 @@ function CommitRanked({chartData, commitTree, height, width}: Props) {
         itemCount={chartData.nodes.length}
         itemData={itemData}
         itemSize={lineHeight}
-        width={width}>
+        width={width}
+      >
         {CommitRankedListItem}
       </FixedSizeList>
     </Tooltip>

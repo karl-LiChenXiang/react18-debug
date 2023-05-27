@@ -90,7 +90,7 @@ const CacheContext = React.createContext(null);
 
 function accessResult<I, K, V>(
   resource: any,
-  fetch: I => Thenable<V>,
+  fetch: (I) => Thenable<V>,
   input: I,
   key: K,
 ): Result<V> {
@@ -103,14 +103,14 @@ function accessResult<I, K, V>(
   if (entry === undefined) {
     const thenable = fetch(input);
     thenable.then(
-      value => {
+      (value) => {
         if (newResult.status === Pending) {
           const resolvedResult: ResolvedResult<V> = (newResult: any);
           resolvedResult.status = Resolved;
           resolvedResult.value = value;
         }
       },
-      error => {
+      (error) => {
         if (newResult.status === Pending) {
           const rejectedResult: RejectedResult = (newResult: any);
           rejectedResult.status = Rejected;
@@ -141,10 +141,10 @@ function deleteEntry(resource, key) {
 }
 
 export function unstable_createResource<I, K: string | number, V>(
-  fetch: I => Thenable<V>,
-  maybeHashInput?: I => K,
+  fetch: (I) => Thenable<V>,
+  maybeHashInput?: (I) => K,
 ): Resource<I, V> {
-  const hashInput: I => K =
+  const hashInput: (I) => K =
     maybeHashInput !== undefined ? maybeHashInput : (identityHashFn: any);
 
   const resource = {

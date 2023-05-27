@@ -40,14 +40,14 @@ function createRecordFromThenable(thenable): Record {
     value: thenable,
   };
   thenable.then(
-    value => {
+    (value) => {
       if (record.status === Pending) {
         const resolvedRecord = ((record: any): ResolvedRecord);
         resolvedRecord.status = Resolved;
         resolvedRecord.value = value;
       }
     },
-    err => {
+    (err) => {
       if (record.status === Pending) {
         const rejectedRecord = ((record: any): RejectedRecord);
         rejectedRecord.status = Rejected;
@@ -69,14 +69,14 @@ function readRecordValue(record: Record) {
 export function Pool(options: mixed) {
   this.pool = new PostgresPool(options);
   // Unique function per instance because it's used for cache identity.
-  this.createRecordMap = function() {
+  this.createRecordMap = function () {
     return new Map();
   };
 }
 
 type NestedMap = Map<any, Record | NestedMap>;
 
-Pool.prototype.query = function(query: string, values?: Array<mixed>) {
+Pool.prototype.query = function (query: string, values?: Array<mixed>) {
   const pool = this.pool;
   const outerMap = unstable_getCacheForType(this.createRecordMap);
 

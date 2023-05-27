@@ -24,12 +24,12 @@ describe('Timeline profiler', () => {
     utils.beforeEachProfiling();
 
     unmountFns = [];
-    renderHelper = element => {
+    renderHelper = (element) => {
       const unmountFn = utils.legacyRender(element);
       unmountFns.push(unmountFn);
       return unmountFn;
     };
-    renderRootHelper = element => {
+    renderRootHelper = (element) => {
       const container = document.createElement('div');
       const root = ReactDOMClient.createRoot(container);
       root.render(element);
@@ -77,7 +77,7 @@ describe('Timeline profiler', () => {
           markName = filterMarkData(markName);
 
           clearedMarks.push(markName);
-          marks = marks.filter(mark => mark !== markName);
+          marks = marks.filter((mark) => mark !== markName);
         },
         mark(markName, markOptions) {
           markName = filterMarkData(markName);
@@ -110,8 +110,8 @@ describe('Timeline profiler', () => {
     }
 
     beforeEach(() => {
-      setPerformanceMock = require('react-devtools-shared/src/backend/profilingHooks')
-        .setPerformanceMock_ONLY_FOR_TESTING;
+      setPerformanceMock =
+        require('react-devtools-shared/src/backend/profilingHooks').setPerformanceMock_ONLY_FOR_TESTING;
       setPerformanceMock(createUserTimingPolyfill());
     });
 
@@ -119,7 +119,7 @@ describe('Timeline profiler', () => {
       // Verify all logged marks also get cleared.
       expect(marks).toHaveLength(0);
 
-      unmountFns.forEach(unmountFn => unmountFn());
+      unmountFns.forEach((unmountFn) => unmountFn());
 
       setPerformanceMock(null);
     });
@@ -525,7 +525,7 @@ describe('Timeline profiler', () => {
       clearPendingMarks();
 
       let errorMessage;
-      spyOn(console, 'error').and.callFake(message => {
+      spyOn(console, 'error').and.callFake((message) => {
         errorMessage = message;
       });
 
@@ -580,7 +580,7 @@ describe('Timeline profiler', () => {
       clearPendingMarks();
 
       let errorMessage;
-      spyOn(console, 'error').and.callFake(message => {
+      spyOn(console, 'error').and.callFake((message) => {
         errorMessage = message;
       });
 
@@ -1154,7 +1154,7 @@ describe('Timeline profiler', () => {
     let stopProfilingAndGetTimelineData;
 
     beforeEach(() => {
-      getBatchOfWork = index => {
+      getBatchOfWork = (index) => {
         const timelineData = stopProfilingAndGetTimelineData();
         if (timelineData) {
           if (timelineData.batchUIDToMeasuresMap.size > index) {
@@ -1183,7 +1183,7 @@ describe('Timeline profiler', () => {
     });
 
     afterEach(() => {
-      unmountFns.forEach(unmountFn => unmountFn());
+      unmountFns.forEach((unmountFn) => unmountFn());
     });
 
     describe('when profiling', () => {
@@ -1236,9 +1236,9 @@ describe('Timeline profiler', () => {
 
           updaterFn = () => {
             startTransition(() => {
-              setLow(prevLow => prevLow + 1);
+              setLow((prevLow) => prevLow + 1);
             });
-            setHigh(prevHigh => prevHigh + 1);
+            setHigh((prevHigh) => prevHigh + 1);
           };
 
           Scheduler.unstable_advanceTime(10);
@@ -1336,7 +1336,7 @@ describe('Timeline profiler', () => {
       it('should mark sync render with suspense that resolves', async () => {
         let resolveFn;
         let resolved = false;
-        const suspensePromise = new Promise(resolve => {
+        const suspensePromise = new Promise((resolve) => {
           resolveFn = () => {
             resolved = true;
             resolve();
@@ -1452,7 +1452,7 @@ describe('Timeline profiler', () => {
       it('should mark concurrent render with suspense that resolves', async () => {
         let resolveFn;
         let resolved = false;
-        const suspensePromise = new Promise(resolve => {
+        const suspensePromise = new Promise((resolve) => {
           resolveFn = () => {
             resolved = true;
             resolve();
@@ -1700,7 +1700,7 @@ describe('Timeline profiler', () => {
         renderRootHelper(<Example />);
 
         let errorMessage;
-        spyOn(console, 'error').and.callFake(message => {
+        spyOn(console, 'error').and.callFake((message) => {
           errorMessage = message;
         });
 
@@ -1768,7 +1768,7 @@ describe('Timeline profiler', () => {
         renderRootHelper(<Example />);
 
         let errorMessage;
-        spyOn(console, 'error').and.callFake(message => {
+        spyOn(console, 'error').and.callFake((message) => {
           errorMessage = message;
         });
 

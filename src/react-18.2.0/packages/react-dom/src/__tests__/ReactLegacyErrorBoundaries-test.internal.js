@@ -1587,10 +1587,12 @@ describe('ReactLegacyErrorBoundaries', () => {
     ReactDOM.render(
       <ErrorBoundary
         logName="OuterErrorBoundary"
-        renderError={renderOuterError}>
+        renderError={renderOuterError}
+      >
         <ErrorBoundary
           logName="InnerErrorBoundary"
-          renderError={renderInnerError}>
+          renderError={renderInnerError}
+        >
           <BrokenComponentWillUnmount />
         </ErrorBoundary>
       </ErrorBoundary>,
@@ -1601,7 +1603,8 @@ describe('ReactLegacyErrorBoundaries', () => {
     ReactDOM.render(
       <ErrorBoundary
         logName="OuterErrorBoundary"
-        renderError={renderOuterError}>
+        renderError={renderOuterError}
+      >
         <ErrorBoundary
           logName="InnerErrorBoundary"
           renderError={renderInnerError}
@@ -1819,7 +1822,7 @@ describe('ReactLegacyErrorBoundaries', () => {
     const container = document.createElement('div');
     ReactDOM.render(
       <ErrorBoundary>
-        <Stateful ref={inst => (statefulInst = inst)} />
+        <Stateful ref={(inst) => (statefulInst = inst)} />
       </ErrorBoundary>,
       container,
     );
@@ -1946,7 +1949,7 @@ describe('ReactLegacyErrorBoundaries', () => {
     ReactDOM.render(
       <ErrorBoundary>
         <BrokenComponentDidMountErrorBoundary
-          renderError={error => (
+          renderError={(error) => (
             <div>We should never catch our own error: {error.message}.</div>
           )}
         />
@@ -1991,13 +1994,15 @@ describe('ReactLegacyErrorBoundaries', () => {
       <ErrorBoundary logName="OuterErrorBoundary">
         <ErrorBoundary
           logName="InnerUnmountBoundary"
-          renderError={renderUnmountError}>
+          renderError={renderUnmountError}
+        >
           <BrokenComponentWillUnmount errorText="E1" />
           <BrokenComponentWillUnmount errorText="E2" />
         </ErrorBoundary>
         <ErrorBoundary
           logName="InnerUpdateBoundary"
-          renderError={renderUpdateError}>
+          renderError={renderUpdateError}
+        >
           <BrokenComponentDidUpdate errorText="E3" />
           <BrokenComponentDidUpdate errorText="E4" />
         </ErrorBoundary>
@@ -2014,7 +2019,8 @@ describe('ReactLegacyErrorBoundaries', () => {
         />
         <ErrorBoundary
           logName="InnerUpdateBoundary"
-          renderError={renderUpdateError}>
+          renderError={renderUpdateError}
+        >
           <BrokenComponentDidUpdate errorText="E3" />
           <BrokenComponentDidUpdate errorText="E4" />
         </ErrorBoundary>

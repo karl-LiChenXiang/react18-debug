@@ -15,8 +15,8 @@ function expectHookMapToEqual(actual, expected) {
   expect(actual.names).toEqual(expected.names);
 
   const formattedMappings = [];
-  actual.mappings.forEach(lines => {
-    lines.forEach(segment => {
+  actual.mappings.forEach((lines) => {
+    lines.forEach((segment) => {
       const name = actual.names[segment[2]];
       if (name == null) {
         throw new Error(`Expected to find name at position ${segment[2]}`);

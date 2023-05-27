@@ -22,13 +22,13 @@ export function sourceMapIncludesSource(
   }
   if (sourcemap.mappings === undefined) {
     const indexSourceMap: IndexSourceMap = sourcemap;
-    return indexSourceMap.sections.some(section => {
+    return indexSourceMap.sections.some((section) => {
       return sourceMapIncludesSource(section.map, source);
     });
   }
 
   const basicMap: BasicSourceMap = sourcemap;
   return basicMap.sources.some(
-    s => s === 'Inline Babel script' || source.endsWith(s),
+    (s) => s === 'Inline Babel script' || source.endsWith(s),
   );
 }

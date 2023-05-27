@@ -55,7 +55,7 @@ export class HorizontalPanAndZoomView extends View {
     this._intrinsicContentWidth = intrinsicContentWidth;
     this._viewState = viewState;
 
-    viewState.onHorizontalScrollStateChange(scrollState => {
+    viewState.onHorizontalScrollStateChange((scrollState) => {
       this.zoomToRange(scrollState.offset, scrollState.length);
     });
 

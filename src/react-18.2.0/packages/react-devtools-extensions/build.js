@@ -90,7 +90,9 @@ const build = async (tempPath, manifestPath) => {
   await copy(binPath, join(zipPath, 'build'));
   await copy(manifestPath, copiedManifestPath);
   await Promise.all(
-    STATIC_FILES.map(file => copy(join(__dirname, file), join(zipPath, file))),
+    STATIC_FILES.map((file) =>
+      copy(join(__dirname, file), join(zipPath, file)),
+    ),
   );
 
   const commit = getGitCommit();
@@ -121,7 +123,7 @@ const build = async (tempPath, manifestPath) => {
   await new Promise((resolvePromise, rejectPromise) => {
     archive
       .directory(zipPath, false)
-      .on('error', err => rejectPromise(err))
+      .on('error', (err) => rejectPromise(err))
       .pipe(zipStream);
     archive.finalize();
     zipStream.on('close', () => resolvePromise());
@@ -139,7 +141,7 @@ const postProcess = async (tempPath, destinationPath) => {
   await remove(tempPath); // Clean up temp directory and files
 };
 
-const main = async buildId => {
+const main = async (buildId) => {
   const root = join(__dirname, buildId);
   const manifestPath = join(root, 'manifest.json');
   const destinationPath = join(root, 'build');

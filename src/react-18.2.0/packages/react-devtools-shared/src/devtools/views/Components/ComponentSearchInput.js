@@ -19,7 +19,7 @@ export default function ComponentSearchInput(props: Props) {
   const {searchIndex, searchResults, searchText} = useContext(TreeStateContext);
   const dispatch = useContext(TreeDispatcherContext);
 
-  const search = text => dispatch({type: 'SET_SEARCH_TEXT', payload: text});
+  const search = (text) => dispatch({type: 'SET_SEARCH_TEXT', payload: text});
   const goToNextResult = () => dispatch({type: 'GO_TO_NEXT_SEARCH_RESULT'});
   const goToPreviousResult = () =>
     dispatch({type: 'GO_TO_PREVIOUS_SEARCH_RESULT'});

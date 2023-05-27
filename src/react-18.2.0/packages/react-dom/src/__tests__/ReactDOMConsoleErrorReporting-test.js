@@ -37,7 +37,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         return this.props.children;
       }
     };
-    NoError = function() {
+    NoError = function () {
       return <h1>OK</h1>;
     };
     container = document.createElement('div');
@@ -60,7 +60,8 @@ describe('ReactDOMConsoleErrorReporting', () => {
           <button
             onClick={() => {
               throw Error('Boom');
-            }}>
+            }}
+          >
             click me
           </button>
         );
@@ -95,7 +96,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported because we're in a browser click event:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -121,7 +122,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported because we're in a browser click event:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -141,7 +142,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
 
@@ -175,7 +176,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported due to the guarded callback:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -202,7 +203,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -221,7 +222,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
 
@@ -257,7 +258,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by jsdom due to the guarded callback:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -284,7 +285,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -303,7 +304,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
 
@@ -333,7 +334,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported due to the guarded callback:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -352,7 +353,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -371,7 +372,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
 
@@ -403,7 +404,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by jsdom due to the guarded callback:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -422,7 +423,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -441,7 +442,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
 
@@ -471,7 +472,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported due to the guarded callback:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -490,7 +491,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -509,7 +510,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
 
@@ -541,7 +542,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by jsdom due to the guarded callback:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -560,7 +561,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -579,7 +580,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([]);
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([]);
       }
     });
   });
@@ -593,7 +594,8 @@ describe('ReactDOMConsoleErrorReporting', () => {
           <button
             onClick={() => {
               throw Error('Boom');
-            }}>
+            }}
+          >
             click me
           </button>
         );
@@ -627,7 +629,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported because we're in a browser click event:
@@ -654,7 +656,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported because we're in a browser click event:
             expect.stringContaining('Error: Uncaught [Error: Boom]'),
@@ -674,7 +676,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }
@@ -702,7 +704,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported due to the guarded callback:
@@ -722,7 +724,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -741,7 +743,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }
@@ -772,7 +774,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported by jsdom due to the guarded callback:
@@ -792,7 +794,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -811,7 +813,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }
@@ -842,7 +844,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported due to the guarded callback:
@@ -862,7 +864,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -881,7 +883,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }
@@ -915,7 +917,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported by jsdom due to the guarded callback:
@@ -935,7 +937,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -954,7 +956,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }
@@ -985,7 +987,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported due to the guarded callback:
@@ -1005,7 +1007,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -1024,7 +1026,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }
@@ -1058,7 +1060,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
             }),
           ],
         ]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
           [
             // Reported by jsdom due to the guarded callback:
@@ -1078,7 +1080,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
         // The top-level error was caught with try/catch, and there's no guarded callback,
         // so in production we don't see an error event.
         expect(windowOnError.mock.calls).toEqual([]);
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [
             // Reported by React with no extra message:
             expect.objectContaining({
@@ -1097,7 +1099,7 @@ describe('ReactDOMConsoleErrorReporting', () => {
       expect(container.textContent).toBe('OK');
       expect(windowOnError.mock.calls).toEqual([]);
       if (__DEV__) {
-        expect(console.error.calls.all().map(c => c.args)).toEqual([
+        expect(console.error.calls.all().map((c) => c.args)).toEqual([
           [expect.stringContaining('ReactDOM.render is no longer supported')],
         ]);
       }

@@ -38,7 +38,7 @@ export default function SidebarSelectedFiberInfo(_: Props) {
     rootID: ((rootID: any): number),
   });
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event) => {
     switch (event.key) {
       case 'ArrowUp':
         if (selectedCommitIndex !== null) {
@@ -92,7 +92,8 @@ export default function SidebarSelectedFiberInfo(_: Props) {
             ? styles.CurrentCommit
             : styles.Commit
         }
-        onClick={() => selectCommitIndex(commitIndex)}>
+        onClick={() => selectCommitIndex(commitIndex)}
+      >
         {formatTime(timestamp)}s for {formatDuration(duration)}ms
       </button>,
     );
@@ -108,7 +109,8 @@ export default function SidebarSelectedFiberInfo(_: Props) {
         <Button
           className={styles.IconButton}
           onClick={() => selectFiber(null, null)}
-          title="Back to commit view">
+          title="Back to commit view"
+        >
           <ButtonIcon type="close" />
         </Button>
       </div>

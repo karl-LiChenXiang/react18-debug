@@ -21,7 +21,8 @@ export default function LoadingAnimation({className = ''}: Props) {
       className={`${styles.Icon} ${className}`}
       width="24"
       height="24"
-      viewBox="0 0 100 100">
+      viewBox="0 0 100 100"
+    >
       <path d="M0 0h100v100H0z" fill="none" />
       <circle fill="currentColor" stroke="none" cx="20" cy="50" r="10">
         <animate

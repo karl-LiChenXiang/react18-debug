@@ -169,7 +169,7 @@ function markWorkStarted(
   }
 
   // This array is pre-initialized before processing starts.
-  lanes.forEach(lane => {
+  lanes.forEach((lane) => {
     ((currentProfilerData.laneToReactMeasureMap.get(
       lane,
     ): any): ReactMeasure[]).push(measure);
@@ -360,7 +360,7 @@ function processScreenshot(
   // Delay processing until we've extracted snapshot dimensions.
   let resolveFn = ((null: any): Function);
   state.asyncProcessingPromises.push(
-    new Promise(resolve => {
+    new Promise((resolve) => {
       resolveFn = resolve;
     }),
   );
@@ -368,10 +368,10 @@ function processScreenshot(
   // Parse the Base64 image data to determine native size.
   // This will be used later to scale for display within the thumbnail strip.
   fetch(snapshot.imageSource)
-    .then(response => response.blob())
-    .then(blob => {
+    .then((response) => response.blob())
+    .then((blob) => {
       // $FlowFixMe createImageBitmap
-      createImageBitmap(blob).then(bitmap => {
+      createImageBitmap(blob).then((bitmap) => {
         snapshot.height = bitmap.height;
         snapshot.width = bitmap.width;
 
@@ -552,13 +552,9 @@ function processTimelineEvent(
           type: 'thrown-error',
         });
       } else if (name.startsWith('--suspense-suspend-')) {
-        const [
-          id,
-          componentName,
-          phase,
-          laneBitmaskString,
-          promiseName,
-        ] = name.substr(19).split('-');
+        const [id, componentName, phase, laneBitmaskString, promiseName] = name
+          .substr(19)
+          .split('-');
         const lanes = getLanesFromTransportDecimalBitmask(laneBitmaskString);
 
         const availableDepths = new Array(
@@ -974,15 +970,23 @@ function preprocessFlamechart(rawData: TimelineEvent[]): Flamechart {
     getColorBucketForFrame: () => 0,
   });
 
-  const flamechart: Flamechart = speedscopeFlamechart.getLayers().map(layer =>
-    layer.map(({start, end, node: {frame: {name, file, line, col}}}) => ({
-      name,
-      timestamp: start / 1000,
-      duration: (end - start) / 1000,
-      scriptUrl: file,
-      locationLine: line,
-      locationColumn: col,
-    })),
+  const flamechart: Flamechart = speedscopeFlamechart.getLayers().map((layer) =>
+    layer.map(
+      ({
+        start,
+        end,
+        node: {
+          frame: {name, file, line, col},
+        },
+      }) => ({
+        name,
+        timestamp: start / 1000,
+        duration: (end - start) / 1000,
+        scriptUrl: file,
+        locationLine: line,
+        locationColumn: col,
+      }),
+    ),
   );
 
   return flamechart;
@@ -1040,7 +1044,7 @@ export default async function preprocessData(
   // flame chart events, we can futher deduce that the data is invalid and we
   // don't bother finding React events.
   const indexOfProfileEvent = timeline.findIndex(
-    event => event.name === 'Profile',
+    (event) => event.name === 'Profile',
   );
   if (indexOfProfileEvent === -1) {
     return profilerData;
@@ -1071,7 +1075,7 @@ export default async function preprocessData(
     unresolvedSuspenseEvents: new Map(),
   };
 
-  timeline.forEach(event => processTimelineEvent(event, profilerData, state));
+  timeline.forEach((event) => processTimelineEvent(event, profilerData, state));
 
   if (profilerVersion === null) {
     if (
@@ -1121,7 +1125,7 @@ export default async function preprocessData(
       // These are allowed to be long-running.
       if (
         !schedulingEvent.lanes.some(
-          lane => profilerData.laneToLabelMap.get(lane) === 'Transition',
+          (lane) => profilerData.laneToLabelMap.get(lane) === 'Transition',
         )
       ) {
         // FIXME: This warning doesn't account for "nested updates" that are
@@ -1136,7 +1140,7 @@ export default async function preprocessData(
       // HACK This is a bit gross but the numeric lane value might change between render versions.
       if (
         !lanes.some(
-          lane => profilerData.laneToLabelMap.get(lane) === 'Transition',
+          (lane) => profilerData.laneToLabelMap.get(lane) === 'Transition',
         )
       ) {
         suspenseEvent.warning = WARNING_STRINGS.SUSPEND_DURING_UPDATE;

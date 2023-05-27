@@ -307,7 +307,7 @@ export class FlamechartView extends View {
     }
 
     this._verticalStackView = new View(surface, frame, verticallyStackedLayout);
-    this._flamechartRowViews = flamechart.map(stackLayer => {
+    this._flamechartRowViews = flamechart.map((stackLayer) => {
       const rowView = new FlamechartStackLayerView(
         surface,
         frame,
@@ -332,14 +332,14 @@ export class FlamechartView extends View {
     hoveredStackFrame: FlamechartStackFrame | null,
   ) {
     this._hoveredStackFrame = hoveredStackFrame;
-    this._flamechartRowViews.forEach(rowView =>
+    this._flamechartRowViews.forEach((rowView) =>
       rowView.setHoveredFlamechartStackFrame(hoveredStackFrame),
     );
   }
 
   setOnHover(onHover: (node: FlamechartStackFrame | null) => void) {
     this._onHover = onHover;
-    this._flamechartRowViews.forEach(rowView => (rowView._onHover = onHover));
+    this._flamechartRowViews.forEach((rowView) => (rowView._onHover = onHover));
   }
 
   desiredSize() {

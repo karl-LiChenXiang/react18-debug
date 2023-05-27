@@ -172,7 +172,7 @@ function cloneMap<K, V>(map: Map<K, V>): Map<K, V> {
 }
 function cloneSet<T>(set: Set<T>): Set<T> {
   const clone = new Set();
-  set.forEach(value => {
+  set.forEach((value) => {
     clone.add(value);
   });
   return clone;
@@ -230,7 +230,7 @@ export function performReactRefresh(): RefreshUpdate | null {
       staleFamilies, // Families that will be remounted
     };
 
-    helpersByRendererID.forEach(helpers => {
+    helpersByRendererID.forEach((helpers) => {
       // Even if there are no roots, set the handler on first update.
       // This ensures that if *new* roots are mounted, they'll use the resolve handler.
       helpers.setRefreshHandler(resolveFamily);
@@ -247,7 +247,7 @@ export function performReactRefresh(): RefreshUpdate | null {
     const mountedRootsSnapshot = cloneSet(mountedRoots);
     const helpersByRootSnapshot = cloneMap(helpersByRoot);
 
-    failedRootsSnapshot.forEach(root => {
+    failedRootsSnapshot.forEach((root) => {
       const helpers = helpersByRootSnapshot.get(root);
       if (helpers === undefined) {
         throw new Error(
@@ -274,7 +274,7 @@ export function performReactRefresh(): RefreshUpdate | null {
         // Keep trying other roots.
       }
     });
-    mountedRootsSnapshot.forEach(root => {
+    mountedRootsSnapshot.forEach((root) => {
       const helpers = helpersByRootSnapshot.get(root);
       if (helpers === undefined) {
         throw new Error(
@@ -421,7 +421,7 @@ export function findAffectedHostInstances(
 ): Set<Instance> {
   if (__DEV__) {
     const affectedInstances = new Set();
-    mountedRoots.forEach(root => {
+    mountedRoots.forEach((root) => {
       const helpers = helpersByRoot.get(root);
       if (helpers === undefined) {
         throw new Error(
@@ -432,7 +432,7 @@ export function findAffectedHostInstances(
         root,
         families,
       );
-      instancesForRoot.forEach(inst => {
+      instancesForRoot.forEach((inst) => {
         affectedInstances.add(inst);
       });
     });
@@ -491,7 +491,7 @@ export function injectIntoGlobalHook(globalObject: any): void {
 
     // Here, we just want to get a reference to scheduleRefresh.
     const oldInject = hook.inject;
-    hook.inject = function(injected) {
+    hook.inject = function (injected) {
       const id = oldInject.apply(this, arguments);
       if (
         typeof injected.scheduleRefresh === 'function' &&
@@ -519,7 +519,7 @@ export function injectIntoGlobalHook(globalObject: any): void {
     // We also want to track currently mounted roots.
     const oldOnCommitFiberRoot = hook.onCommitFiberRoot;
     const oldOnScheduleFiberRoot = hook.onScheduleFiberRoot || (() => {});
-    hook.onScheduleFiberRoot = function(
+    hook.onScheduleFiberRoot = function (
       id: number,
       root: FiberRoot,
       children: ReactNodeList,
@@ -534,7 +534,7 @@ export function injectIntoGlobalHook(globalObject: any): void {
       }
       return oldOnScheduleFiberRoot.apply(this, arguments);
     };
-    hook.onCommitFiberRoot = function(
+    hook.onCommitFiberRoot = function (
       id: number,
       root: FiberRoot,
       maybePriorityLevel: mixed,
@@ -642,7 +642,7 @@ export function createSignatureFunctionForTransform() {
     let savedType;
     let hasCustomHooks;
     let didCollectHooks = false;
-    return function<T>(
+    return function <T>(
       type: T,
       key: string,
       forceReset?: boolean,

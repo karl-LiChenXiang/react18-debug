@@ -79,7 +79,8 @@ export default function NewKeyValue({
       hidden={hidden}
       style={{
         paddingLeft: `${(depth - 1) * 0.75}rem`,
-      }}>
+      }}
+    >
       <div className={styles.NewKeyValue}>
         <EditableName
           autoFocus={newPropKey > 0}

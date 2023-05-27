@@ -10,7 +10,7 @@ export const MATH_NAMESPACE = 'http://www.w3.org/1998/Math/MathML';
 export const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 // Assumes there is no parent namespace.
-export function getIntrinsicNamespace(type: string): string {
+export function getIntrinsicNamespace(type) {
   switch (type) {
     case 'svg':
       return SVG_NAMESPACE;
@@ -21,10 +21,7 @@ export function getIntrinsicNamespace(type: string): string {
   }
 }
 
-export function getChildNamespace(
-  parentNamespace: string | null,
-  type: string,
-): string {
+export function getChildNamespace(parentNamespace, type) {
   if (parentNamespace == null || parentNamespace === HTML_NAMESPACE) {
     // No (or default) parent namespace: potential entry point.
     return getIntrinsicNamespace(type);

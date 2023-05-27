@@ -93,7 +93,7 @@ export default function ComponentsSettings(_: {||}) {
   >(() => [...store.componentFilters]);
 
   const addFilter = useCallback(() => {
-    setComponentFilters(prevComponentFilters => {
+    setComponentFilters((prevComponentFilters) => {
       return [
         ...prevComponentFilters,
         {
@@ -107,7 +107,7 @@ export default function ComponentsSettings(_: {||}) {
 
   const changeFilterType = useCallback(
     (componentFilter: ComponentFilter, type: ComponentFilterType) => {
-      setComponentFilters(prevComponentFilters => {
+      setComponentFilters((prevComponentFilters) => {
         const cloned: Array<ComponentFilter> = [...prevComponentFilters];
         const index = prevComponentFilters.indexOf(componentFilter);
         if (index >= 0) {
@@ -151,7 +151,7 @@ export default function ComponentsSettings(_: {||}) {
         throw Error('Invalid value for element type filter');
       }
 
-      setComponentFilters(prevComponentFilters => {
+      setComponentFilters((prevComponentFilters) => {
         const cloned: Array<ComponentFilter> = [...prevComponentFilters];
         if (componentFilter.type === ComponentFilterElementType) {
           const index = prevComponentFilters.indexOf(componentFilter);
@@ -174,7 +174,7 @@ export default function ComponentsSettings(_: {||}) {
         throw Error('Invalid value for element type filter');
       }
 
-      setComponentFilters(prevComponentFilters => {
+      setComponentFilters((prevComponentFilters) => {
         const cloned: Array<ComponentFilter> = [...prevComponentFilters];
         if (
           componentFilter.type === ComponentFilterDisplayName ||
@@ -202,7 +202,7 @@ export default function ComponentsSettings(_: {||}) {
   );
 
   const removeFilter = useCallback((index: number) => {
-    setComponentFilters(prevComponentFilters => {
+    setComponentFilters((prevComponentFilters) => {
       const cloned: Array<ComponentFilter> = [...prevComponentFilters];
       cloned.splice(index, 1);
       return cloned;
@@ -211,7 +211,7 @@ export default function ComponentsSettings(_: {||}) {
 
   const toggleFilterIsEnabled = useCallback(
     (componentFilter: ComponentFilter, isEnabled: boolean) => {
-      setComponentFilters(prevComponentFilters => {
+      setComponentFilters((prevComponentFilters) => {
         const cloned: Array<ComponentFilter> = [...prevComponentFilters];
         const index = prevComponentFilters.indexOf(componentFilter);
         if (index >= 0) {
@@ -285,7 +285,7 @@ export default function ComponentsSettings(_: {||}) {
           type="text"
           placeholder={process.env.EDITOR_URL ?? 'vscode://file/{path}:{line}'}
           value={openInEditorURL}
-          onChange={event => {
+          onChange={(event) => {
             setOpenInEditorURL(event.target.value);
           }}
         />
@@ -312,7 +312,7 @@ export default function ComponentsSettings(_: {||}) {
                       : styles.InvalidRegExp
                   }
                   isChecked={componentFilter.isEnabled}
-                  onChange={isEnabled =>
+                  onChange={(isEnabled) =>
                     toggleFilterIsEnabled(componentFilter, isEnabled)
                   }
                   title={
@@ -321,7 +321,8 @@ export default function ComponentsSettings(_: {||}) {
                       : componentFilter.isEnabled
                       ? 'Filter enabled'
                       : 'Filter disabled'
-                  }>
+                  }
+                >
                   <ToggleIcon
                     isEnabled={componentFilter.isEnabled}
                     isValid={
@@ -343,7 +344,8 @@ export default function ComponentsSettings(_: {||}) {
                         10,
                       ): any): ComponentFilterType),
                     )
-                  }>
+                  }
+                >
                   <option value={ComponentFilterLocation}>location</option>
                   <option value={ComponentFilterDisplayName}>name</option>
                   <option value={ComponentFilterElementType}>type</option>
@@ -367,7 +369,8 @@ export default function ComponentsSettings(_: {||}) {
                         componentFilter,
                         ((parseInt(currentTarget.value, 10): any): ElementType),
                       )
-                    }>
+                    }
+                  >
                     <option value={ElementTypeClass}>class</option>
                     <option value={ElementTypeContext}>context</option>
                     <option value={ElementTypeFunction}>function</option>
@@ -400,7 +403,8 @@ export default function ComponentsSettings(_: {||}) {
               <td className={styles.TableCell}>
                 <Button
                   onClick={() => removeFilter(index)}
-                  title="Delete filter">
+                  title="Delete filter"
+                >
                   <ButtonIcon type="delete" />
                 </Button>
               </td>

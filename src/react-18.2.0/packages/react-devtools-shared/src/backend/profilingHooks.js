@@ -48,11 +48,11 @@ if (supportsUserTiming) {
   const markOptions = {};
   // $FlowFixMe: Ignore Flow complaining about needing a value
   Object.defineProperty(markOptions, 'startTime', {
-    get: function() {
+    get: function () {
       supportsUserTimingV3 = true;
       return 0;
     },
-    set: function() {},
+    set: function () {},
   });
 
   try {
@@ -225,10 +225,8 @@ export function createProfilingHooks({
     currentReactMeasuresStack.push(reactMeasure);
 
     if (currentTimelineData) {
-      const {
-        batchUIDToMeasuresMap,
-        laneToReactMeasureMap,
-      } = currentTimelineData;
+      const {batchUIDToMeasuresMap, laneToReactMeasureMap} =
+        currentTimelineData;
 
       let reactMeasures = batchUIDToMeasuresMap.get(currentBatchUID);
       if (reactMeasures != null) {
@@ -237,7 +235,7 @@ export function createProfilingHooks({
         batchUIDToMeasuresMap.set(currentBatchUID, [reactMeasure]);
       }
 
-      lanesArray.forEach(lane => {
+      lanesArray.forEach((lane) => {
         reactMeasures = laneToReactMeasureMap.get(lane);
         if (reactMeasures) {
           reactMeasures.push(reactMeasure);

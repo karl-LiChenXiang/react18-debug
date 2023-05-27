@@ -59,9 +59,8 @@ export function InspectedElementHooksTree({
 
   // Changing parseHookNames is done in a transition, because it suspends.
   // This value is done outside of the transition, so the UI toggle feels responsive.
-  const [parseHookNamesOptimistic, setParseHookNamesOptimistic] = useState(
-    parseHookNames,
-  );
+  const [parseHookNamesOptimistic, setParseHookNamesOptimistic] =
+    useState(parseHookNames);
   const handleChange = () => {
     setParseHookNamesOptimistic(!parseHookNames);
     toggleParseHookNames();
@@ -88,7 +87,8 @@ export function InspectedElementHooksTree({
     return (
       <div
         className={styles.HooksTreeView}
-        data-testname="InspectedElementHooksTree">
+        data-testname="InspectedElementHooksTree"
+      >
         <div className={styles.HeaderRow}>
           <div className={styles.Header}>hooks</div>
           {enableNamedHooksFeature &&
@@ -100,7 +100,8 @@ export function InspectedElementHooksTree({
                 isDisabled={parseHookNamesOptimistic || hookParsingFailed}
                 onChange={handleChange}
                 testName="LoadHookNamesButton"
-                title={toggleTitle}>
+                title={toggleTitle}
+              >
                 <ButtonIcon type="parse-hook-names" />
               </Toggle>
             )}
@@ -169,11 +170,8 @@ function HookView({
   inspectedElement,
   path,
 }: HookViewProps) {
-  const {
-    canEditHooks,
-    canEditHooksAndDeletePaths,
-    canEditHooksAndRenamePaths,
-  } = inspectedElement;
+  const {canEditHooks, canEditHooksAndDeletePaths, canEditHooksAndRenamePaths} =
+    inspectedElement;
   const {id: hookID, isStateEditable, subHooks, value} = hook;
 
   const isReadOnly = hookID == null || !isStateEditable;
@@ -188,7 +186,7 @@ function HookView({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleIsOpen = useCallback(
-    () => setIsOpen(prevIsOpen => !prevIsOpen),
+    () => setIsOpen((prevIsOpen) => !prevIsOpen),
     [],
   );
 
@@ -224,7 +222,7 @@ function HookView({
 
   // Certain hooks are not editable at all (as identified by react-debug-tools).
   // Primitive hook names (e.g. the "State" name for useState) are also never editable.
-  const canRenamePathsAtDepth = depth => isStateEditable && depth > 1;
+  const canRenamePathsAtDepth = (depth) => isStateEditable && depth > 1;
 
   const isCustomHook = subHooks.length > 0;
 
@@ -316,7 +314,8 @@ function HookView({
             <ExpandCollapseToggle isOpen={isOpen} setIsOpen={setIsOpen} />
             <span
               onClick={toggleIsOpen}
-              className={name !== '' ? styles.Name : styles.NameAnonymous}>
+              className={name !== '' ? styles.Name : styles.NameAnonymous}
+            >
               {hookDisplayName || 'Anonymous'}
             </span>
             <span className={styles.Value} onClick={toggleIsOpen}>
@@ -353,7 +352,8 @@ function HookView({
             <ExpandCollapseToggle isOpen={isOpen} setIsOpen={setIsOpen} />
             <span
               onClick={toggleIsOpen}
-              className={name !== '' ? styles.Name : styles.NameAnonymous}>
+              className={name !== '' ? styles.Name : styles.NameAnonymous}
+            >
               {hookDisplayName || 'Anonymous'}
             </span>{' '}
             {/* $FlowFixMe */}

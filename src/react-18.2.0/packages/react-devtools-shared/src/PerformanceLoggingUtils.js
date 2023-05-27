@@ -42,7 +42,7 @@ function now(): number {
 export async function withAsyncPerfMeasurements<TReturn>(
   markName: string,
   callback: () => Promise<TReturn>,
-  onComplete?: number => void,
+  onComplete?: (number) => void,
 ): Promise<TReturn> {
   const start = now();
   if (__PERFORMANCE_PROFILE__) {
@@ -65,7 +65,7 @@ export async function withAsyncPerfMeasurements<TReturn>(
 export function withSyncPerfMeasurements<TReturn>(
   markName: string,
   callback: () => TReturn,
-  onComplete?: number => void,
+  onComplete?: (number) => void,
 ): TReturn {
   const start = now();
   if (__PERFORMANCE_PROFILE__) {
@@ -88,7 +88,7 @@ export function withSyncPerfMeasurements<TReturn>(
 export function withCallbackPerfMeasurements<TReturn>(
   markName: string,
   callback: (done: () => void) => TReturn,
-  onComplete?: number => void,
+  onComplete?: (number) => void,
 ): TReturn {
   const start = now();
   if (__PERFORMANCE_PROFILE__) {

@@ -53,7 +53,7 @@ export default function InspectedElementContextTree({
   // We add an object with a "value" key as a wrapper around Context data
   // so that we can use the shared <KeyValue> component to display it.
   // This wrapper object can't be renamed.
-  const canRenamePathsAtDepth = depth => depth > 1;
+  const canRenamePathsAtDepth = (depth) => depth > 1;
 
   if (isEmpty) {
     return null;

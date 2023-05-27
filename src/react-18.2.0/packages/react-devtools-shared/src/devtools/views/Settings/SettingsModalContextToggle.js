@@ -20,9 +20,10 @@ export default function SettingsModalContextToggle() {
   const store = useContext(StoreContext);
   const {profilerStore} = store;
 
-  const showFilterModal = useCallback(() => setIsModalShowing(true), [
-    setIsModalShowing,
-  ]);
+  const showFilterModal = useCallback(
+    () => setIsModalShowing(true),
+    [setIsModalShowing],
+  );
 
   // Updating preferences while profiling is in progress could break things (e.g. filtering)
   // Explicitly disallow it for now.
@@ -42,7 +43,8 @@ export default function SettingsModalContextToggle() {
     <Button
       disabled={isProfiling}
       onClick={showFilterModal}
-      title="View settings">
+      title="View settings"
+    >
       <ButtonIcon type="settings" />
     </Button>
   );

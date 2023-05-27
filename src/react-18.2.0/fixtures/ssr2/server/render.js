@@ -33,7 +33,7 @@ module.exports = function render(url, res) {
   // );
 
   // The new wiring is a bit more involved.
-  res.socket.on('error', error => {
+  res.socket.on('error', (error) => {
     console.error('Fatal', error);
   });
   let didError = false;
@@ -83,7 +83,7 @@ function createServerData() {
       if (promise) {
         throw promise;
       }
-      promise = new Promise(resolve => {
+      promise = new Promise((resolve) => {
         setTimeout(() => {
           done = true;
           promise = null;

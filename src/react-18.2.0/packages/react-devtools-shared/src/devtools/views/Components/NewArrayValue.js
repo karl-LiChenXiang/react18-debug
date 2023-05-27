@@ -89,7 +89,8 @@ export default function NewArrayValue({
       hidden={hidden}
       style={{
         paddingLeft: `${(depth - 1) * 0.75}rem`,
-      }}>
+      }}
+    >
       <div className={styles.NewArrayValue}>
         <EditableName
           allowWhiteSpace={true}

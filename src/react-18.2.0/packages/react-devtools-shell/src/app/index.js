@@ -93,7 +93,7 @@ function mountTestApp() {
 }
 
 function unmountTestApp() {
-  unmountFunctions.forEach(fn => fn());
+  unmountFunctions.forEach((fn) => fn());
 }
 
 mountTestApp();

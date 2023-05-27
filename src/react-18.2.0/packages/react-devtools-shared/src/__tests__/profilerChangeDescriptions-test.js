@@ -50,7 +50,7 @@ describe('Profiler change descriptions', () => {
     let forceUpdate = null;
 
     const App = function App() {
-      const [val, dispatch] = React.useReducer(x => x + 1, 0);
+      const [val, dispatch] = React.useReducer((x) => x + 1, 0);
 
       forceUpdate = dispatch;
 

@@ -4,13 +4,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow
+ * 
  */
 
 'use strict';
 
-import type {ReactNodeList} from 'shared/ReactTypes';
-import type {
+import  {ReactNodeList} from 'shared/ReactTypes';
+import  {
   RootType,
   HydrateRootOptions,
   CreateRootOptions,
@@ -23,9 +23,9 @@ import {
 } from './';
 
 export function createRoot(
-  container: Element | Document | DocumentFragment,
-  options?: CreateRootOptions,
-): RootType {
+  container,
+  options,
+) {
   if (__DEV__) {
     Internals.usingClientEntryPoint = true;
   }
@@ -39,10 +39,10 @@ export function createRoot(
 }
 
 export function hydrateRoot(
-  container: Document | Element,
-  children: ReactNodeList,
-  options?: HydrateRootOptions,
-): RootType {
+  container,
+  children,
+  options,
+){
   if (__DEV__) {
     Internals.usingClientEntryPoint = true;
   }

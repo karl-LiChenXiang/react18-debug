@@ -15,10 +15,7 @@ const hasReadOnlyValue = {
   submit: true,
 };
 
-export function checkControlledValueProps(
-  tagName: string,
-  props: Object,
-): void {
+export function checkControlledValueProps(tagName, props) {
   if (__DEV__) {
     if (
       !(

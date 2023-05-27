@@ -79,7 +79,7 @@ describe('Store', () => {
   // See https://github.com/facebook/react/issues/21445
   // @reactVersion >= 18.0
   it('should handle when a component mounts before its owner', () => {
-    const promise = new Promise(resolve => {});
+    const promise = new Promise((resolve) => {});
 
     let Dynamic = null;
     const Owner = () => {
@@ -1442,9 +1442,8 @@ describe('Store', () => {
       <MyComponent2 />
     ));
     const MyComponent3 = (props, ref) => null;
-    const ForwardRefComponentWithCustomDisplayName = React.forwardRef(
-      MyComponent3,
-    );
+    const ForwardRefComponentWithCustomDisplayName =
+      React.forwardRef(MyComponent3);
     ForwardRefComponentWithCustomDisplayName.displayName = 'Custom';
     const MyComponent4 = (props, ref) => null;
     const MemoComponent = React.memo(MyComponent4);
@@ -1465,9 +1464,8 @@ describe('Store', () => {
     );
     MemoizedFakeHigherOrderComponentWithDisplayNameOverride.displayName =
       'memoRefOverride';
-    const ForwardRefFakeHigherOrderComponentWithDisplayNameOverride = React.forwardRef(
-      FakeHigherOrderComponent,
-    );
+    const ForwardRefFakeHigherOrderComponentWithDisplayNameOverride =
+      React.forwardRef(FakeHigherOrderComponent);
     ForwardRefFakeHigherOrderComponentWithDisplayNameOverride.displayName =
       'forwardRefOverride';
 

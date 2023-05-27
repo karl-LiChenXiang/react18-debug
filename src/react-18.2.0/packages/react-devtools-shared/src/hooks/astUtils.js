@@ -115,8 +115,9 @@ function getFilteredHookASTNodes(
     //                        -> const tickState = useState(1);
     //                           const tick = tickState[0];
     //                           const setTick = tickState[1];
-    nodesAssociatedWithReactHookASTNode = potentialHooksFound.filter(hookNode =>
-      filterMemberNodesOfTargetHook(potentialReactHookASTNode, hookNode),
+    nodesAssociatedWithReactHookASTNode = potentialHooksFound.filter(
+      (hookNode) =>
+        filterMemberNodesOfTargetHook(potentialReactHookASTNode, hookNode),
     );
   }
   return nodesAssociatedWithReactHookASTNode;
@@ -141,7 +142,7 @@ export function getHookName(
     // that intentionally drops column numbers for compilation speed in DEV builds.
     // In this case, we can assume there's probably only one hook per line (true in most cases)
     // and just fail if we find more than one match.
-    const matchingNodes = hooksFromAST.filter(node => {
+    const matchingNodes = hooksFromAST.filter((node) => {
       const nodeLocationCheck = checkNodeLocation(
         node,
         originalSourceLineNumber,
@@ -155,7 +156,7 @@ export function getHookName(
       potentialReactHookASTNode = matchingNodes[0];
     }
   } else {
-    potentialReactHookASTNode = hooksFromAST.find(node => {
+    potentialReactHookASTNode = hooksFromAST.find((node) => {
       const nodeLocationCheck = checkNodeLocation(
         node,
         originalSourceLineNumber,
@@ -239,9 +240,10 @@ function getHookNameFromNode(
       // const flagState = useState(true); -> later referenced as
       // const flag = flagState[0];
       // const setFlag = flagState[1];
-      nodesAssociatedWithReactHookASTNode = nodesAssociatedWithReactHookASTNode.filter(
-        hookPath => filterMemberWithHookVariableName(hookPath),
-      );
+      nodesAssociatedWithReactHookASTNode =
+        nodesAssociatedWithReactHookASTNode.filter((hookPath) =>
+          filterMemberWithHookVariableName(hookPath),
+        );
 
       if (nodesAssociatedWithReactHookASTNode.length !== 1) {
         // Something went wrong, only a single desirable hook should remain here

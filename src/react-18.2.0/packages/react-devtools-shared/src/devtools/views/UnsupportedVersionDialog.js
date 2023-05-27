@@ -71,7 +71,8 @@ function DialogContent(_: {||}) {
               className={styles.ReleaseNotesLink}
               target="_blank"
               rel="noopener noreferrer"
-              href={UNSUPPORTED_VERSION_URL}>
+              href={UNSUPPORTED_VERSION_URL}
+            >
               install an older version of the extension
             </a>
             .

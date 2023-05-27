@@ -39,7 +39,7 @@ HtmlWritable.prototype._final = function _final(callback) {
 
 module.exports = function render(url, res) {
   let writable = new HtmlWritable();
-  res.socket.on('error', error => {
+  res.socket.on('error', (error) => {
     console.error('Fatal', error);
   });
   let didError = false;

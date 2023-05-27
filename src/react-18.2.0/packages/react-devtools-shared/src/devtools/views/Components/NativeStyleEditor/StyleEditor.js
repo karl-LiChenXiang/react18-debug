@@ -76,7 +76,7 @@ export default function StyleEditor({id, style}: Props) {
         </Button>
       </div>
       {keys.length > 0 &&
-        keys.map(attribute => (
+        keys.map((attribute) => (
           <Row
             key={attribute}
             attribute={attribute}
@@ -171,7 +171,7 @@ function Row({
   const [isAttributeValid, setIsAttributeValid] = useState(true);
   const [isValueValid, setIsValueValid] = useState(true);
 
-  const validateAndSetLocalAttribute = newAttribute => {
+  const validateAndSetLocalAttribute = (newAttribute) => {
     const isValid =
       newAttribute === '' ||
       validAttributes === null ||
@@ -183,7 +183,7 @@ function Row({
     });
   };
 
-  const validateAndSetLocalValue = newValue => {
+  const validateAndSetLocalValue = (newValue) => {
     let isValid = false;
     try {
       JSON.parse(sanitizeForParse(newValue));
@@ -262,7 +262,7 @@ function Field({
   placeholder,
   value,
 }: FieldProps) {
-  const onKeyDown = event => {
+  const onKeyDown = (event) => {
     switch (event.key) {
       case 'Enter':
         onSubmit();
@@ -285,7 +285,7 @@ function Field({
     <AutoSizeInput
       className={`${className} ${styles.Input}`}
       onBlur={onSubmit}
-      onChange={event => onChange(event.target.value)}
+      onChange={(event) => onChange(event.target.value)}
       onKeyDown={onKeyDown}
       placeholder={placeholder}
       value={value}

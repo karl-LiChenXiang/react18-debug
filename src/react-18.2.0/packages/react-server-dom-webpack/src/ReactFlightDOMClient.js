@@ -62,10 +62,10 @@ function createFromFetch(
     options && options.moduleMap ? options.moduleMap : null,
   );
   promiseForResponse.then(
-    function(r) {
+    function (r) {
       startReadingFromStream(response, (r.body: any));
     },
-    function(e) {
+    function (e) {
       reportGlobalError(response, e);
     },
   );

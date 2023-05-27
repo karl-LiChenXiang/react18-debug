@@ -91,7 +91,7 @@ describe('ProfilerStore', () => {
     const inputRef = React.createRef();
     const ControlledInput = () => {
       const [name, setName] = React.useState('foo');
-      const handleChange = event => setName(event.target.value);
+      const handleChange = (event) => setName(event.target.value);
       return <input ref={inputRef} value={name} onChange={handleChange} />;
     };
 
@@ -230,7 +230,7 @@ describe('ProfilerStore', () => {
 
   // @reactVersion >= 18.0
   it('should not throw while initializing context values for Fibers within a not-yet-mounted subtree', () => {
-    const promise = new Promise(resolve => {});
+    const promise = new Promise((resolve) => {});
     const SuspendingView = () => {
       throw promise;
     };

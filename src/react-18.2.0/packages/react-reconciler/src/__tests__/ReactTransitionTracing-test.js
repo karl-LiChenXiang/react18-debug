@@ -64,7 +64,7 @@ describe('ReactInteractionTracing', () => {
           const thenable = record.value;
           record.status = 'resolved';
           record.value = text;
-          thenable.pings.forEach(t => t());
+          thenable.pings.forEach((t) => t());
         }
       },
       reject(text, error) {
@@ -79,7 +79,7 @@ describe('ReactInteractionTracing', () => {
           const thenable = record.value;
           record.status = 'rejected';
           record.value = error;
-          thenable.pings.forEach(t => t());
+          thenable.pings.forEach((t) => t());
         }
       },
     };
@@ -238,7 +238,8 @@ describe('ReactInteractionTracing', () => {
           {navigate ? (
             <Suspense
               fallback={<Text text="Loading..." />}
-              name="suspense page">
+              name="suspense page"
+            >
               <AsyncText text="Page Two" />
             </Suspense>
           ) : (

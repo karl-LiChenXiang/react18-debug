@@ -39,7 +39,7 @@ async function lint(folder) {
     __dirname + '/' + folder + '/cjs/react-jsx-runtime.production.min.js',
   ]);
   if (
-    results.some(result => result.errorCount > 0 || result.warningCount > 0)
+    results.some((result) => result.errorCount > 0 || result.warningCount > 0)
   ) {
     process.exitCode = 1;
     console.log(`Failed`);
@@ -57,7 +57,7 @@ async function lintEverything() {
   await lint('react-17');
 }
 
-lintEverything().catch(error => {
+lintEverything().catch((error) => {
   process.exitCode = 1;
   console.error(error);
 });

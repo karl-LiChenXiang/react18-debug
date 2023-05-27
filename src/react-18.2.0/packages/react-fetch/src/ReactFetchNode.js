@@ -32,8 +32,8 @@ type FetchResponse = {|
 function nodeFetch(
   url: string,
   options: mixed,
-  onResolve: any => void,
-  onReject: any => void,
+  onResolve: (any) => void,
+  onReject: (any) => void,
 ): void {
   const {hostname, pathname, search, port, protocol} = new URL(url);
   const nodeOptions = {
@@ -43,11 +43,11 @@ function nodeFetch(
     // TODO: cherry-pick supported user-passed options.
   };
   const nodeImpl = protocol === 'https:' ? https : http;
-  const request = nodeImpl.request(nodeOptions, response => {
+  const request = nodeImpl.request(nodeOptions, (response) => {
     // TODO: support redirects.
     onResolve(new Response(response));
   });
-  request.on('error', error => {
+  request.on('error', (error) => {
     onReject(error);
   });
   request.end();
@@ -120,7 +120,7 @@ function Response(nativeResponse) {
     },
   });
   const data = [];
-  nativeResponse.on('data', chunk => data.push(chunk));
+  nativeResponse.on('data', (chunk) => data.push(chunk));
   nativeResponse.on('end', () => {
     if (bufferRecord.status === Pending) {
       const resolvedRecord = ((bufferRecord: any): ResolvedRecord<Buffer>);
@@ -129,7 +129,7 @@ function Response(nativeResponse) {
       wake();
     }
   });
-  nativeResponse.on('error', err => {
+  nativeResponse.on('error', (err) => {
     if (bufferRecord.status === Pending) {
       const rejectedRecord = ((bufferRecord: any): RejectedRecord);
       rejectedRecord.status = Rejected;
@@ -201,15 +201,16 @@ function preloadRecord(url: string, options: mixed): Record<FetchResponse> {
     nodeFetch(
       url,
       options,
-      response => {
+      (response) => {
         if (newRecord.status === Pending) {
-          const resolvedRecord = ((newRecord: any): ResolvedRecord<FetchResponse>);
+          const resolvedRecord =
+            ((newRecord: any): ResolvedRecord<FetchResponse>);
           resolvedRecord.status = Resolved;
           resolvedRecord.value = response;
           wake();
         }
       },
-      err => {
+      (err) => {
         if (newRecord.status === Pending) {
           const rejectedRecord = ((newRecord: any): RejectedRecord);
           rejectedRecord.status = Rejected;

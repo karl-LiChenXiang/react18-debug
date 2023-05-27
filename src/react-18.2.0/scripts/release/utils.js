@@ -33,7 +33,7 @@ const addDefaultParamValue = (optionalShortName, longName, defaultValue) => {
   }
 };
 
-const confirm = async message => {
+const confirm = async (message) => {
   const confirmation = await prompt(theme`\n{caution ${message}} (y/N) `);
   prompt.done();
   if (confirmation !== 'y' && confirmation !== 'Y') {
@@ -48,7 +48,7 @@ const execRead = async (command, options) => {
   return stdout.trim();
 };
 
-const extractCommitFromVersionNumber = version => {
+const extractCommitFromVersionNumber = (version) => {
   // Support stable version format e.g. "0.0.0-0e526bcec-20210202"
   // and experimental version format e.g. "0.0.0-experimental-0e526bcec-20210202"
   const match = version.match(/0\.0\.0\-([a-z]+\-){0,1}([^-]+).+/);
@@ -58,7 +58,7 @@ const extractCommitFromVersionNumber = version => {
   return match[2];
 };
 
-const getArtifactsList = async buildID => {
+const getArtifactsList = async (buildID) => {
   const jobArtifactsURL = `https://circleci.com/api/v1.1/project/github/facebook/react/${buildID}/artifacts`;
   const jobArtifacts = await http.get(jobArtifactsURL, true);
   return jobArtifacts;
@@ -97,7 +97,7 @@ const getBuildInfo = async () => {
   return {branch, buildNumber, checksum, commit, reactVersion, version};
 };
 
-const getChecksumForCurrentRevision = async cwd => {
+const getChecksumForCurrentRevision = async (cwd) => {
   const packagesDir = join(cwd, 'packages');
   const hashedPackages = await hashElement(packagesDir, {
     encoding: 'hex',
@@ -106,7 +106,7 @@ const getChecksumForCurrentRevision = async cwd => {
   return hashedPackages.hash.slice(0, 7);
 };
 
-const getDateStringForCommit = async commit => {
+const getDateStringForCommit = async (commit) => {
   let dateString = await execRead(
     `git show -s --no-show-signature --format=%cd --date=format:%Y%m%d ${commit}`
   );
@@ -148,7 +148,7 @@ const getCommitFromCurrentBuild = async () => {
   }
 };
 
-const getPublicPackages = isExperimental => {
+const getPublicPackages = (isExperimental) => {
   const packageNames = Object.keys(stablePackages);
   if (isExperimental) {
     packageNames.push(...experimentalPackages);
@@ -156,7 +156,7 @@ const getPublicPackages = isExperimental => {
   return packageNames;
 };
 
-const handleError = error => {
+const handleError = (error) => {
   logUpdate.clear();
 
   const message = error.message.trim().replace(/\n +/g, '\n');
@@ -191,14 +191,14 @@ const printDiff = (path, beforeContents, afterContents) => {
           return null;
       }
     })
-    .filter(line => line);
+    .filter((line) => line);
   console.log(coloredLines.join('\n'));
   return patch;
 };
 
 // Convert an array param (expected format "--foo bar baz")
 // to also accept comma input (e.g. "--foo bar,baz")
-const splitCommaParams = array => {
+const splitCommaParams = (array) => {
   for (let i = array.length - 1; i >= 0; i--) {
     const param = array[i];
     if (param.includes(',')) {

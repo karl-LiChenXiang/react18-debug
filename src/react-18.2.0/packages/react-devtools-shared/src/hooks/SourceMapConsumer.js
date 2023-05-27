@@ -29,7 +29,7 @@ type ResultPosition = {|
 |};
 
 export type SourceMapConsumerType = {|
-  originalPositionFor: SearchPosition => ResultPosition,
+  originalPositionFor: (SearchPosition) => ResultPosition,
 |};
 
 type Mappings = Array<Array<Array<number>>>;
@@ -153,7 +153,7 @@ function IndexedSourceMapConsumer(sourceMapJSON: IndexSourceMap) {
     column: 0,
   };
 
-  const sections: Array<Section> = sourceMapJSON.sections.map(section => {
+  const sections: Array<Section> = sourceMapJSON.sections.map((section) => {
     const offset = section.offset;
     const offsetLine = offset.line;
     const offsetColumn = offset.column;

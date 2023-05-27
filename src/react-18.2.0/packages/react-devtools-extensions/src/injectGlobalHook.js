@@ -39,7 +39,7 @@ window.addEventListener('message', function onMessage({data, source}) {
       if (data.payload?.type === 'fetch-file-with-cache') {
         const url = data.payload.url;
 
-        const reject = value => {
+        const reject = (value) => {
           chrome.runtime.sendMessage({
             source: 'react-devtools-content-script',
             payload: {
@@ -50,7 +50,7 @@ window.addEventListener('message', function onMessage({data, source}) {
           });
         };
 
-        const resolve = value => {
+        const resolve = (value) => {
           chrome.runtime.sendMessage({
             source: 'react-devtools-content-script',
             payload: {
@@ -62,17 +62,17 @@ window.addEventListener('message', function onMessage({data, source}) {
         };
 
         fetch(url, {cache: 'force-cache'}).then(
-          response => {
+          (response) => {
             if (response.ok) {
               response
                 .text()
-                .then(text => resolve(text))
-                .catch(error => reject(null));
+                .then((text) => resolve(text))
+                .catch((error) => reject(null));
             } else {
               reject(null);
             }
           },
-          error => reject(null),
+          (error) => reject(null),
         );
       }
       break;
@@ -89,7 +89,7 @@ window.addEventListener('message', function onMessage({data, source}) {
 // while navigating the history to a document that has not been destroyed yet,
 // replay the last detection result if the content script is active and the
 // document has been hidden and shown again.
-window.addEventListener('pageshow', function({target}) {
+window.addEventListener('pageshow', function ({target}) {
   if (!lastDetectionResult || target !== window.document) {
     return;
   }
@@ -122,7 +122,7 @@ if (sessionStorageGetItem(SESSION_STORAGE_RELOAD_AND_PROFILE_KEY) === 'true') {
   // There are very few ways to actually do this.
   // This seems to be the best approach.
   const request = new XMLHttpRequest();
-  request.addEventListener('load', function() {
+  request.addEventListener('load', function () {
     rendererCode = this.responseText;
   });
   request.open('GET', rendererURL, false);
@@ -152,7 +152,7 @@ switch (document.contentType) {
 if (typeof exportFunction === 'function') {
   // eslint-disable-next-line no-undef
   exportFunction(
-    text => {
+    (text) => {
       // Call clipboard.writeText from the extension content script
       // (as it has the clipboardWrite permission) and return a Promise
       // accessible to the webpage js code.

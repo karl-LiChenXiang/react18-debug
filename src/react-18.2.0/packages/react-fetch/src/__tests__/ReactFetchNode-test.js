@@ -17,7 +17,7 @@ describe('ReactFetchNode', () => {
   let serverEndpoint;
   let serverImpl;
 
-  beforeEach(done => {
+  beforeEach((done) => {
     jest.resetModules();
 
     fetch = require('react-fetch').fetch;
@@ -34,7 +34,7 @@ describe('ReactFetchNode', () => {
     });
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     server.close(done);
     server = null;
   });

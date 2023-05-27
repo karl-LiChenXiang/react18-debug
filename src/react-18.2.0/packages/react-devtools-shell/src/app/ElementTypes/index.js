@@ -59,7 +59,7 @@ export default function ElementTypes() {
     <Profiler id="test" onRender={() => {}}>
       <Fragment>
         <Context.Provider value={'def'}>
-          <Context.Consumer>{value => null}</Context.Consumer>
+          <Context.Consumer>{(value) => null}</Context.Consumer>
         </Context.Provider>
         <StrictMode>
           <Cache>

@@ -74,10 +74,7 @@ export default class ErrorBoundary extends Component<Props, State> {
       typeof error === 'object' &&
       error !== null &&
       typeof error.stack === 'string'
-        ? error.stack
-            .split('\n')
-            .slice(1)
-            .join('\n')
+        ? error.stack.split('\n').slice(1).join('\n')
         : null;
 
     return {
@@ -185,7 +182,8 @@ export default class ErrorBoundary extends Component<Props, State> {
             dismissError={
               canDismissProp || canDismissState ? this._dismissError : null
             }
-            errorMessage={errorMessage}>
+            errorMessage={errorMessage}
+          >
             <Suspense fallback={<SearchingGitHubIssues />}>
               <SuspendingErrorView
                 callStack={callStack}

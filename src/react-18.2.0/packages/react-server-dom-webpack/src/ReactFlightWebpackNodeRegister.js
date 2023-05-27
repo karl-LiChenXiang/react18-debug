@@ -15,7 +15,7 @@ const Module = require('module');
 module.exports = function register() {
   const MODULE_REFERENCE = Symbol.for('react.module.reference');
   const proxyHandlers = {
-    get: function(target, name, receiver) {
+    get: function (target, name, receiver) {
       switch (name) {
         // These names are read by the Flight runtime if you end up using the exports object.
         case '$$typeof':
@@ -52,12 +52,12 @@ module.exports = function register() {
       }
       return cachedReference;
     },
-    set: function() {
+    set: function () {
       throw new Error('Cannot assign to a client module from a server module.');
     },
   };
 
-  (require: any).extensions['.client.js'] = function(module, path) {
+  (require: any).extensions['.client.js'] = function (module, path) {
     const moduleId = url.pathToFileURL(path).href;
     const moduleReference: {[string]: any} = {
       $$typeof: MODULE_REFERENCE,
@@ -69,7 +69,7 @@ module.exports = function register() {
 
   const originalResolveFilename = Module._resolveFilename;
 
-  Module._resolveFilename = function(request, parent, isMain, options) {
+  Module._resolveFilename = function (request, parent, isMain, options) {
     const resolved = originalResolveFilename.apply(this, arguments);
     if (resolved.endsWith('.server.js')) {
       if (

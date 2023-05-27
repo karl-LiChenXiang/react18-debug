@@ -39,10 +39,10 @@ if (isChrome || isEdge) {
     // The polyfill is based on https://gist.github.com/jalbam/5fe05443270fa6d8136238ec72accbc0
     const FRAME_TIME = 16;
     let lastTime = 0;
-    window.requestAnimationFrame = function(callback, element) {
+    window.requestAnimationFrame = function (callback, element) {
       const now = window.performance.now();
       const nextTime = Math.max(lastTime + FRAME_TIME, now);
-      return setTimeout(function() {
+      return setTimeout(function () {
         callback((lastTime = nextTime));
       }, nextTime - now);
     };
@@ -91,7 +91,7 @@ function createPanelIfReactLoaded() {
 
   chrome.devtools.inspectedWindow.eval(
     'window.__REACT_DEVTOOLS_GLOBAL_HOOK__ && window.__REACT_DEVTOOLS_GLOBAL_HOOK__.renderers.size > 0',
-    function(pageHasReact, error) {
+    function (pageHasReact, error) {
       if (!pageHasReact || panelCreated) {
         return;
       }
@@ -126,7 +126,7 @@ function createPanelIfReactLoaded() {
 
         bridge = new Bridge({
           listen(fn) {
-            const listener = message => fn(message);
+            const listener = (message) => fn(message);
             // Store the reference so that we unsubscribe from the same object.
             const portOnMessage = port.onMessage;
             portOnMessage.addListener(listener);
@@ -189,7 +189,7 @@ function createPanelIfReactLoaded() {
         // Otherwise the Store may miss important initial tree op codes.
         chrome.devtools.inspectedWindow.eval(
           `window.postMessage({ source: 'react-devtools-inject-backend' }, '*');`,
-          function(response, evalError) {
+          function (response, evalError) {
             if (evalError) {
               console.error(evalError);
             }
@@ -215,7 +215,7 @@ function createPanelIfReactLoaded() {
           }
         };
 
-        const viewElementSourceFunction = id => {
+        const viewElementSourceFunction = (id) => {
           const rendererID = store.getRendererIDForElement(id);
           if (rendererID != null) {
             // Ask the renderer interface to determine the component function,
@@ -261,7 +261,7 @@ function createPanelIfReactLoaded() {
               console.log(`[main] fetchFromNetworkCache(${debugID})`, url);
             }
 
-            chrome.devtools.network.getHAR(harLog => {
+            chrome.devtools.network.getHAR((harLog) => {
               for (let i = 0; i < harLog.entries.length; i++) {
                 const entry = harLog.entries[i];
                 if (url === entry.request.url) {
@@ -272,7 +272,7 @@ function createPanelIfReactLoaded() {
                     );
                   }
 
-                  entry.getContent(content => {
+                  entry.getContent((content) => {
                     if (content) {
                       if (__DEBUG__) {
                         console.log(
@@ -346,7 +346,7 @@ function createPanelIfReactLoaded() {
           // for resources that have already been loaded by the page.
           // This helper function allows the extension to request files to be fetched
           // by the content script (running in the page) to increase the likelihood of a cache hit.
-          fetchFileWithCaching = url => {
+          fetchFileWithCaching = (url) => {
             return new Promise((resolve, reject) => {
               // Try fetching from the Network cache first.
               // If DevTools was opened after the page started loading, we may have missed some requests.
@@ -460,8 +460,8 @@ function createPanelIfReactLoaded() {
         isChrome ? '⚛️ Components' : 'Components',
         '',
         'panel.html',
-        extensionPanel => {
-          extensionPanel.onShown.addListener(panel => {
+        (extensionPanel) => {
+          extensionPanel.onShown.addListener((panel) => {
             if (needsToSyncElementSelection) {
               needsToSyncElementSelection = false;
               bridge.send('syncSelectionFromNativeElementsPanel');
@@ -481,7 +481,7 @@ function createPanelIfReactLoaded() {
               logEvent({event_name: 'selected-components-tab'});
             }
           });
-          extensionPanel.onHidden.addListener(panel => {
+          extensionPanel.onHidden.addListener((panel) => {
             // TODO: Stop highlighting and stuff.
           });
         },
@@ -491,8 +491,8 @@ function createPanelIfReactLoaded() {
         isChrome ? '⚛️ Profiler' : 'Profiler',
         '',
         'panel.html',
-        extensionPanel => {
-          extensionPanel.onShown.addListener(panel => {
+        (extensionPanel) => {
+          extensionPanel.onShown.addListener((panel) => {
             if (currentPanel === panel) {
               return;
             }
@@ -538,7 +538,7 @@ chrome.devtools.network.onNavigated.addListener(checkPageForReact);
 
 // Check to see if React has loaded once per second in case React is added
 // after page load
-const loadCheckInterval = setInterval(function() {
+const loadCheckInterval = setInterval(function () {
   createPanelIfReactLoaded();
 }, 1000);
 

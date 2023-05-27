@@ -132,7 +132,7 @@ export function useCanvasInteraction(
       };
     }
 
-    const onCanvasClick: MouseEventHandler = event => {
+    const onCanvasClick: MouseEventHandler = (event) => {
       if (didMouseMoveWhileDownRef.current) {
         return;
       }
@@ -146,7 +146,7 @@ export function useCanvasInteraction(
       });
     };
 
-    const onCanvasDoubleClick: MouseEventHandler = event => {
+    const onCanvasDoubleClick: MouseEventHandler = (event) => {
       if (didMouseMoveWhileDownRef.current) {
         return;
       }
@@ -160,7 +160,7 @@ export function useCanvasInteraction(
       });
     };
 
-    const onCanvasMouseDown: MouseEventHandler = event => {
+    const onCanvasMouseDown: MouseEventHandler = (event) => {
       didMouseMoveWhileDownRef.current = false;
       isMouseDownRef.current = true;
 
@@ -173,7 +173,7 @@ export function useCanvasInteraction(
       });
     };
 
-    const onDocumentMouseMove: MouseEventHandler = event => {
+    const onDocumentMouseMove: MouseEventHandler = (event) => {
       if (isMouseDownRef.current) {
         didMouseMoveWhileDownRef.current = true;
       }
@@ -187,7 +187,7 @@ export function useCanvasInteraction(
       });
     };
 
-    const onDocumentMouseUp: MouseEventHandler = event => {
+    const onDocumentMouseUp: MouseEventHandler = (event) => {
       isMouseDownRef.current = false;
 
       interactor({
@@ -199,7 +199,7 @@ export function useCanvasInteraction(
       });
     };
 
-    const onCanvasWheel: WheelEventHandler = event => {
+    const onCanvasWheel: WheelEventHandler = (event) => {
       event.preventDefault();
       event.stopPropagation();
 

@@ -89,7 +89,7 @@ function row(result) {
   return `| ${result.path} | **${change(result.change)}** | ${kbs(result.baseSize)} | ${kbs(result.headSize)} | ${change(result.changeGzip)} | ${kbs(result.baseSizeGzip)} | ${kbs(result.headSizeGzip)}`;
 }
 
-(async function() {
+(async function () {
   // Use git locally to grab the commit which represents the place
   // where the branches differ
 
@@ -120,7 +120,9 @@ function row(result) {
     ...danger.git.modified_files,
   ];
   if (
-    commitFiles.every(filename => filename.includes('packages/react-devtools'))
+    commitFiles.every((filename) =>
+      filename.includes('packages/react-devtools')
+    )
   )
     return;
 
@@ -233,8 +235,9 @@ Comparing: ${baseSha}...${headSha}
 
 ## Critical size changes
 
-Includes critical production bundles, as well as any change greater than ${CRITICAL_THRESHOLD *
-    100}%:
+Includes critical production bundles, as well as any change greater than ${
+    CRITICAL_THRESHOLD * 100
+  }%:
 
 ${header}
 ${criticalResults.join('\n')}

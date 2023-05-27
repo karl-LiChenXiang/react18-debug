@@ -74,7 +74,7 @@ function traceUpdates(nodes: Set<NativeType>): void {
     return;
   }
 
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     const data = nodeToData.get(node);
     const now = getCurrentTime();
 

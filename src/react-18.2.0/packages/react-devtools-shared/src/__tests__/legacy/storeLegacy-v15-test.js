@@ -765,7 +765,7 @@ describe('Store (legacy)', () => {
         );
 
       let ref = null;
-      const refSetter = value => {
+      const refSetter = (value) => {
         ref = value;
       };
 

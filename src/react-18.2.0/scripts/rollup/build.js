@@ -34,7 +34,7 @@ const __EXPERIMENTAL__ =
 
 // Errors in promises should be fatal.
 let loggedErrors = new Set();
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   if (loggedErrors.has(err)) {
     // No need to print it twice.
     process.exit(1);
@@ -408,7 +408,7 @@ function getPlugins(
       getSize: (size, gzip) => {
         const currentSizes = Stats.currentBuildResults.bundleSizes;
         const recordIndex = currentSizes.findIndex(
-          record =>
+          (record) =>
             record.filename === filename && record.bundleType === bundleType
         );
         const index = recordIndex !== -1 ? recordIndex : currentSizes.length;
@@ -431,7 +431,7 @@ function shouldSkipBundle(bundle, bundleType) {
   }
   if (requestedBundleTypes.length > 0) {
     const isAskingForDifferentType = requestedBundleTypes.every(
-      requestedType => bundleType.indexOf(requestedType) === -1
+      (requestedType) => bundleType.indexOf(requestedType) === -1
     );
     if (isAskingForDifferentType) {
       return true;
@@ -444,7 +444,7 @@ function shouldSkipBundle(bundle, bundleType) {
     // search.
     const entryLowerCase = bundle.entry.toLowerCase() + '/index.js';
     const isAskingForDifferentNames = requestedBundleNames.every(
-      requestedName => {
+      (requestedName) => {
         const matchEntry = entryLowerCase.indexOf(requestedName) !== -1;
         if (!bundle.name) {
           return !matchEntry;
@@ -534,7 +534,7 @@ async function createBundle(bundle, bundleType) {
 
   const importSideEffects = Modules.getImportSideEffects();
   const pureExternalModules = Object.keys(importSideEffects).filter(
-    module => !importSideEffects[module]
+    (module) => !importSideEffects[module]
   );
 
   const rollupConfig = {
@@ -543,7 +543,8 @@ async function createBundle(bundle, bundleType) {
       pureExternalModules,
     },
     external(id) {
-      const containsThisModule = pkg => id === pkg || id.startsWith(pkg + '/');
+      const containsThisModule = (pkg) =>
+        id === pkg || id.startsWith(pkg + '/');
       const isProvidedByDependency = externals.some(containsThisModule);
       if (!shouldBundleDependencies && isProvidedByDependency) {
         if (id.indexOf('/src/') !== -1) {
@@ -597,7 +598,7 @@ async function createBundle(bundle, bundleType) {
   if (isWatchMode) {
     rollupConfig.output = [rollupOutputOptions];
     const watcher = rollup.watch(rollupConfig);
-    watcher.on('event', async event => {
+    watcher.on('event', async (event) => {
       switch (event.code) {
         case 'BUNDLE_START':
           console.log(`${chalk.bgYellow.black(' BUILDING ')} ${logKey}`);

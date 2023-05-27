@@ -27,7 +27,7 @@ export default function AutoSizeInput({
   value,
   ...rest
 }: Props) {
-  const onFocusWrapper = event => {
+  const onFocusWrapper = (event) => {
     const input = event.target;
     if (input !== null) {
       input.selectionStart = 0;

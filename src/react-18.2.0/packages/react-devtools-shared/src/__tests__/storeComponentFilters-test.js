@@ -295,7 +295,7 @@ describe('Store component filters', () => {
   it('should not send a bridge update if the set of enabled filters has not changed', () => {
     act(() => (store.componentFilters = [utils.createHOCFilter(true)]));
 
-    bridge.addListener('updateComponentFilters', componentFilters => {
+    bridge.addListener('updateComponentFilters', (componentFilters) => {
       throw Error('Unexpected component update');
     });
 

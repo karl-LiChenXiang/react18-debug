@@ -40,10 +40,8 @@ type ModuleLoaderFunction = () => Thenable<Module>;
 // This is intentionally a module-level Map, rather than a React-managed one.
 // Otherwise, refreshing the inspected element cache would also clear this cache.
 // Modules are static anyway.
-const moduleLoaderFunctionToModuleMap: Map<
-  ModuleLoaderFunction,
-  Module,
-> = new Map();
+const moduleLoaderFunctionToModuleMap: Map<ModuleLoaderFunction, Module> =
+  new Map();
 
 function readRecord<T>(record: Record<T>): ResolvedRecord<T> | RejectedRecord {
   if (record.status === Resolved) {
@@ -85,7 +83,7 @@ export function loadModule(moduleLoaderFunction: ModuleLoaderFunction): Module {
       }
 
       // This assumes they won't throw.
-      callbacks.forEach(callback => callback());
+      callbacks.forEach((callback) => callback());
       callbacks.clear();
     };
 
@@ -97,7 +95,7 @@ export function loadModule(moduleLoaderFunction: ModuleLoaderFunction): Module {
     let didTimeout = false;
 
     moduleLoaderFunction().then(
-      module => {
+      (module) => {
         if (__DEBUG__) {
           console.log(
             `[dynamicImportCache] loadModule("${moduleLoaderFunction.name}") then()`,
@@ -114,7 +112,7 @@ export function loadModule(moduleLoaderFunction: ModuleLoaderFunction): Module {
 
         wake();
       },
-      error => {
+      (error) => {
         if (__DEBUG__) {
           console.log(
             `[dynamicImportCache] loadModule("${moduleLoaderFunction.name}") catch()`,

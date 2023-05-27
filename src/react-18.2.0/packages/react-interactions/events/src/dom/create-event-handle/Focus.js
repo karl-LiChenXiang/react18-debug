@@ -24,12 +24,12 @@ type UseFocusOptions = {
 
 type UseFocusWithinOptions = {
   disabled?: boolean,
-  onAfterBlurWithin?: FocusEvent => void,
-  onBeforeBlurWithin?: FocusEvent => void,
-  onBlurWithin?: FocusEvent => void,
-  onFocusWithin?: FocusEvent => void,
-  onFocusWithinChange?: boolean => void,
-  onFocusWithinVisibleChange?: boolean => void,
+  onAfterBlurWithin?: (FocusEvent) => void,
+  onBeforeBlurWithin?: (FocusEvent) => void,
+  onBlurWithin?: (FocusEvent) => void,
+  onFocusWithin?: (FocusEvent) => void,
+  onFocusWithinChange?: (boolean) => void,
+  onFocusWithinVisibleChange?: (boolean) => void,
 };
 
 const isMac =
@@ -57,7 +57,7 @@ let isGlobalFocusVisible = true;
 let hasTrackedGlobalFocusVisible = false;
 
 function trackGlobalFocusVisible() {
-  globalFocusVisibleEvents.forEach(type => {
+  globalFocusVisibleEvents.forEach((type) => {
     window.addEventListener(type, handleGlobalFocusVisibleEvent, true);
   });
 }
@@ -129,8 +129,8 @@ function setFocusVisibleListeners(
   focusTarget: EventTarget,
   callback,
 ) {
-  focusVisibleHandles.forEach(focusVisibleHandle => {
-    focusVisibleHandle.setListener(focusTarget, event =>
+  focusVisibleHandles.forEach((focusVisibleHandle) => {
+    focusVisibleHandle.setListener(focusTarget, (event) =>
       handleFocusVisibleTargetEvents(event, callback),
     );
   });
@@ -180,7 +180,7 @@ export function useFocus(
       setFocusVisibleListeners(
         focusVisibleHandles,
         focusTarget,
-        isFocusVisible => {
+        (isFocusVisible) => {
           if (state.isFocused && state.isFocusVisible !== isFocusVisible) {
             state.isFocusVisible = isFocusVisible;
             if (onFocusVisibleChange) {
@@ -287,7 +287,7 @@ export function useFocusWithin<T>(
           focusVisibleHandles,
           // $FlowFixMe focusWithinTarget is not null here
           focusWithinTarget,
-          isFocusVisible => {
+          (isFocusVisible) => {
             if (state.isFocused && state.isFocusVisible !== isFocusVisible) {
               state.isFocusVisible = isFocusVisible;
               if (onFocusWithinVisibleChange) {

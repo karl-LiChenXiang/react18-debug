@@ -47,7 +47,7 @@ export default function InspectedElementStyleXPlugin({
       <div className={sharedStyles.HeaderRow}>
         <div className={sharedStyles.Header}>stylex</div>
       </div>
-      {sources.map(source => (
+      {sources.map((source) => (
         <div key={source} className={styles.Source}>
           {source}
         </div>

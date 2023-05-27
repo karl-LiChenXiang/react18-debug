@@ -101,7 +101,7 @@ export function inspectElement(
 
     const wake = () => {
       // This assumes they won't throw.
-      callbacks.forEach(callback => callback());
+      callbacks.forEach((callback) => callback());
       callbacks.clear();
     };
     const newRecord: Record<InspectedElementFrontend> = (record = {
@@ -129,14 +129,15 @@ export function inspectElement(
       rendererID: ((rendererID: any): number),
     }).then(
       ([inspectedElement: InspectedElementFrontend]) => {
-        const resolvedRecord = ((newRecord: any): ResolvedRecord<InspectedElementFrontend>);
+        const resolvedRecord =
+          ((newRecord: any): ResolvedRecord<InspectedElementFrontend>);
         resolvedRecord.status = Resolved;
         resolvedRecord.value = inspectedElement;
 
         wake();
       },
 
-      error => {
+      (error) => {
         console.error(error);
 
         const rejectedRecord = ((newRecord: any): RejectedRecord);
@@ -197,7 +198,7 @@ export function checkForUpdate({
 
       // There isn't much to do about errors in this case,
       // but we should at least log them so they aren't silent.
-      error => {
+      (error) => {
         console.error(error);
       },
     );

@@ -9,4 +9,3 @@
 'use strict';
 
 /*:: export type ErrorMap = { [id: string]: string, ... }; */
-

@@ -47,10 +47,10 @@ describe('TreeListContext', () => {
     ReactDOM = require('react-dom');
     TestRenderer = utils.requireTestRenderer();
 
-    BridgeContext = require('react-devtools-shared/src/devtools/views/context')
-      .BridgeContext;
-    StoreContext = require('react-devtools-shared/src/devtools/views/context')
-      .StoreContext;
+    BridgeContext =
+      require('react-devtools-shared/src/devtools/views/context').BridgeContext;
+    StoreContext =
+      require('react-devtools-shared/src/devtools/views/context').StoreContext;
     TreeContext = require('react-devtools-shared/src/devtools/views/Components/TreeContext');
   });
 
@@ -387,8 +387,8 @@ describe('TreeListContext', () => {
     });
 
     it('should clear selection if the selected element is unmounted', async () => {
-      const Grandparent = props => props.children || null;
-      const Parent = props => props.children || null;
+      const Grandparent = (props) => props.children || null;
+      const Parent = (props) => props.children || null;
       const Child = () => null;
 
       const container = document.createElement('div');
@@ -1326,7 +1326,7 @@ describe('TreeListContext', () => {
     });
 
     it('should exit the owners list if the current owner is unmounted', async () => {
-      const Parent = props => props.children || null;
+      const Parent = (props) => props.children || null;
       const Child = () => null;
 
       const container = document.createElement('div');

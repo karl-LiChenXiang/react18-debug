@@ -93,39 +93,29 @@ function SettingsContextController({
     'React::DevTools::theme',
     'auto',
   );
-  const [
-    appendComponentStack,
-    setAppendComponentStack,
-  ] = useLocalStorage<boolean>(LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY, true);
-  const [
-    breakOnConsoleErrors,
-    setBreakOnConsoleErrors,
-  ] = useLocalStorage<boolean>(
-    LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS,
-    false,
-  );
+  const [appendComponentStack, setAppendComponentStack] =
+    useLocalStorage<boolean>(LOCAL_STORAGE_SHOULD_PATCH_CONSOLE_KEY, true);
+  const [breakOnConsoleErrors, setBreakOnConsoleErrors] =
+    useLocalStorage<boolean>(
+      LOCAL_STORAGE_SHOULD_BREAK_ON_CONSOLE_ERRORS,
+      false,
+    );
   const [parseHookNames, setParseHookNames] = useLocalStorage<boolean>(
     LOCAL_STORAGE_PARSE_HOOK_NAMES_KEY,
     false,
   );
-  const [
-    hideConsoleLogsInStrictMode,
-    sethideConsoleLogsInStrictMode,
-  ] = useLocalStorage<boolean>(
-    LOCAL_STORAGE_HIDE_CONSOLE_LOGS_IN_STRICT_MODE,
-    false,
-  );
-  const [
-    showInlineWarningsAndErrors,
-    setShowInlineWarningsAndErrors,
-  ] = useLocalStorage<boolean>(
-    LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY,
-    true,
-  );
-  const [
-    traceUpdatesEnabled,
-    setTraceUpdatesEnabled,
-  ] = useLocalStorage<boolean>(LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY, false);
+  const [hideConsoleLogsInStrictMode, sethideConsoleLogsInStrictMode] =
+    useLocalStorage<boolean>(
+      LOCAL_STORAGE_HIDE_CONSOLE_LOGS_IN_STRICT_MODE,
+      false,
+    );
+  const [showInlineWarningsAndErrors, setShowInlineWarningsAndErrors] =
+    useLocalStorage<boolean>(
+      LOCAL_STORAGE_SHOW_INLINE_WARNINGS_AND_ERRORS_KEY,
+      true,
+    );
+  const [traceUpdatesEnabled, setTraceUpdatesEnabled] =
+    useLocalStorage<boolean>(LOCAL_STORAGE_TRACE_UPDATES_ENABLED_KEY, false);
 
   const documentElements = useMemo<DocumentElements>(() => {
     const array: Array<HTMLElement> = [
@@ -270,7 +260,7 @@ export function updateThemeVariables(
   // this CSS property is currently only supported in Firefox,
   // but it makes a significant UI improvement in dark mode.
   // https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
-  documentElements.forEach(documentElement => {
+  documentElements.forEach((documentElement) => {
     // $FlowFixMe scrollbarColor is missing in CSSStyleDeclaration
     documentElement.style.scrollbarColor = `var(${`--${theme}-color-scroll-thumb`}) var(${`--${theme}-color-scroll-track`})`;
   });

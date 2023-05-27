@@ -15,7 +15,7 @@ const errorMap = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../error-codes/codes.json'))
 );
 const errorMessages = new Set();
-Object.keys(errorMap).forEach(key => errorMessages.add(errorMap[key]));
+Object.keys(errorMap).forEach((key) => errorMessages.add(errorMap[key]));
 
 function nodeToErrorTemplate(node) {
   if (node.type === 'Literal' && typeof node.value === 'string') {

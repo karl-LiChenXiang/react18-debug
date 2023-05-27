@@ -41,7 +41,8 @@ export default function InspectHostNodesToggle() {
     <Toggle
       onChange={handleChange}
       isChecked={isInspecting}
-      title="Select an element in the page to inspect it">
+      title="Select an element in the page to inspect it"
+    >
       <ButtonIcon type="search" />
     </Toggle>
   );

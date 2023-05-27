@@ -18,7 +18,7 @@ import {
 export default function CannotSuspendWarningMessage() {
   const store = useContext(StoreContext);
   const areSuspenseElementsHidden = !!store.componentFilters.find(
-    filter =>
+    (filter) =>
       filter.type === ComponentFilterElementType &&
       filter.value === ElementTypeSuspense &&
       filter.isEnabled,

@@ -89,7 +89,7 @@ export function dispatchEvent(
     }
   }
 
-  batchedUpdates(function() {
+  batchedUpdates(function () {
     // Emit event to the RawEventEmitter. This is an unused-by-default EventEmitter
     // that can be used to instrument event performance monitoring (primarily - could be useful
     // for other things too).

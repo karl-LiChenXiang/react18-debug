@@ -178,7 +178,7 @@ export default class Overlay {
 
   remove() {
     this.tip.remove();
-    this.rects.forEach(rect => {
+    this.rects.forEach((rect) => {
       rect.remove();
     });
     this.rects.length = 0;
@@ -190,7 +190,9 @@ export default class Overlay {
   inspect(nodes: Array<HTMLElement>, name?: ?string) {
     // We can't get the size of text nodes or comment nodes. React as of v15
     // heavily uses comment nodes to delimit text.
-    const elements = nodes.filter(node => node.nodeType === Node.ELEMENT_NODE);
+    const elements = nodes.filter(
+      (node) => node.nodeType === Node.ELEMENT_NODE,
+    );
 
     while (this.rects.length > elements.length) {
       const rect = this.rects.pop();
@@ -233,9 +235,8 @@ export default class Overlay {
       name = elements[0].nodeName.toLowerCase();
 
       const node = elements[0];
-      const rendererInterface = this.agent.getBestMatchingRendererInterface(
-        node,
-      );
+      const rendererInterface =
+        this.agent.getBestMatchingRendererInterface(node);
       if (rendererInterface) {
         const id = rendererInterface.getFiberIDForNative(node, true);
         if (id) {

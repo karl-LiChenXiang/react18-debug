@@ -48,12 +48,8 @@ export default function InspectedElementWrapper(_: Props) {
   } = useContext(OptionsContext);
   const {dispatch: modalDialogDispatch} = useContext(ModalDialogContext);
 
-  const {
-    hookNames,
-    inspectedElement,
-    parseHookNames,
-    toggleParseHookNames,
-  } = useContext(InspectedElementContext);
+  const {hookNames, inspectedElement, parseHookNames, toggleParseHookNames} =
+    useContext(InspectedElementContext);
 
   const element =
     inspectedElementID !== null
@@ -244,7 +240,8 @@ export default function InspectedElementWrapper(_: Props) {
         href="https://fb.me/devtools-strict-mode"
         rel="noopener noreferrer"
         target="_blank"
-        title="This component is not running in StrictMode. Click to learn more.">
+        title="This component is not running in StrictMode. Click to learn more."
+      >
         <Icon type="strict-mode-non-compliant" />
       </a>
     );
@@ -271,7 +268,8 @@ export default function InspectedElementWrapper(_: Props) {
                 ? styles.StrictModeNonCompliantComponent
                 : styles.Component
             }
-            title={element.displayName}>
+            title={element.displayName}
+          >
             {element.displayName}
           </div>
         </div>
@@ -279,7 +277,8 @@ export default function InspectedElementWrapper(_: Props) {
           <Button
             className={styles.IconButton}
             onClick={onOpenInEditor}
-            title="Open in editor">
+            title="Open in editor"
+          >
             <ButtonIcon type="editor" />
           </Button>
         )}
@@ -292,7 +291,8 @@ export default function InspectedElementWrapper(_: Props) {
               isErrored
                 ? 'Clear the forced error'
                 : 'Force the selected component into an errored state'
-            }>
+            }
+          >
             <ButtonIcon type="error" />
           </Toggle>
         )}
@@ -305,7 +305,8 @@ export default function InspectedElementWrapper(_: Props) {
               isSuspended
                 ? 'Unsuspend the selected component'
                 : 'Suspend the selected component'
-            }>
+            }
+          >
             <ButtonIcon type="suspend" />
           </Toggle>
         )}
@@ -313,7 +314,8 @@ export default function InspectedElementWrapper(_: Props) {
           <Button
             className={styles.IconButton}
             onClick={highlightElement}
-            title="Inspect the matching DOM element">
+            title="Inspect the matching DOM element"
+          >
             <ButtonIcon type="view-dom" />
           </Button>
         )}
@@ -321,7 +323,8 @@ export default function InspectedElementWrapper(_: Props) {
           <Button
             className={styles.IconButton}
             onClick={logElement}
-            title="Log this component data to the console">
+            title="Log this component data to the console"
+          >
             <ButtonIcon type="log-data" />
           </Button>
         )}
@@ -330,7 +333,8 @@ export default function InspectedElementWrapper(_: Props) {
             className={styles.IconButton}
             disabled={!canViewSource}
             onClick={viewSource}
-            title="View source for this element">
+            title="View source for this element"
+          >
             <ButtonIcon type="view-source" />
           </Button>
         )}

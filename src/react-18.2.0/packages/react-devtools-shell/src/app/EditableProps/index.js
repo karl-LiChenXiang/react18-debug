@@ -37,9 +37,10 @@ type StatefulFunctionProps = {|name: string|};
 function StatefulFunction({name}: StatefulFunctionProps) {
   const [count, updateCount] = useState(0);
   const debouncedCount = useDebounce(count, 1000);
-  const handleUpdateCountClick = useCallback(() => updateCount(count + 1), [
-    count,
-  ]);
+  const handleUpdateCountClick = useCallback(
+    () => updateCount(count + 1),
+    [count],
+  );
 
   const [data, dispatch] = useReducer(reducer, initialData);
   const handleUpdateReducerClick = useCallback(
@@ -106,9 +107,10 @@ const ForwardRef = forwardRef<{|name: string|}, HTMLUListElement>(
   ({name}, ref) => {
     const [count, updateCount] = useState(0);
     const debouncedCount = useDebounce(count, 1000);
-    const handleUpdateCountClick = useCallback(() => updateCount(count + 1), [
-      count,
-    ]);
+    const handleUpdateCountClick = useCallback(
+      () => updateCount(count + 1),
+      [count],
+    );
     return (
       <ul ref={ref}>
         <li>Name: {name}</li>

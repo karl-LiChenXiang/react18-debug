@@ -28,12 +28,12 @@ async function main() {
       output: process.stdout,
     });
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       rl.question(
         `\n${chalk.yellow.bold(
           'Unstaged changes were found in repository.'
         )} Do you want to continue? (Y/n) `,
-        input => {
+        (input) => {
           switch (input.trim().toLowerCase()) {
             case '':
             case 'y':

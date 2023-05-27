@@ -18,10 +18,10 @@ let testProcess = null;
 function format(loggable) {
   return `${loggable}`
     .split('\n')
-    .filter(line => {
+    .filter((line) => {
       return line.trim() !== '';
     })
-    .map(line => `  ${line}`)
+    .map((line) => `  ${line}`)
     .join('\n');
 }
 
@@ -47,10 +47,10 @@ function buildInlinePackage() {
   logBright('Building inline packages');
 
   buildProcess = spawn('yarn', ['build'], {cwd: inlinePackagePath});
-  buildProcess.stdout.on('data', data => {
+  buildProcess.stdout.on('data', (data) => {
     logDim(data);
   });
-  buildProcess.stderr.on('data', data => {
+  buildProcess.stderr.on('data', (data) => {
     if (`${data}`.includes('Warning')) {
       logDim(data);
     } else {
@@ -59,7 +59,7 @@ function buildInlinePackage() {
       exitWithCode(1);
     }
   });
-  buildProcess.on('close', code => {
+  buildProcess.on('close', (code) => {
     logBright('Inline package built');
 
     runTestShell();
@@ -84,7 +84,7 @@ function runTestShell() {
     });
   }
 
-  serverProcess.stdout.on('data', data => {
+  serverProcess.stdout.on('data', (data) => {
     if (`${data}`.includes('Compiled successfully.')) {
       logBright('Testing shell server running');
 
@@ -93,7 +93,7 @@ function runTestShell() {
       runEndToEndTests();
     }
   });
-  serverProcess.stderr.on('data', data => {
+  serverProcess.stderr.on('data', (data) => {
     if (`${data}`.includes('EADDRINUSE')) {
       // Something is occupying this port;
       // We could kill the process and restart but probably better to prompt the user to do this.
@@ -126,14 +126,14 @@ async function runEndToEndTests() {
     });
   }
 
-  testProcess.stdout.on('data', data => {
+  testProcess.stdout.on('data', (data) => {
     // Log without formatting because Playwright applies its own formatting.
     const formatted = format(data);
     if (formatted !== '') {
       console.log(formatted);
     }
   });
-  testProcess.stderr.on('data', data => {
+  testProcess.stderr.on('data', (data) => {
     // Log without formatting because Playwright applies its own formatting.
     const formatted = format(data);
     if (formatted !== '') {
@@ -142,7 +142,7 @@ async function runEndToEndTests() {
 
     exitWithCode(1);
   });
-  testProcess.on('close', code => {
+  testProcess.on('close', (code) => {
     logBright(`Tests completed with code: ${code}`);
 
     exitWithCode(code);

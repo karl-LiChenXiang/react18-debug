@@ -29,7 +29,7 @@ describe('ReactSuspense', () => {
   function createThenable() {
     let completed = false;
     let resolve;
-    const promise = new Promise(res => {
+    const promise = new Promise((res) => {
       resolve = () => {
         completed = true;
         res();
@@ -76,7 +76,7 @@ describe('ReactSuspense', () => {
     const {promise, resolve, PromiseComp} = createThenable();
 
     let ops = [];
-    const suspenseCallback = thenables => {
+    const suspenseCallback = (thenables) => {
       ops.push(thenables);
     };
 
@@ -112,14 +112,15 @@ describe('ReactSuspense', () => {
     } = createThenable();
 
     let ops = [];
-    const suspenseCallback1 = thenables => {
+    const suspenseCallback1 = (thenables) => {
       ops.push(thenables);
     };
 
     const element = (
       <React.Suspense
         suspenseCallback={suspenseCallback1}
-        fallback={'Waiting Tier 1'}>
+        fallback={'Waiting Tier 1'}
+      >
         <PromiseComp1 />
         <PromiseComp2 />
       </React.Suspense>
@@ -150,21 +151,23 @@ describe('ReactSuspense', () => {
     const {promise, PromiseComp} = createThenable();
 
     const ops1 = [];
-    const suspenseCallback1 = thenables => {
+    const suspenseCallback1 = (thenables) => {
       ops1.push(thenables);
     };
     const ops2 = [];
-    const suspenseCallback2 = thenables => {
+    const suspenseCallback2 = (thenables) => {
       ops2.push(thenables);
     };
 
     const element = (
       <React.Suspense
         suspenseCallback={suspenseCallback1}
-        fallback={'Waiting Tier 1'}>
+        fallback={'Waiting Tier 1'}
+      >
         <React.Suspense
           suspenseCallback={suspenseCallback2}
-          fallback={'Waiting Tier 2'}>
+          fallback={'Waiting Tier 2'}
+        >
           <PromiseComp />
         </React.Suspense>
       </React.Suspense>
@@ -191,21 +194,23 @@ describe('ReactSuspense', () => {
     } = createThenable();
 
     let ops1 = [];
-    const suspenseCallback1 = thenables => {
+    const suspenseCallback1 = (thenables) => {
       ops1.push(thenables);
     };
     let ops2 = [];
-    const suspenseCallback2 = thenables => {
+    const suspenseCallback2 = (thenables) => {
       ops2.push(thenables);
     };
 
     const element = (
       <React.Suspense
         suspenseCallback={suspenseCallback1}
-        fallback={'Waiting Tier 1'}>
+        fallback={'Waiting Tier 1'}
+      >
         <React.Suspense
           suspenseCallback={suspenseCallback2}
-          fallback={'Waiting Tier 2'}>
+          fallback={'Waiting Tier 2'}
+        >
           <PromiseComp2 />
         </React.Suspense>
         <PromiseComp1 />

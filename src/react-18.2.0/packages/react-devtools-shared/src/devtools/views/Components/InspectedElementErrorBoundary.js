@@ -39,7 +39,8 @@ export default function InspectedElementErrorBoundaryWrapper({
       <ErrorBoundary
         key={selectedElementID}
         canDismiss={true}
-        onBeforeDismissCallback={handleDsmiss}>
+        onBeforeDismissCallback={handleDsmiss}
+      >
         {children}
       </ErrorBoundary>
     </div>

@@ -337,8 +337,8 @@ module.exports = {
   },
   create(context) {
     return {
-      BinaryExpression: node => plusEmptyString(context, node),
-      CallExpression: node => coerceWithStringConstructor(context, node),
+      BinaryExpression: (node) => plusEmptyString(context, node),
+      CallExpression: (node) => coerceWithStringConstructor(context, node),
     };
   },
 };

@@ -34,7 +34,7 @@ export function crawlData(
   }
 
   if (isArray(data)) {
-    data.forEach(entry => {
+    data.forEach((entry) => {
       if (entry == null) {
         return;
       }
@@ -60,7 +60,7 @@ function crawlObjectProperties(
   resolvedStyles: Object,
 ): void {
   const keys = Object.keys(entry);
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const value = entry[key];
     if (typeof value === 'string') {
       if (key === value) {

@@ -26,7 +26,7 @@ export default function HocBadges({element}: Props) {
   return (
     <div className={styles.HocBadges}>
       {hocDisplayNames !== null &&
-        hocDisplayNames.map(hocDisplayName => (
+        hocDisplayNames.map((hocDisplayName) => (
           <div key={hocDisplayName} className={styles.Badge}>
             {hocDisplayName}
           </div>

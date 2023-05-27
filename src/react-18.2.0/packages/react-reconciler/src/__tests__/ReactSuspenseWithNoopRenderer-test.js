@@ -53,7 +53,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
           const thenable = record.value;
           record.status = 'resolved';
           record.value = text;
-          thenable.pings.forEach(t => t());
+          thenable.pings.forEach((t) => t());
         }
       },
       reject(text, error) {
@@ -68,7 +68,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
           const thenable = record.value;
           record.status = 'rejected';
           record.value = error;
-          thenable.pings.forEach(t => t());
+          thenable.pings.forEach((t) => t());
         }
       },
     };
@@ -183,7 +183,8 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     return (
       <div hidden={mode === 'hidden'}>
         <React.unstable_LegacyHidden
-          mode={mode === 'hidden' ? 'unstable-defer-without-hiding' : mode}>
+          mode={mode === 'hidden' ? 'unstable-defer-without-hiding' : mode}
+        >
           {children}
         </React.unstable_LegacyHidden>
       </div>
@@ -213,7 +214,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       );
     }
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<Foo />);
       });
@@ -285,7 +286,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     expect(Scheduler).toFlushAndYield(['Foo']);
 
     // The update will suspend.
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<Foo renderBar={true} />);
       });
@@ -355,7 +356,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     ReactNoop.render(<Suspense fallback={<Text text="Loading..." />} />);
     expect(Scheduler).toFlushAndYield([]);
     // B suspends. Continue rendering the remaining siblings.
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(
           <Suspense fallback={<Text text="Loading..." />}>
@@ -437,7 +438,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     expect(Scheduler).toFlushAndYield([]);
     expect(ReactNoop.getChildren()).toEqual([]);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<App renderContent={true} />);
       });
@@ -573,7 +574,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     expect(Scheduler).toFlushAndYield([]);
     expect(ReactNoop.getChildren()).toEqual([]);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<App showA={true} showB={false} />);
       });
@@ -586,7 +587,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     // Advance React's virtual time by enough to fall into a new async bucket,
     // but not enough to expire the suspense timeout.
     ReactNoop.expire(120);
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<App showA={true} showB={true} />);
       });
@@ -669,7 +670,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
 
     // Schedule an update at several distinct expiration times
     await act(async () => {
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           root.render(<App step={1} shouldSuspend={true} />);
         });
@@ -680,7 +681,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       expect(Scheduler).toFlushAndYieldThrough(['Sibling']);
       interrupt();
 
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           root.render(<App step={2} shouldSuspend={true} />);
         });
@@ -691,7 +692,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       expect(Scheduler).toFlushAndYieldThrough(['Sibling']);
       interrupt();
 
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           root.render(<App step={3} shouldSuspend={true} />);
         });
@@ -970,7 +971,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     );
     expect(Scheduler).toFlushAndYield([]);
     expect(ReactNoop.getChildren()).toEqual([]);
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(
           <>
@@ -1041,7 +1042,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     ReactNoop.render(<Suspense fallback={<Text text="Loading..." />} />);
     expect(Scheduler).toFlushAndYield([]);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(
           <Suspense fallback={<Text text="Loading..." />}>
@@ -1860,7 +1861,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     ReactNoop.render(<Foo />);
     expect(Scheduler).toFlushAndYield(['Foo']);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<Foo renderContent={true} />);
       });
@@ -1895,7 +1896,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     await advanceTimers(500);
     // No need to rerender.
     expect(Scheduler).toFlushWithoutYielding();
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       // Since this is a transition, we never fallback.
       expect(ReactNoop.getChildren()).toEqual([]);
     } else {
@@ -1905,7 +1906,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     // Flush the promise completely
     await resolveText('A');
     // Renders successfully
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       // TODO: Why does this render Foo
       expect(Scheduler).toFlushAndYield(['Foo', 'A']);
     } else {
@@ -2032,7 +2033,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     ReactNoop.render(<Foo />);
     expect(Scheduler).toFlushAndYield(['Foo']);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<Foo renderContent={true} />);
       });
@@ -2063,7 +2064,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     // updates as way earlier in the past. This test ensures that we don't
     // use this assumption to add a very long JND.
     expect(Scheduler).toFlushWithoutYielding();
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       // Transitions never fallback.
       expect(ReactNoop.getChildren()).toEqual([]);
     } else {
@@ -2246,7 +2247,8 @@ describe('ReactSuspenseWithNoopRenderer', () => {
         <Suspense fallback={<Text text="Initial load..." />}>
           <Suspense
             unstable_avoidThisFallback={true}
-            fallback={<Text text="Updating..." />}>
+            fallback={<Text text="Updating..." />}
+          >
             <AsyncText text="A" />
             {showC ? <AsyncText text="C" /> : null}
           </Suspense>
@@ -2351,11 +2353,13 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       return (
         <Suspense
           unstable_avoidThisFallback={true}
-          fallback={<Text text="Loading A..." />}>
+          fallback={<Text text="Loading A..." />}
+        >
           <Text text="A" />
           <Suspense
             unstable_avoidThisFallback={true}
-            fallback={<Text text="Loading B..." />}>
+            fallback={<Text text="Loading B..." />}
+          >
             <AsyncText text="B" />
           </Suspense>
         </Suspense>
@@ -2384,12 +2388,14 @@ describe('ReactSuspenseWithNoopRenderer', () => {
         <Suspense fallback={<Text text="Initial load..." />}>
           <Suspense
             unstable_avoidThisFallback={true}
-            fallback={<Text text="Loading A..." />}>
+            fallback={<Text text="Loading A..." />}
+          >
             <Text text="A" />
             {showB ? (
               <Suspense
                 unstable_avoidThisFallback={true}
-                fallback={<Text text="Loading B..." />}>
+                fallback={<Text text="Loading B..." />}
+              >
                 <AsyncText text="B" />
               </Suspense>
             ) : null}
@@ -2402,7 +2408,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     expect(Scheduler).toFlushAndYield(['Foo', 'A']);
     expect(ReactNoop.getChildren()).toEqual([span('A')]);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<Foo showB={true} />);
       });
@@ -2423,7 +2429,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     Scheduler.unstable_advanceTime(600);
     await advanceTimers(600);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       // Transitions never fall back.
       expect(ReactNoop.getChildren()).toEqual([span('A')]);
     } else {
@@ -2456,7 +2462,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     expect(Scheduler).toFlushAndYield(['Foo', 'A']);
     expect(ReactNoop.getChildren()).toEqual([span('A')]);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactNoop.render(<Foo showB={true} />);
       });
@@ -2477,7 +2483,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     Scheduler.unstable_advanceTime(600);
     await advanceTimers(600);
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       // Transitions never fall back.
       expect(ReactNoop.getChildren()).toEqual([span('A')]);
     } else {
@@ -2631,7 +2637,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       class App extends React.Component {
         state = {page: 'none'};
         render() {
-          transitionToPage = page => this.setState({page});
+          transitionToPage = (page) => this.setState({page});
           const page = this.state.page;
           if (page === 'none') {
             return null;
@@ -2805,7 +2811,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       class App extends React.Component {
         state = {page: 'none'};
         render() {
-          transitionToPage = page => this.setState({page});
+          transitionToPage = (page) => this.setState({page});
           const page = this.state.page;
           if (page === 'none') {
             return null;
@@ -2877,7 +2883,8 @@ describe('ReactSuspenseWithNoopRenderer', () => {
           <Text text="Hi!" />
           <Suspense
             fallback={<Text text={'Loading ' + page + '...'} />}
-            unstable_avoidThisFallback={true}>
+            unstable_avoidThisFallback={true}
+          >
             <AsyncText text={page} />
           </Suspense>
         </Suspense>
@@ -2924,7 +2931,8 @@ describe('ReactSuspenseWithNoopRenderer', () => {
           ) : (
             <Suspense
               fallback={<Text text={'Loading ' + page + '...'} />}
-              unstable_avoidThisFallback={true}>
+              unstable_avoidThisFallback={true}
+            >
               <AsyncText text={page} />
             </Suspense>
           )}
@@ -2993,7 +3001,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
     await act(async () => {
       // Update. Since showing a fallback would hide content that's already
       // visible, it should suspend for a JND without committing.
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           root.render(<App text="First update" />);
         });
@@ -3006,7 +3014,7 @@ describe('ReactSuspenseWithNoopRenderer', () => {
       expect(root).toMatchRenderedOutput(<span prop="Initial" />);
 
       // Update again. This should also suspend for a JND.
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           root.render(<App text="Second update" />);
         });
@@ -3913,12 +3921,12 @@ describe('ReactSuspenseWithNoopRenderer', () => {
         setMirror(text);
       }
 
-      setTextWithShortTransition = value => {
+      setTextWithShortTransition = (value) => {
         startShortTransition(() => {
           setText(value);
         });
       };
-      setTextWithLongTransition = value => {
+      setTextWithLongTransition = (value) => {
         startLongTransition(() => {
           setText(value);
         });

@@ -29,7 +29,7 @@ function resolveRelatively(importee, importer) {
 let resolveCache = new Map();
 function useForks(forks) {
   let resolvedForks = new Map();
-  Object.keys(forks).forEach(srcModule => {
+  Object.keys(forks).forEach((srcModule) => {
     // Fork paths are relative to the project root. They must include the full
     // path, including the extension. We intentionally don't use Node's module
     // resolution algorithm because 1) require.resolve doesn't work with ESM

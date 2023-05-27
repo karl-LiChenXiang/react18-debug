@@ -18,7 +18,7 @@ function normalizeCodeLocInfo(str) {
   //  at Component (/path/filename.js:123:45)
   // React format:
   //    in Component (at filename.js:123)
-  return str.replace(/\n +(?:at|in) ([\S]+)[^\n]*/g, function(m, name) {
+  return str.replace(/\n +(?:at|in) ([\S]+)[^\n]*/g, function (m, name) {
     return '\n    in ' + name + ' (at **)';
   });
 }
@@ -84,7 +84,7 @@ describe('component stack', () => {
   xit('should disable the current dispatcher before shallow rendering so no effects get scheduled', () => {
     let useEffectCount = 0;
 
-    const Example = props => {
+    const Example = (props) => {
       React.useEffect(() => {
         useEffectCount++;
         expect(props).toBeDefined();

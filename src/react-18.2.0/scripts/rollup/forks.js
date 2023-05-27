@@ -138,7 +138,7 @@ const forks = Object.freeze({
     return null;
   },
 
-  './packages/shared/ReactSymbols.js': bundleType => {
+  './packages/shared/ReactSymbols.js': (bundleType) => {
     switch (bundleType) {
       case FB_WWW_DEV:
       case FB_WWW_PROD:

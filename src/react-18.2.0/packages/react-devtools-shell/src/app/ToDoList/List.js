@@ -45,7 +45,7 @@ export default function List(props: Props) {
   }, [newItemText, items, uid]);
 
   const handleKeyPress = useCallback(
-    event => {
+    (event) => {
       if (event.key === 'Enter') {
         handleClick();
       }
@@ -54,22 +54,22 @@ export default function List(props: Props) {
   );
 
   const handleChange = useCallback(
-    event => {
+    (event) => {
       setNewItemText(event.currentTarget.value);
     },
     [setNewItemText],
   );
 
   const removeItem = useCallback(
-    itemToRemove => setItems(items.filter(item => item !== itemToRemove)),
+    (itemToRemove) => setItems(items.filter((item) => item !== itemToRemove)),
     [items],
   );
 
   const toggleItem = useCallback(
-    itemToToggle => {
+    (itemToToggle) => {
       // Dont use indexOf()
       // because editing props in DevTools creates a new Object.
-      const index = items.findIndex(item => item.id === itemToToggle.id);
+      const index = items.findIndex((item) => item.id === itemToToggle.id);
 
       setItems(
         items
@@ -98,13 +98,14 @@ export default function List(props: Props) {
       <button
         className={styles.IconButton}
         disabled={newItemText === ''}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         <span role="img" aria-label="Add item">
           ➕
         </span>
       </button>
       <ul className={styles.List}>
-        {items.map(item => (
+        {items.map((item) => (
           <ListItem
             key={item.id}
             item={item}

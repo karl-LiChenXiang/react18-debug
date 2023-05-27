@@ -28,7 +28,8 @@ export default function TimelineNotSupported() {
           className={styles.Link}
           href="https://fb.me/react-devtools-profiling"
           rel="noopener noreferrer"
-          target="_blank">
+          target="_blank"
+        >
           here
         </a>{' '}
         to learn more about profiling.
@@ -41,7 +42,8 @@ export default function TimelineNotSupported() {
             className={styles.Link}
             href="https://fburl.com/react-devtools-scheduling-profiler-gk"
             rel="noopener noreferrer"
-            target="_blank">
+            target="_blank"
+          >
             react_enable_scheduling_profiler GK
           </a>
           .

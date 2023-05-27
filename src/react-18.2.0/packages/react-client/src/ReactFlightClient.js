@@ -85,7 +85,7 @@ function Chunk(status: any, value: any, response: Response) {
   this._value = value;
   this._response = response;
 }
-Chunk.prototype.then = function<T>(resolve: () => mixed) {
+Chunk.prototype.then = function <T>(resolve: () => mixed) {
   const chunk: SomeChunk<T> = this;
   if (chunk._status === PENDING) {
     if (chunk._value === null) {
@@ -227,7 +227,7 @@ function initializeModuleChunk<T>(chunk: ResolvedModuleChunk<T>): T {
 // Report that any missing chunks in the model is now going to throw this
 // error upon read. Also notify any pending promises.
 export function reportGlobalError(response: Response, error: Error): void {
-  response._chunks.forEach(chunk => {
+  response._chunks.forEach((chunk) => {
     // If this chunk was already resolved or errored, it won't
     // trigger an error but if it wasn't then we need to
     // because we won't be getting any new data to resolve it.

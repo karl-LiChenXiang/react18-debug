@@ -105,7 +105,7 @@ export default function getListeners(
     const eventListeners =
       stateNode.canonical._eventListeners[mangledImperativeRegistrationName];
 
-    eventListeners.forEach(listenerObj => {
+    eventListeners.forEach((listenerObj) => {
       // Make sure phase of listener matches requested phase
       const isCaptureEvent =
         listenerObj.options.capture != null && listenerObj.options.capture;
@@ -117,7 +117,7 @@ export default function getListeners(
       // all imperative event listeners in a function to unwrap the SyntheticEvent
       // and pass them an Event.
       // When this API is more stable and used more frequently, we can revisit.
-      const listenerFnWrapper = function(syntheticEvent, ...args) {
+      const listenerFnWrapper = function (syntheticEvent, ...args) {
         const eventInst = new CustomEvent(mangledImperativeRegistrationName, {
           detail: syntheticEvent.nativeEvent,
         });
@@ -135,7 +135,7 @@ export default function getListeners(
       // and by removing it from eventListeners once it is called (but only
       // when it's actually been executed).
       if (listenerObj.options.once) {
-        listeners.push(function(...args) {
+        listeners.push(function (...args) {
           // Remove from the event listener once it's been called
           stateNode.canonical.removeEventListener_unstable(
             mangledImperativeRegistrationName,

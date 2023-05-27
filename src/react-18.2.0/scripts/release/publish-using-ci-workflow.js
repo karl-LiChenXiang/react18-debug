@@ -15,7 +15,7 @@ if (!CIRCLE_TOKEN) {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => resolve(), ms);
   });
 }
@@ -129,7 +129,7 @@ async function main() {
   );
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error(theme.error('Failed to trigger publish workflow.'));
   console.error(error.message);
   process.exit(1);

@@ -50,7 +50,7 @@ export default function useEvent(
         clears.set(target, clear);
       },
       clear(): void {
-        clears.forEach(c => {
+        clears.forEach((c) => {
           c();
         });
         clears.clear();

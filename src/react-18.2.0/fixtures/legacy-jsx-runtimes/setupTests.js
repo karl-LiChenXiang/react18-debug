@@ -49,7 +49,7 @@ function normalizeCodeLocInfo(str) {
   //  at Component (/path/filename.js:123:45)
   // React format:
   //    in Component (at filename.js:123)
-  return str.replace(/\n +(?:at|in) ([\S]+)[^\n]*/g, function(m, name) {
+  return str.replace(/\n +(?:at|in) ([\S]+)[^\n]*/g, function (m, name) {
     return '\n    in ' + name + ' (at **)';
   });
 }
@@ -98,7 +98,7 @@ const createMatcherFor = (consoleMethod, matcherName) =>
       // and result in a test that passes when it shouldn't.
       let caughtError;
 
-      const isLikelyAComponentStack = message =>
+      const isLikelyAComponentStack = (message) =>
         typeof message === 'string' &&
         (message.includes('\n    in ') || message.includes('\n    at '));
 
@@ -225,7 +225,7 @@ const createMatcherFor = (consoleMethod, matcherName) =>
             return {
               message: () =>
                 `Expected ${withoutStack} warnings without a component stack but received ${warningsWithoutComponentStack.length}:\n` +
-                warningsWithoutComponentStack.map(warning =>
+                warningsWithoutComponentStack.map((warning) =>
                   this.utils.printReceived(warning)
                 ),
               pass: false,

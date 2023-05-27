@@ -92,7 +92,7 @@ export class View {
     if (this.superview) {
       this.superview._setSubviewsNeedDisplay();
     }
-    this.subviews.forEach(subview => subview.setNeedsDisplay());
+    this.subviews.forEach((subview) => subview.setNeedsDisplay());
   }
 
   /**
@@ -148,7 +148,7 @@ export class View {
     if (this._needsDisplay) {
       this.layoutSubviews();
     }
-    const frames = this.subviews.map(subview => subview.frame);
+    const frames = this.subviews.map((subview) => subview.frame);
     return unionOfRects(...frames).size;
   }
 
@@ -180,7 +180,7 @@ export class View {
    * Removes all subviews from this view.
    */
   removeAllSubviews() {
-    this.subviews.forEach(subview => (subview.superview = undefined));
+    this.subviews.forEach((subview) => (subview.superview = undefined));
     this.subviews = [];
   }
 
@@ -264,7 +264,7 @@ export class View {
    */
   draw(context: CanvasRenderingContext2D, viewRefs: ViewRefs) {
     const {subviews, visibleArea} = this;
-    subviews.forEach(subview => {
+    subviews.forEach((subview) => {
       if (rectIntersectsRect(visibleArea, subview.visibleArea)) {
         subview.displayIfNeeded(context, viewRefs);
       }

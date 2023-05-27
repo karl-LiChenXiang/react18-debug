@@ -23,7 +23,7 @@ export default function WarnIfLegacyBackendDetected(_: {||}) {
   // In this case the frontend should show upgrade instructions.
   useEffect(() => {
     // Wall.listen returns a cleanup function
-    let unlisten = bridge.wall.listen(message => {
+    let unlisten = bridge.wall.listen((message) => {
       switch (message.type) {
         case 'call':
         case 'event':

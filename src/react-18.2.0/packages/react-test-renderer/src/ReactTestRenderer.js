@@ -79,7 +79,7 @@ type FindOptions = $Shape<{
 export type Predicate = (node: ReactTestInstance) => ?boolean;
 
 const defaultTestOptions = {
-  createNodeMock: function() {
+  createNodeMock: function () {
     return null;
   },
 };
@@ -372,7 +372,7 @@ class ReactTestInstance {
     type: any,
     options: ?FindOptions = null,
   ): Array<ReactTestInstance> {
-    return findAll(this, node => node.type === type, options);
+    return findAll(this, (node) => node.type === type, options);
   }
 
   findAllByProps(
@@ -381,7 +381,7 @@ class ReactTestInstance {
   ): Array<ReactTestInstance> {
     return findAll(
       this,
-      node => node.props && propsMatch(node.props, props),
+      (node) => node.props && propsMatch(node.props, props),
       options,
     );
   }
@@ -402,7 +402,7 @@ function findAll(
     }
   }
 
-  root.children.forEach(child => {
+  root.children.forEach((child) => {
     if (typeof child === 'string') {
       return;
     }
@@ -562,7 +562,7 @@ function create(element: React$Element<any>, options: TestRendererOptions) {
     ({
       configurable: true,
       enumerable: true,
-      get: function() {
+      get: function () {
         if (root === null) {
           throw new Error("Can't access .root on unmounted test renderer");
         }

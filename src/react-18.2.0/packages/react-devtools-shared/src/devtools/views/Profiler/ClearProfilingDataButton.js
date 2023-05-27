@@ -39,7 +39,8 @@ export default function ClearProfilingDataButton() {
         isProfiling || !(doesHaveInMemoryData || doesHaveUserTimingData)
       }
       onClick={clear}
-      title="Clear profiling data">
+      title="Clear profiling data"
+    >
       <ButtonIcon type="clear" />
     </Button>
   );

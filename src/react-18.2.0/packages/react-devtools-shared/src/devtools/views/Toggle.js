@@ -42,17 +42,18 @@ export default function Toggle({
     defaultClassName = styles.ToggleOff;
   }
 
-  const handleClick = useCallback(() => onChange(!isChecked), [
-    isChecked,
-    onChange,
-  ]);
+  const handleClick = useCallback(
+    () => onChange(!isChecked),
+    [isChecked, onChange],
+  );
 
   let toggle = (
     <button
       className={`${defaultClassName} ${className}`}
       data-testname={testName}
       disabled={isDisabled}
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       <span className={styles.ToggleContent} tabIndex={-1}>
         {children}
       </span>

@@ -33,12 +33,12 @@ const eventListenersToClear = [];
 
 function startNativeEventListenerClearDown() {
   const nativeWindowEventListener = window.addEventListener;
-  window.addEventListener = function(...params) {
+  window.addEventListener = function (...params) {
     eventListenersToClear.push({target: window, params});
     return nativeWindowEventListener.apply(this, params);
   };
   const nativeDocumentEventListener = document.addEventListener;
-  document.addEventListener = function(...params) {
+  document.addEventListener = function (...params) {
     eventListenersToClear.push({target: document, params});
     return nativeDocumentEventListener.apply(this, params);
   };
@@ -83,7 +83,7 @@ describe('DOMPluginEventSystem', () => {
         it('does not pool events', () => {
           const buttonRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(e));
+          const onClick = jest.fn((e) => log.push(e));
 
           function Test() {
             return <button ref={buttonRef} onClick={onClick} />;
@@ -105,8 +105,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -115,11 +115,13 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 <div
                   ref={divRef}
                   onClick={onClick}
-                  onClickCapture={onClickCapture}>
+                  onClickCapture={onClickCapture}
+                >
                   Click me!
                 </div>
               </button>
@@ -184,8 +186,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const childRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -194,7 +196,8 @@ describe('DOMPluginEventSystem', () => {
               <div
                 ref={divRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 Click me!
               </div>
             );
@@ -205,7 +208,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 <div ref={childRef} />
               </button>
             );
@@ -235,8 +239,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -245,7 +249,8 @@ describe('DOMPluginEventSystem', () => {
               <div
                 ref={divRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 Click me!
               </div>
             );
@@ -289,8 +294,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const spanRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -299,7 +304,8 @@ describe('DOMPluginEventSystem', () => {
               <div
                 ref={divRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 Click me!
               </div>
             );
@@ -320,7 +326,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 <span ref={spanRef} />
               </button>
             );
@@ -376,8 +383,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -386,7 +393,8 @@ describe('DOMPluginEventSystem', () => {
               <div
                 ref={divRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 Click me!
               </div>
             );
@@ -432,8 +440,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const spanRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -442,7 +450,8 @@ describe('DOMPluginEventSystem', () => {
               <div
                 ref={divRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 Click me!
               </div>
             );
@@ -453,7 +462,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 <span ref={spanRef} />
               </button>
             );
@@ -488,8 +498,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -501,7 +511,8 @@ describe('DOMPluginEventSystem', () => {
               <div
                 ref={divRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 Click me!
               </div>
             );
@@ -512,7 +523,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 {ReactDOM.createPortal(<Child />, portalElement)}
               </button>
             );
@@ -580,7 +592,7 @@ describe('DOMPluginEventSystem', () => {
           let suspend = false;
           let resolve;
           const promise = new Promise(
-            resolvePromise => (resolve = resolvePromise),
+            (resolvePromise) => (resolve = resolvePromise),
           );
 
           let clicks = 0;
@@ -652,7 +664,7 @@ describe('DOMPluginEventSystem', () => {
 
           if (
             gate(
-              flags =>
+              (flags) =>
                 flags.enableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay,
             )
           ) {
@@ -765,8 +777,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const middleDivRef = React.createRef();
           const log = [];
-          const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onClickCapture = jest.fn(e =>
+          const onClick = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onClickCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -779,7 +791,8 @@ describe('DOMPluginEventSystem', () => {
                 <div
                   ref={divRef}
                   onClick={onClick}
-                  onClickCapture={onClickCapture}>
+                  onClickCapture={onClickCapture}
+                >
                   Click me!
                 </div>
               </div>
@@ -790,7 +803,7 @@ describe('DOMPluginEventSystem', () => {
             React.useLayoutEffect(() => {
               // This should prevent the portalElement listeners from
               // capturing the events in the bubble phase.
-              middleDivRef.current.addEventListener('click', e => {
+              middleDivRef.current.addEventListener('click', (e) => {
                 e.stopPropagation();
               });
             });
@@ -799,7 +812,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onClick={onClick}
-                onClickCapture={onClickCapture}>
+                onClickCapture={onClickCapture}
+              >
                 {ReactDOM.createPortal(<Child />, portalElement)}
               </button>
             );
@@ -826,8 +840,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onFocus = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onFocusCapture = jest.fn(e =>
+          const onFocus = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onFocusCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -836,12 +850,14 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onFocus={onFocus}
-                onFocusCapture={onFocusCapture}>
+                onFocusCapture={onFocusCapture}
+              >
                 <div
                   ref={divRef}
                   onFocus={onFocus}
                   onFocusCapture={onFocusCapture}
-                  tabIndex={0}>
+                  tabIndex={0}
+                >
                   Click me!
                 </div>
               </button>
@@ -872,8 +888,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const childRef = React.createRef();
           const log = [];
-          const onFocus = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onFocusCapture = jest.fn(e =>
+          const onFocus = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onFocusCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -883,7 +899,8 @@ describe('DOMPluginEventSystem', () => {
                 ref={divRef}
                 onFocus={onFocus}
                 onFocusCapture={onFocusCapture}
-                tabIndex={0}>
+                tabIndex={0}
+              >
                 Click me!
               </div>
             );
@@ -894,7 +911,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onFocus={onFocus}
-                onFocusCapture={onFocusCapture}>
+                onFocusCapture={onFocusCapture}
+              >
                 <div ref={childRef} />
               </button>
             );
@@ -924,8 +942,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onFocus = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onFocusCapture = jest.fn(e =>
+          const onFocus = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onFocusCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -938,7 +956,8 @@ describe('DOMPluginEventSystem', () => {
                 ref={divRef}
                 onFocus={onFocus}
                 onFocusCapture={onFocusCapture}
-                tabIndex={0}>
+                tabIndex={0}
+              >
                 Click me!
               </div>
             );
@@ -949,7 +968,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onFocus={onFocus}
-                onFocusCapture={onFocusCapture}>
+                onFocusCapture={onFocusCapture}
+              >
                 {ReactDOM.createPortal(<Child />, portalElement)}
               </button>
             );
@@ -981,8 +1001,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const middleDivRef = React.createRef();
           const log = [];
-          const onFocus = jest.fn(e => log.push(['bubble', e.currentTarget]));
-          const onFocusCapture = jest.fn(e =>
+          const onFocus = jest.fn((e) => log.push(['bubble', e.currentTarget]));
+          const onFocusCapture = jest.fn((e) =>
             log.push(['capture', e.currentTarget]),
           );
 
@@ -996,7 +1016,8 @@ describe('DOMPluginEventSystem', () => {
                   ref={divRef}
                   onFocus={onFocus}
                   onFocusCapture={onFocusCapture}
-                  tabIndex={0}>
+                  tabIndex={0}
+                >
                   Click me!
                 </div>
               </div>
@@ -1007,7 +1028,7 @@ describe('DOMPluginEventSystem', () => {
             React.useLayoutEffect(() => {
               // This should prevent the portalElement listeners from
               // capturing the events in the bubble phase.
-              middleDivRef.current.addEventListener('focusin', e => {
+              middleDivRef.current.addEventListener('focusin', (e) => {
                 e.stopPropagation();
               });
             });
@@ -1016,7 +1037,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onFocus={onFocus}
-                onFocusCapture={onFocusCapture}>
+                onFocusCapture={onFocusCapture}
+              >
                 {ReactDOM.createPortal(<Child />, portalElement)}
               </button>
             );
@@ -1043,8 +1065,8 @@ describe('DOMPluginEventSystem', () => {
           const buttonRef = React.createRef();
           const divRef = React.createRef();
           const log = [];
-          const onMouseEnter = jest.fn(e => log.push(e.currentTarget));
-          const onMouseLeave = jest.fn(e => log.push(e.currentTarget));
+          const onMouseEnter = jest.fn((e) => log.push(e.currentTarget));
+          const onMouseLeave = jest.fn((e) => log.push(e.currentTarget));
 
           const portalElement = document.createElement('div');
           document.body.appendChild(portalElement);
@@ -1064,7 +1086,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}>
+                onMouseLeave={onMouseLeave}
+              >
                 {ReactDOM.createPortal(<Child />, portalElement)}
               </button>
             );
@@ -1111,8 +1134,8 @@ describe('DOMPluginEventSystem', () => {
           const divRef = React.createRef();
           const portalRef = React.createRef();
           const log = [];
-          const onMouseEnter = jest.fn(e => log.push(e.currentTarget));
-          const onMouseLeave = jest.fn(e => log.push(e.currentTarget));
+          const onMouseEnter = jest.fn((e) => log.push(e.currentTarget));
+          const onMouseLeave = jest.fn((e) => log.push(e.currentTarget));
 
           function Child() {
             return (
@@ -1135,7 +1158,8 @@ describe('DOMPluginEventSystem', () => {
               <button
                 ref={buttonRef}
                 onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}>
+                onMouseLeave={onMouseLeave}
+              >
                 <div ref={portalRef}>{portal}</div>
               </button>
             );
@@ -1178,17 +1202,20 @@ describe('DOMPluginEventSystem', () => {
         it('should preserve bubble/capture order between roots and nested portals', () => {
           const targetRef = React.createRef();
           let log = [];
-          const onClickRoot = jest.fn(e => log.push('bubble root'));
-          const onClickCaptureRoot = jest.fn(e => log.push('capture root'));
-          const onClickPortal = jest.fn(e => log.push('bubble portal'));
-          const onClickCapturePortal = jest.fn(e => log.push('capture portal'));
+          const onClickRoot = jest.fn((e) => log.push('bubble root'));
+          const onClickCaptureRoot = jest.fn((e) => log.push('capture root'));
+          const onClickPortal = jest.fn((e) => log.push('bubble portal'));
+          const onClickCapturePortal = jest.fn((e) =>
+            log.push('capture portal'),
+          );
 
           function Portal() {
             return (
               <div
                 onClick={onClickPortal}
                 onClickCapture={onClickCapturePortal}
-                ref={targetRef}>
+                ref={targetRef}
+              >
                 Click me!
               </div>
             );
@@ -1199,7 +1226,7 @@ describe('DOMPluginEventSystem', () => {
           let shouldStopPropagation = false;
           portalContainer.addEventListener(
             'click',
-            e => {
+            (e) => {
               if (shouldStopPropagation) {
                 e.stopPropagation();
               }
@@ -1313,7 +1340,7 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly work for a basic "click" listener', () => {
             let log = [];
-            const clickEvent = jest.fn(event => {
+            const clickEvent = jest.fn((event) => {
               log.push({
                 eventPhase: event.eventPhase,
                 type: event.type,
@@ -1486,8 +1513,10 @@ describe('DOMPluginEventSystem', () => {
             const buttonRef = React.createRef();
             const divRef = React.createRef();
             const log = [];
-            const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-            const onClickCapture = jest.fn(e =>
+            const onClick = jest.fn((e) =>
+              log.push(['bubble', e.currentTarget]),
+            );
+            const onClickCapture = jest.fn((e) =>
               log.push(['capture', e.currentTarget]),
             );
             const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -1555,8 +1584,10 @@ describe('DOMPluginEventSystem', () => {
             const buttonRef = React.createRef();
             const divRef = React.createRef();
             const log = [];
-            const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-            const onClickCapture = jest.fn(e =>
+            const onClick = jest.fn((e) =>
+              log.push(['bubble', e.currentTarget]),
+            );
+            const onClickCapture = jest.fn((e) =>
               log.push(['capture', e.currentTarget]),
             );
             const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -1583,7 +1614,8 @@ describe('DOMPluginEventSystem', () => {
                   <div
                     ref={divRef}
                     onClick={onClick}
-                    onClickCapture={onClickCapture}>
+                    onClickCapture={onClickCapture}
+                  >
                     Click me!
                   </div>
                 </button>
@@ -1613,7 +1645,7 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly work for a basic "click" listener on the outer target', () => {
             const log = [];
-            const clickEvent = jest.fn(event => {
+            const clickEvent = jest.fn((event) => {
               log.push({
                 eventPhase: event.eventPhase,
                 type: event.type,
@@ -1791,7 +1823,7 @@ describe('DOMPluginEventSystem', () => {
             function Test() {
               React.useEffect(() => {
                 const clearClick1 = setClick1(buttonRef.current, clickEvent);
-                const clearClick2 = setClick2(divRef.current, e => {
+                const clearClick2 = setClick2(divRef.current, (e) => {
                   e.stopPropagation();
                 });
 
@@ -1819,10 +1851,10 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly handle stopPropagation correctly for many target events', () => {
             const buttonRef = React.createRef();
-            const targetListener1 = jest.fn(e => e.stopPropagation());
-            const targetListener2 = jest.fn(e => e.stopPropagation());
-            const targetListener3 = jest.fn(e => e.stopPropagation());
-            const targetListener4 = jest.fn(e => e.stopPropagation());
+            const targetListener1 = jest.fn((e) => e.stopPropagation());
+            const targetListener2 = jest.fn((e) => e.stopPropagation());
+            const targetListener3 = jest.fn((e) => e.stopPropagation());
+            const targetListener4 = jest.fn((e) => e.stopPropagation());
             const setClick1 = ReactDOM.unstable_createEventHandle('click');
             const setClick2 = ReactDOM.unstable_createEventHandle('click');
             const setClick3 = ReactDOM.unstable_createEventHandle('click');
@@ -1872,10 +1904,10 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly handle stopPropagation for mixed capture/bubbling target listeners', () => {
             const buttonRef = React.createRef();
-            const targetListener1 = jest.fn(e => e.stopPropagation());
-            const targetListener2 = jest.fn(e => e.stopPropagation());
-            const targetListener3 = jest.fn(e => e.stopPropagation());
-            const targetListener4 = jest.fn(e => e.stopPropagation());
+            const targetListener1 = jest.fn((e) => e.stopPropagation());
+            const targetListener2 = jest.fn((e) => e.stopPropagation());
+            const targetListener3 = jest.fn((e) => e.stopPropagation());
+            const targetListener4 = jest.fn((e) => e.stopPropagation());
             const setClick1 = ReactDOM.unstable_createEventHandle('click', {
               capture: true,
             });
@@ -1956,7 +1988,7 @@ describe('DOMPluginEventSystem', () => {
             log.length = 0;
 
             // Increase counter
-            if (gate(flags => flags.enableSyncDefaultUpdates)) {
+            if (gate((flags) => flags.enableSyncDefaultUpdates)) {
               React.startTransition(() => {
                 root.render(<Test counter={1} />);
               });
@@ -1982,7 +2014,7 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly work for a basic "click" window listener', () => {
             const log = [];
-            const clickEvent = jest.fn(event => {
+            const clickEvent = jest.fn((event) => {
               log.push({
                 eventPhase: event.eventPhase,
                 type: event.type,
@@ -2035,8 +2067,10 @@ describe('DOMPluginEventSystem', () => {
             const buttonRef = React.createRef();
             const divRef = React.createRef();
             const log = [];
-            const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-            const onClickCapture = jest.fn(e =>
+            const onClick = jest.fn((e) =>
+              log.push(['bubble', e.currentTarget]),
+            );
+            const onClickCapture = jest.fn((e) =>
               log.push(['capture', e.currentTarget]),
             );
             const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -2113,7 +2147,7 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly handle stopPropagation for mixed listeners', () => {
             const buttonRef = React.createRef();
-            const rootListener1 = jest.fn(e => e.stopPropagation());
+            const rootListener1 = jest.fn((e) => e.stopPropagation());
             const rootListener2 = jest.fn();
             const targetListener1 = jest.fn();
             const targetListener2 = jest.fn();
@@ -2164,9 +2198,9 @@ describe('DOMPluginEventSystem', () => {
           // @gate www
           it('should correctly handle stopPropagation for delegated listeners', () => {
             const buttonRef = React.createRef();
-            const rootListener1 = jest.fn(e => e.stopPropagation());
+            const rootListener1 = jest.fn((e) => e.stopPropagation());
             const rootListener2 = jest.fn();
-            const rootListener3 = jest.fn(e => e.stopPropagation());
+            const rootListener3 = jest.fn((e) => e.stopPropagation());
             const rootListener4 = jest.fn();
             const setClick1 = ReactDOM.unstable_createEventHandle('click', {
               capture: true,
@@ -2212,8 +2246,10 @@ describe('DOMPluginEventSystem', () => {
             const buttonRef = React.createRef();
             const divRef = React.createRef();
             const log = [];
-            const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-            const onClickCapture = jest.fn(e =>
+            const onClick = jest.fn((e) =>
+              log.push(['bubble', e.currentTarget]),
+            );
+            const onClickCapture = jest.fn((e) =>
               log.push(['capture', e.currentTarget]),
             );
             const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -2336,19 +2372,17 @@ describe('DOMPluginEventSystem', () => {
           it('beforeblur and afterblur are called after a focused element is unmounted', () => {
             const log = [];
             // We have to persist here because we want to read relatedTarget later.
-            const onAfterBlur = jest.fn(e => {
+            const onAfterBlur = jest.fn((e) => {
               e.persist();
               log.push(e.type);
             });
-            const onBeforeBlur = jest.fn(e => log.push(e.type));
+            const onBeforeBlur = jest.fn((e) => log.push(e.type));
             const innerRef = React.createRef();
             const innerRef2 = React.createRef();
-            const setAfterBlurHandle = ReactDOM.unstable_createEventHandle(
-              'afterblur',
-            );
-            const setBeforeBlurHandle = ReactDOM.unstable_createEventHandle(
-              'beforeblur',
-            );
+            const setAfterBlurHandle =
+              ReactDOM.unstable_createEventHandle('afterblur');
+            const setBeforeBlurHandle =
+              ReactDOM.unstable_createEventHandle('beforeblur');
 
             const Component = ({show}) => {
               const ref = React.useRef(null);
@@ -2395,19 +2429,17 @@ describe('DOMPluginEventSystem', () => {
           it('beforeblur and afterblur are called after a nested focused element is unmounted', () => {
             const log = [];
             // We have to persist here because we want to read relatedTarget later.
-            const onAfterBlur = jest.fn(e => {
+            const onAfterBlur = jest.fn((e) => {
               e.persist();
               log.push(e.type);
             });
-            const onBeforeBlur = jest.fn(e => log.push(e.type));
+            const onBeforeBlur = jest.fn((e) => log.push(e.type));
             const innerRef = React.createRef();
             const innerRef2 = React.createRef();
-            const setAfterBlurHandle = ReactDOM.unstable_createEventHandle(
-              'afterblur',
-            );
-            const setBeforeBlurHandle = ReactDOM.unstable_createEventHandle(
-              'beforeblur',
-            );
+            const setAfterBlurHandle =
+              ReactDOM.unstable_createEventHandle('afterblur');
+            const setBeforeBlurHandle =
+              ReactDOM.unstable_createEventHandle('beforeblur');
 
             const Component = ({show}) => {
               const ref = React.useRef(null);
@@ -2459,9 +2491,8 @@ describe('DOMPluginEventSystem', () => {
             const onBeforeBlur = jest.fn();
             const innerRef = React.createRef();
             const innerRef2 = React.createRef();
-            const setBeforeBlurHandle = ReactDOM.unstable_createEventHandle(
-              'beforeblur',
-            );
+            const setBeforeBlurHandle =
+              ReactDOM.unstable_createEventHandle('beforeblur');
             const ref2 = React.createRef();
 
             const Component = ({show}) => {
@@ -2512,24 +2543,22 @@ describe('DOMPluginEventSystem', () => {
           it('beforeblur and afterblur are called after a focused element is suspended', () => {
             const log = [];
             // We have to persist here because we want to read relatedTarget later.
-            const onAfterBlur = jest.fn(e => {
+            const onAfterBlur = jest.fn((e) => {
               e.persist();
               log.push(e.type);
             });
-            const onBeforeBlur = jest.fn(e => log.push(e.type));
+            const onBeforeBlur = jest.fn((e) => log.push(e.type));
             const innerRef = React.createRef();
             const Suspense = React.Suspense;
             let suspend = false;
             let resolve;
             const promise = new Promise(
-              resolvePromise => (resolve = resolvePromise),
+              (resolvePromise) => (resolve = resolvePromise),
             );
-            const setAfterBlurHandle = ReactDOM.unstable_createEventHandle(
-              'afterblur',
-            );
-            const setBeforeBlurHandle = ReactDOM.unstable_createEventHandle(
-              'beforeblur',
-            );
+            const setAfterBlurHandle =
+              ReactDOM.unstable_createEventHandle('afterblur');
+            const setBeforeBlurHandle =
+              ReactDOM.unstable_createEventHandle('beforeblur');
 
             function Child() {
               if (suspend) {
@@ -2599,15 +2628,14 @@ describe('DOMPluginEventSystem', () => {
             const onBeforeBlur = jest.fn();
             const innerRef = React.createRef();
             const innerRef2 = React.createRef();
-            const setBeforeBlurHandle = ReactDOM.unstable_createEventHandle(
-              'beforeblur',
-            );
+            const setBeforeBlurHandle =
+              ReactDOM.unstable_createEventHandle('beforeblur');
             const ref2 = React.createRef();
             const Suspense = React.Suspense;
             let suspend = false;
             let resolve;
             const promise = new Promise(
-              resolvePromise => (resolve = resolvePromise),
+              (resolvePromise) => (resolve = resolvePromise),
             );
 
             function Child() {
@@ -2680,9 +2708,8 @@ describe('DOMPluginEventSystem', () => {
             const Suspense = React.Suspense;
             let suspend = false;
             const promise = Promise.resolve();
-            const setBeforeBlurHandle = ReactDOM.unstable_createEventHandle(
-              'beforeblur',
-            );
+            const setBeforeBlurHandle =
+              ReactDOM.unstable_createEventHandle('beforeblur');
             const innerRef = React.createRef();
 
             function Child() {
@@ -2702,7 +2729,7 @@ describe('DOMPluginEventSystem', () => {
                   // the resulting render would trigger another blur event,
                   // which would trigger an update again, and on and on in an
                   // infinite loop.
-                  setState(n => n + 1);
+                  setState((n) => n + 1);
                 });
               }, []);
 
@@ -2747,8 +2774,10 @@ describe('DOMPluginEventSystem', () => {
               'click',
               {capture: true},
             );
-            const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-            const onClickCapture = jest.fn(e =>
+            const onClick = jest.fn((e) =>
+              log.push(['bubble', e.currentTarget]),
+            );
+            const onClickCapture = jest.fn((e) =>
               log.push(['capture', e.currentTarget]),
             );
 
@@ -2813,8 +2842,10 @@ describe('DOMPluginEventSystem', () => {
             const buttonRef = React.createRef();
             const divRef = React.createRef();
             const log = [];
-            const onClick = jest.fn(e => log.push(['bubble', e.currentTarget]));
-            const onClickCapture = jest.fn(e =>
+            const onClick = jest.fn((e) =>
+              log.push(['bubble', e.currentTarget]),
+            );
+            const onClickCapture = jest.fn((e) =>
               log.push(['capture', e.currentTarget]),
             );
             const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -2884,10 +2915,10 @@ describe('DOMPluginEventSystem', () => {
             it('handle propagation of click events on a scope', () => {
               const buttonRef = React.createRef();
               const log = [];
-              const onClick = jest.fn(e =>
+              const onClick = jest.fn((e) =>
                 log.push(['bubble', e.currentTarget]),
               );
-              const onClickCapture = jest.fn(e =>
+              const onClickCapture = jest.fn((e) =>
                 log.push(['capture', e.currentTarget]),
               );
               const TestScope = React.unstable_Scope;
@@ -2941,10 +2972,10 @@ describe('DOMPluginEventSystem', () => {
               const buttonRef = React.createRef();
               const divRef = React.createRef();
               const log = [];
-              const onClick = jest.fn(e =>
+              const onClick = jest.fn((e) =>
                 log.push(['bubble', e.currentTarget]),
               );
-              const onClickCapture = jest.fn(e =>
+              const onClickCapture = jest.fn((e) =>
                 log.push(['capture', e.currentTarget]),
               );
               const TestScope = React.unstable_Scope;
@@ -2985,7 +3016,8 @@ describe('DOMPluginEventSystem', () => {
                       <div
                         ref={divRef}
                         onClick={onClick}
-                        onClickCapture={onClickCapture}>
+                        onClickCapture={onClickCapture}
+                      >
                         Click me!
                       </div>
                     </button>
@@ -3062,7 +3094,7 @@ describe('DOMPluginEventSystem', () => {
             it('handle stopPropagation (inner) correctly between scopes', () => {
               const buttonRef = React.createRef();
               const outerOnClick = jest.fn();
-              const innerOnClick = jest.fn(e => e.stopPropagation());
+              const innerOnClick = jest.fn((e) => e.stopPropagation());
               const TestScope = React.unstable_Scope;
               const TestScope2 = React.unstable_Scope;
               const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -3103,7 +3135,7 @@ describe('DOMPluginEventSystem', () => {
             // @gate www
             it('handle stopPropagation (outer) correctly between scopes', () => {
               const buttonRef = React.createRef();
-              const outerOnClick = jest.fn(e => e.stopPropagation());
+              const outerOnClick = jest.fn((e) => e.stopPropagation());
               const innerOnClick = jest.fn();
               const TestScope = React.unstable_Scope;
               const TestScope2 = React.unstable_Scope;
@@ -3145,7 +3177,7 @@ describe('DOMPluginEventSystem', () => {
             // @gate www
             it('handle stopPropagation (inner and outer) correctly between scopes', () => {
               const buttonRef = React.createRef();
-              const onClick = jest.fn(e => e.stopPropagation());
+              const onClick = jest.fn((e) => e.stopPropagation());
               const TestScope = React.unstable_Scope;
               const TestScope2 = React.unstable_Scope;
               const setClick = ReactDOM.unstable_createEventHandle('click');
@@ -3189,7 +3221,7 @@ describe('DOMPluginEventSystem', () => {
 
               const allEvents = [];
               const defaultPreventedEvents = [];
-              const handler = e => {
+              const handler = (e) => {
                 allEvents.push(e.type);
                 if (e.defaultPrevented) defaultPreventedEvents.push(e.type);
               };
@@ -3199,23 +3231,21 @@ describe('DOMPluginEventSystem', () => {
               container.addEventListener('wheel', handler);
 
               const ref = React.createRef();
-              const setTouchStart = ReactDOM.unstable_createEventHandle(
-                'touchstart',
-              );
-              const setTouchMove = ReactDOM.unstable_createEventHandle(
-                'touchmove',
-              );
+              const setTouchStart =
+                ReactDOM.unstable_createEventHandle('touchstart');
+              const setTouchMove =
+                ReactDOM.unstable_createEventHandle('touchmove');
               const setWheel = ReactDOM.unstable_createEventHandle('wheel');
 
               function Component() {
                 React.useEffect(() => {
-                  const clearTouchStart = setTouchStart(ref.current, e =>
+                  const clearTouchStart = setTouchStart(ref.current, (e) =>
                     e.preventDefault(),
                   );
-                  const clearTouchMove = setTouchMove(ref.current, e =>
+                  const clearTouchMove = setTouchMove(ref.current, (e) =>
                     e.preventDefault(),
                   );
-                  const clearWheel = setWheel(ref.current, e =>
+                  const clearWheel = setWheel(ref.current, (e) =>
                     e.preventDefault(),
                   );
                   return () => {

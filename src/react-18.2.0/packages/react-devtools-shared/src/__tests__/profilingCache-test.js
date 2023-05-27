@@ -182,14 +182,14 @@ describe('ProfilingCache', () => {
 
     const rootID = store.roots[0];
 
-    const prevCommitData = store.profilerStore.getDataForRoot(rootID)
-      .commitData;
+    const prevCommitData =
+      store.profilerStore.getDataForRoot(rootID).commitData;
     expect(prevCommitData).toHaveLength(4);
 
     utils.exportImportHelper(bridge, store);
 
-    const nextCommitData = store.profilerStore.getDataForRoot(rootID)
-      .commitData;
+    const nextCommitData =
+      store.profilerStore.getDataForRoot(rootID).commitData;
     expect(nextCommitData).toHaveLength(4);
     nextCommitData.forEach((commitData, index) => {
       expect(commitData).toEqual(prevCommitData[index]);
@@ -266,7 +266,7 @@ describe('ProfilingCache', () => {
 
     let changeDescriptions = store.profilerStore
       .getDataForRoot(rootID)
-      .commitData.map(commitData => commitData.changeDescriptions);
+      .commitData.map((commitData) => commitData.changeDescriptions);
     expect(changeDescriptions).toHaveLength(5);
     expect(changeDescriptions[0]).toMatchInlineSnapshot(`
       Map {
@@ -505,7 +505,7 @@ describe('ProfilingCache', () => {
 
     changeDescriptions = store.profilerStore
       .getDataForRoot(rootID)
-      .commitData.map(commitData => commitData.changeDescriptions);
+      .commitData.map((commitData) => commitData.changeDescriptions);
     expect(changeDescriptions).toHaveLength(5);
 
     for (let commitIndex = 0; commitIndex < 5; commitIndex++) {
@@ -627,7 +627,7 @@ describe('ProfilingCache', () => {
 
     const changeDescriptions = store.profilerStore
       .getDataForRoot(rootID)
-      .commitData.map(commitData => commitData.changeDescriptions);
+      .commitData.map((commitData) => commitData.changeDescriptions);
     expect(changeDescriptions).toHaveLength(6);
 
     // 1st render: No change
@@ -800,7 +800,7 @@ describe('ProfilingCache', () => {
       if (data) {
         return data;
       } else {
-        throw new Promise(resolve => {
+        throw new Promise((resolve) => {
           data = 'abc';
           resolve(data);
         });
@@ -1026,9 +1026,9 @@ describe('ProfilingCache', () => {
     function Switch({children}) {
       return (
         <RouterContext.Consumer>
-          {context => {
+          {(context) => {
             let element = null;
-            React.Children.forEach(children, child => {
+            React.Children.forEach(children, (child) => {
               if (context.path === child.props.path) {
                 element = child.props.children;
               }
@@ -1050,7 +1050,7 @@ describe('ProfilingCache', () => {
     function Link({children, path}) {
       return (
         <RouterContext.Consumer>
-          {context => {
+          {(context) => {
             return (
               <button ref={linkRef} onClick={() => context.setPath(path)}>
                 {children}
@@ -1097,8 +1097,10 @@ describe('ProfilingCache', () => {
     utils.act(() => setChildUnmounted(true));
     utils.act(() => store.profilerStore.stopProfiling());
 
-    const updaters = store.profilerStore.getCommitData(store.roots[0], 0)
-      .updaters;
+    const updaters = store.profilerStore.getCommitData(
+      store.roots[0],
+      0,
+    ).updaters;
     expect(updaters.length).toEqual(1);
     expect(updaters[0].displayName).toEqual('App');
   });
@@ -1132,8 +1134,10 @@ describe('ProfilingCache', () => {
     utils.act(() => setChildUnmounted(true));
     utils.act(() => store.profilerStore.stopProfiling());
 
-    const updaters = store.profilerStore.getCommitData(store.roots[0], 0)
-      .updaters;
+    const updaters = store.profilerStore.getCommitData(
+      store.roots[0],
+      0,
+    ).updaters;
     expect(updaters.length).toEqual(1);
     expect(updaters[0].displayName).toEqual('App');
   });
@@ -1162,8 +1166,10 @@ describe('ProfilingCache', () => {
     utils.act(() => setChildUnmounted(true));
     utils.act(() => store.profilerStore.stopProfiling());
 
-    const updaters = store.profilerStore.getCommitData(store.roots[0], 0)
-      .updaters;
+    const updaters = store.profilerStore.getCommitData(
+      store.roots[0],
+      0,
+    ).updaters;
     expect(updaters.length).toEqual(1);
     expect(updaters[0].displayName).toEqual('App');
   });

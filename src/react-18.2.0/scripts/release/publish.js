@@ -23,8 +23,9 @@ const run = async () => {
   try {
     const params = parseParams();
 
-    const version = readJsonSync('./build/node_modules/react/package.json')
-      .version;
+    const version = readJsonSync(
+      './build/node_modules/react/package.json'
+    ).version;
     const isExperimental = version.includes('experimental');
 
     params.cwd = join(__dirname, '..', '..');
@@ -32,7 +33,7 @@ const run = async () => {
 
     // Pre-filter any skipped packages to simplify the following commands.
     // As part of doing this we can also validate that none of the skipped packages were misspelled.
-    params.skipPackages.forEach(packageName => {
+    params.skipPackages.forEach((packageName) => {
       const index = params.packages.indexOf(packageName);
       if (index < 0) {
         console.log(

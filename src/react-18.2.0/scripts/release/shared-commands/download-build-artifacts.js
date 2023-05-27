@@ -10,7 +10,7 @@ const theme = require('../theme');
 
 const run = async ({build, cwd, releaseChannel}) => {
   const artifacts = await getArtifactsList(build);
-  const buildArtifacts = artifacts.find(entry =>
+  const buildArtifacts = artifacts.find((entry) =>
     entry.path.endsWith('build.tgz')
   );
 

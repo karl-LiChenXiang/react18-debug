@@ -26,7 +26,7 @@ module.exports = {
     const sourceFilename = context.getFilename();
 
     if (isOldFork(sourceFilename)) {
-      const visitor = node => {
+      const visitor = (node) => {
         const sourceNode = node.source;
         if (sourceNode === null) {
           return;
@@ -54,7 +54,7 @@ module.exports = {
     }
 
     if (isNewFork(sourceFilename)) {
-      const visitor = node => {
+      const visitor = (node) => {
         const sourceNode = node.source;
         if (sourceNode === null) {
           return;

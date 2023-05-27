@@ -40,10 +40,8 @@ export default function InspectedElementErrorsAndWarningsTree({
 }: Props) {
   const refresh = useCacheRefresh();
 
-  const [
-    isErrorsTransitionPending,
-    startClearErrorsTransition,
-  ] = useTransition();
+  const [isErrorsTransitionPending, startClearErrorsTransition] =
+    useTransition();
   const clearErrorsForInspectedElement = () => {
     const {id} = inspectedElement;
     const rendererID = store.getRendererIDForElement(id);
@@ -59,10 +57,8 @@ export default function InspectedElementErrorsAndWarningsTree({
     }
   };
 
-  const [
-    isWarningsTransitionPending,
-    startClearWarningsTransition,
-  ] = useTransition();
+  const [isWarningsTransitionPending, startClearWarningsTransition] =
+    useTransition();
   const clearWarningsForInspectedElement = () => {
     const {id} = inspectedElement;
     const rendererID = store.getRendererIDForElement(id);
@@ -146,7 +142,8 @@ function Tree({
         <Button
           disabled={isTransitionPending}
           onClick={clearMessages}
-          title={`Clear all ${label} for this component`}>
+          title={`Clear all ${label} for this component`}
+        >
           <ButtonIcon type="clear" />
         </Button>
       </div>

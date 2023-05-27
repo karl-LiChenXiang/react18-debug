@@ -76,19 +76,19 @@ export function act<T>(scope: () => Thenable<T> | T): Thenable<T> {
       return {
         then(resolve, reject) {
           thenableResult.then(
-            returnValue => {
+            (returnValue) => {
               flushActWork(
                 () => {
                   unwind();
                   resolve(returnValue);
                 },
-                error => {
+                (error) => {
                   unwind();
                   reject(error);
                 },
               );
             },
-            error => {
+            (error) => {
               unwind();
               reject(error);
             },

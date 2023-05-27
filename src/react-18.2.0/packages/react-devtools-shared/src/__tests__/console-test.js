@@ -45,7 +45,7 @@ describe('console', () => {
     );
 
     const inject = global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject;
-    global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = internals => {
+    global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = (internals) => {
       rendererID = inject(internals);
 
       Console.registerRenderer(internals);
@@ -63,7 +63,7 @@ describe('console', () => {
   function normalizeCodeLocInfo(str) {
     return (
       str &&
-      str.replace(/\n +(?:at|in) ([\S]+)[^\n]*/g, function(m, name) {
+      str.replace(/\n +(?:at|in) ([\S]+)[^\n]*/g, function (m, name) {
         return '\n    in ' + name + ' (at **)';
       })
     );
@@ -427,7 +427,7 @@ describe('console', () => {
   it('should be resilient to prepareStackTrace', () => {
     global.__REACT_DEVTOOLS_APPEND_COMPONENT_STACK__ = true;
 
-    Error.prepareStackTrace = function(error, callsites) {
+    Error.prepareStackTrace = function (error, callsites) {
       const stack = ['An error occurred:', error.message];
       for (let i = 0; i < callsites.length; i++) {
         const callsite = callsites[i];
@@ -752,7 +752,7 @@ describe('console error', () => {
     Console.dangerous_setTargetConsoleForTesting(fakeConsole);
 
     const inject = global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject;
-    global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = internals => {
+    global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = (internals) => {
       inject(internals);
 
       Console.registerRenderer(internals, () => {

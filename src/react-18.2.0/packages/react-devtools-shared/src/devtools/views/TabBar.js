@@ -40,8 +40,8 @@ export default function TabBar({
   tabs,
   type,
 }: Props) {
-  if (!tabs.some(tab => tab !== null && tab.id === currentTab)) {
-    const firstTab = ((tabs.find(tab => tab !== null): any): TabInfo);
+  if (!tabs.some((tab) => tab !== null && tab.id === currentTab)) {
+    const firstTab = ((tabs.find((tab) => tab !== null): any): TabInfo);
     selectTab(firstTab.id);
   }
 
@@ -50,7 +50,7 @@ export default function TabBar({
     [selectTab],
   );
 
-  const handleKeyDown = useCallback(event => {
+  const handleKeyDown = useCallback((event) => {
     switch (event.key) {
       case 'ArrowDown':
       case 'ArrowLeft':
@@ -88,7 +88,7 @@ export default function TabBar({
 
   return (
     <Fragment>
-      {tabs.map(tab => {
+      {tabs.map((tab) => {
         if (tab === null) {
           return <div key="VRule" className={styles.VRule} />;
         }
@@ -105,7 +105,8 @@ export default function TabBar({
             data-testname={`TabBarButton-${id}`}
             key={id}
             onKeyDown={handleKeyDown}
-            onMouseDown={() => selectTab(id)}>
+            onMouseDown={() => selectTab(id)}
+          >
             <input
               type="radio"
               className={styles.Input}

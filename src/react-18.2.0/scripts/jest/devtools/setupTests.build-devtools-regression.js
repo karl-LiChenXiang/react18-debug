@@ -16,7 +16,7 @@ jest.mock('scheduler/tracing', () => {
 jest.mock('react-test-renderer', () => {
   const reactTestRenderer = jest.requireActual('react-test-renderer');
   if (!reactTestRenderer.act) {
-    reactTestRenderer.act = fn => fn();
+    reactTestRenderer.act = (fn) => fn();
   }
   return reactTestRenderer;
 });
@@ -24,7 +24,7 @@ jest.mock('react-test-renderer', () => {
 jest.mock('react-dom/test-utils', () => {
   const testUtils = jest.requireActual('react-dom/test-utils');
   if (!testUtils.act) {
-    testUtils.act = fn => fn();
+    testUtils.act = (fn) => fn();
   }
   return testUtils;
 });

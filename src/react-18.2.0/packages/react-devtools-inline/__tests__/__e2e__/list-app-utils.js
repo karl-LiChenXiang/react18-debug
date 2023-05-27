@@ -3,7 +3,7 @@
 /** @flow */
 
 async function addItem(page, newItemText) {
-  await page.evaluate(text => {
+  await page.evaluate((text) => {
     const {createTestNameSelector, findAllNodes} = window.REACT_DOM_APP;
     const container = document.getElementById('iframe').contentDocument;
 

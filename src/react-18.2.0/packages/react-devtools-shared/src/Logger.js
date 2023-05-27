@@ -33,13 +33,13 @@ export type LogEvent =
       +inspected_element_number_of_hooks: number | null,
     |};
 
-export type LogFunction = LogEvent => void;
+export type LogFunction = (LogEvent) => void;
 
 let logFunctions: Array<LogFunction> = [];
 export const logEvent: LogFunction =
   enableLogger === true
     ? function logEvent(event: LogEvent): void {
-        logFunctions.forEach(log => {
+        logFunctions.forEach((log) => {
           log(event);
         });
       }
@@ -51,7 +51,7 @@ export const registerEventLogger =
         if (enableLogger) {
           logFunctions.push(logFunction);
           return function unregisterEventLogger() {
-            logFunctions = logFunctions.filter(log => log !== logFunction);
+            logFunctions = logFunctions.filter((log) => log !== logFunction);
           };
         }
         return () => {};

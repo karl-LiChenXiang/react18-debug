@@ -51,7 +51,8 @@ export default function GeneralSettings(_: {||}) {
         <select
           className={styles.Select}
           value={theme}
-          onChange={({currentTarget}) => setTheme(currentTarget.value)}>
+          onChange={({currentTarget}) => setTheme(currentTarget.value)}
+        >
           <option value="auto">Auto</option>
           <option value="light">Light</option>
           <option value="dark">Dark</option>
@@ -63,9 +64,8 @@ export default function GeneralSettings(_: {||}) {
         <select
           className={styles.Select}
           value={displayDensity}
-          onChange={({currentTarget}) =>
-            setDisplayDensity(currentTarget.value)
-          }>
+          onChange={({currentTarget}) => setDisplayDensity(currentTarget.value)}
+        >
           <option value="compact">Compact</option>
           <option value="comfortable">Comfortable</option>
         </select>
@@ -128,7 +128,8 @@ function Version({label, version}: {|label: string, version: ?string|}) {
           className={styles.ReleaseNotesLink}
           target="_blank"
           rel="noopener noreferrer"
-          href={changelogLink}>
+          href={changelogLink}
+        >
           {version}
         </a>
       </>

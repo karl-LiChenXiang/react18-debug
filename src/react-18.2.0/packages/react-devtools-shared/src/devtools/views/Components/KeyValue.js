@@ -153,7 +153,7 @@ export default function KeyValue({
     }
   };
 
-  const deletePath = pathToDelete => {
+  const deletePath = (pathToDelete) => {
     if (hookID != null) {
       pathToDelete = parseHookPathForEdit(pathToDelete);
     }
@@ -254,7 +254,7 @@ export default function KeyValue({
     let shouldDisplayValueAsLink = false;
     if (
       dataType === 'string' &&
-      PROTOCOLS_SUPPORTED_AS_LINKS_IN_KEY_VALUE.some(protocolPrefix =>
+      PROTOCOLS_SUPPORTED_AS_LINKS_IN_KEY_VALUE.some((protocolPrefix) =>
         value.startsWith(protocolPrefix),
       )
     ) {
@@ -267,7 +267,8 @@ export default function KeyValue({
         className={styles.Item}
         hidden={hidden}
         ref={contextMenuTriggerRef}
-        style={style}>
+        style={style}
+      >
         <div className={styles.ExpandCollapseToggleSpacer} />
         {renderedName}
         <div className={styles.AfterName}>:</div>
@@ -282,7 +283,8 @@ export default function KeyValue({
             className={styles.Link}
             href={value}
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+          >
             {displayValue}
           </a>
         ) : (
@@ -302,7 +304,8 @@ export default function KeyValue({
         className={styles.Item}
         hidden={hidden}
         ref={contextMenuTriggerRef}
-        style={style}>
+        style={style}
+      >
         {isInspectable ? (
           <ExpandCollapseToggle isOpen={isOpen} setIsOpen={toggleIsOpen} />
         ) : (
@@ -312,7 +315,8 @@ export default function KeyValue({
         <div className={styles.AfterName}>:</div>
         <span
           className={styles.Value}
-          onClick={isInspectable ? toggleIsOpen : undefined}>
+          onClick={isInspectable ? toggleIsOpen : undefined}
+        >
           {getMetaValueLabel(value)}
         </span>
       </div>
@@ -381,7 +385,8 @@ export default function KeyValue({
           className={styles.Item}
           hidden={hidden}
           ref={contextMenuTriggerRef}
-          style={style}>
+          style={style}
+        >
           {hasChildren ? (
             <ExpandCollapseToggle isOpen={isOpen} setIsOpen={setIsOpen} />
           ) : (
@@ -391,7 +396,8 @@ export default function KeyValue({
           <div className={styles.AfterName}>:</div>
           <span
             className={styles.Value}
-            onClick={hasChildren ? toggleIsOpen : undefined}>
+            onClick={hasChildren ? toggleIsOpen : undefined}
+          >
             {displayName}
           </span>
         </div>,
@@ -453,7 +459,8 @@ export default function KeyValue({
           className={styles.Item}
           hidden={hidden}
           ref={contextMenuTriggerRef}
-          style={style}>
+          style={style}
+        >
           {hasChildren ? (
             <ExpandCollapseToggle isOpen={isOpen} setIsOpen={setIsOpen} />
           ) : (
@@ -463,7 +470,8 @@ export default function KeyValue({
           <div className={styles.AfterName}>:</div>
           <span
             className={styles.Value}
-            onClick={hasChildren ? toggleIsOpen : undefined}>
+            onClick={hasChildren ? toggleIsOpen : undefined}
+          >
             {displayName}
           </span>
         </div>,
@@ -475,7 +483,7 @@ export default function KeyValue({
 }
 
 function DeleteToggle({deletePath, name, path}) {
-  const handleClick = event => {
+  const handleClick = (event) => {
     event.stopPropagation();
     deletePath(path);
   };
@@ -485,7 +493,8 @@ function DeleteToggle({deletePath, name, path}) {
       <Button
         className={styles.DeleteArrayItemButton}
         onClick={handleClick}
-        title="Delete entry">
+        title="Delete entry"
+      >
         <ButtonIcon type="delete" />
       </Button>
       <span className={styles.Name}>{name}</span>

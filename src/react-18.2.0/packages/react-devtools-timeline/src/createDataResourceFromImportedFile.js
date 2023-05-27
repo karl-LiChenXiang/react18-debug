@@ -25,7 +25,7 @@ export default function createDataResourceFromImportedFile(
         const promise = ((importFile(
           file,
         ): any): Promise<ImportWorkerOutputData>);
-        promise.then(data => {
+        promise.then((data) => {
           switch (data.status) {
             case 'SUCCESS':
               resolve(data.processedData);

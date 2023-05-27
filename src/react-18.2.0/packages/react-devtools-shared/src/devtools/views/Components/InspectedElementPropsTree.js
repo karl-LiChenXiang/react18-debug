@@ -65,7 +65,8 @@ export default function InspectedElementPropsTree({
   return (
     <div
       className={styles.InspectedElementTree}
-      data-testname="InspectedElementPropsTree">
+      data-testname="InspectedElementPropsTree"
+    >
       <div className={styles.HeaderRow}>
         <div className={styles.Header}>props</div>
         {!isEmpty && (

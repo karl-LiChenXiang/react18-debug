@@ -66,7 +66,7 @@ describe('ReactDOMServerFB', () => {
   it('emits all HTML as one unit if we wait until the end to start', async () => {
     let hasLoaded = false;
     let resolve;
-    const promise = new Promise(r => (resolve = r));
+    const promise = new Promise((r) => (resolve = r));
     function Wait() {
       if (!hasLoaded) {
         throw promise;

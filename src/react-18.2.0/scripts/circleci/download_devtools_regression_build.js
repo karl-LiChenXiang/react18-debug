@@ -59,7 +59,7 @@ async function downloadRegressionBuild() {
     chalk.white(
       `Removing ${removePackagesStr
         .split(' ')
-        .map(str => chalk.underline.blue(str) + '\n')
+        .map((str) => chalk.underline.blue(str) + '\n')
         .join(' ')}\n`
     )
   );
@@ -76,7 +76,7 @@ async function downloadRegressionBuild() {
     chalk.white(
       `Moving ${movePackageString
         .split(' ')
-        .map(str => chalk.underline.blue(str) + '\n')
+        .map((str) => chalk.underline.blue(str) + '\n')
         .join(' ')} to ${chalk.underline.blue(buildPath)}\n`
     )
   );

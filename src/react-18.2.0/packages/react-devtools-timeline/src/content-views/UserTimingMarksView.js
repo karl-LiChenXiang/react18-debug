@@ -137,7 +137,7 @@ export class UserTimingMarksView extends View {
       frame,
     );
 
-    _marks.forEach(mark => {
+    _marks.forEach((mark) => {
       if (mark === _hoveredMark) {
         return;
       }

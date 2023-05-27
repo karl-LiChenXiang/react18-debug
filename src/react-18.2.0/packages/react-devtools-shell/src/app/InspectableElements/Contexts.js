@@ -83,7 +83,7 @@ class LegacyContextProviderWithUpdates extends Component<any> {
     return {type: this.state.type};
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({type: event.target.value});
   };
 
@@ -171,8 +171,8 @@ function FunctionalContextConsumerWithContextUpdates() {
   const {string2, setString2} = useContext(StringContextWithUpdates2);
   const [state, setState] = useState('state');
 
-  const handleChange = e => setString(e.target.value);
-  const handleChange2 = e => setString2(e.target.value);
+  const handleChange = (e) => setString(e.target.value);
+  const handleChange2 = (e) => setString2(e.target.value);
 
   return (
     <>
@@ -190,7 +190,7 @@ function FunctionalContextConsumerWithContextUpdates() {
         {state}
         <div>
           test state:{' '}
-          <input value={state} onChange={e => setState(e.target.value)} />
+          <input value={state} onChange={(e) => setState(e.target.value)} />
         </div>
       </div>
     </>
@@ -200,7 +200,7 @@ function FunctionalContextConsumerWithContextUpdates() {
 class ModernClassContextProviderWithUpdates extends Component<any> {
   constructor(props) {
     super(props);
-    this.setString = string => {
+    this.setString = (string) => {
       this.setState({string});
     };
 
@@ -229,7 +229,7 @@ class ModernClassContextConsumerWithUpdates extends Component<any> {
               'ModernClassContextConsumerWithUpdates',
               string,
             )}
-            <input value={string} onChange={e => setString(e.target.value)} />
+            <input value={string} onChange={(e) => setString(e.target.value)} />
           </>
         )}
       </StringContextWithUpdates.Consumer>
@@ -248,7 +248,9 @@ export default function Contexts() {
         <LegacyContextProviderWithUpdates />
         <ModernContext.Provider value={contextData}>
           <ModernContext.Consumer>
-            {value => formatContextForDisplay('ModernContext.Consumer', value)}
+            {(value) =>
+              formatContextForDisplay('ModernContext.Consumer', value)
+            }
           </ModernContext.Consumer>
           <ModernContextType />
         </ModernContext.Provider>
@@ -256,28 +258,30 @@ export default function Contexts() {
         <FunctionalContextProviderWithContextUpdates />
         <ModernClassContextProviderWithUpdates />
         <ArrayContext.Consumer>
-          {value => formatContextForDisplay('ArrayContext.Consumer', value)}
+          {(value) => formatContextForDisplay('ArrayContext.Consumer', value)}
         </ArrayContext.Consumer>
         <BoolContext.Consumer>
-          {value => formatContextForDisplay('BoolContext.Consumer', value)}
+          {(value) => formatContextForDisplay('BoolContext.Consumer', value)}
         </BoolContext.Consumer>
         <FuncContext.Consumer>
-          {value => formatContextForDisplay('FuncContext.Consumer', value)}
+          {(value) => formatContextForDisplay('FuncContext.Consumer', value)}
         </FuncContext.Consumer>
         <NumberContext.Consumer>
-          {value => formatContextForDisplay('NumberContext.Consumer', value)}
+          {(value) => formatContextForDisplay('NumberContext.Consumer', value)}
         </NumberContext.Consumer>
         <StringContext.Consumer>
-          {value => formatContextForDisplay('StringContext.Consumer', value)}
+          {(value) => formatContextForDisplay('StringContext.Consumer', value)}
         </StringContext.Consumer>
         <SymbolContext.Consumer>
-          {value => formatContextForDisplay('SymbolContext.Consumer', value)}
+          {(value) => formatContextForDisplay('SymbolContext.Consumer', value)}
         </SymbolContext.Consumer>
         <NullContext.Consumer>
-          {value => formatContextForDisplay('NullContext.Consumer', value)}
+          {(value) => formatContextForDisplay('NullContext.Consumer', value)}
         </NullContext.Consumer>
         <UndefinedContext.Consumer>
-          {value => formatContextForDisplay('UndefinedContext.Consumer', value)}
+          {(value) =>
+            formatContextForDisplay('UndefinedContext.Consumer', value)
+          }
         </UndefinedContext.Consumer>
       </ul>
     </div>

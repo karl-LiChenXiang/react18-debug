@@ -33,9 +33,8 @@ type Props = {
 
 export default function Element({data, index, style}: Props) {
   const store = useContext(StoreContext);
-  const {ownerFlatTree, ownerID, selectedElementID} = useContext(
-    TreeStateContext,
-  );
+  const {ownerFlatTree, ownerID, selectedElementID} =
+    useContext(TreeStateContext);
   const dispatch = useContext(TreeDispatcherContext);
   const {showInlineWarningsAndErrors} = React.useContext(SettingsContext);
 
@@ -94,7 +93,7 @@ export default function Element({data, index, style}: Props) {
     setIsHovered(false);
   };
 
-  const handleKeyDoubleClick = event => {
+  const handleKeyDoubleClick = (event) => {
     // Double clicks on key value are used for text selection (if the text has been truncated).
     // They should not enter the owners tree view.
     event.stopPropagation();
@@ -140,7 +139,8 @@ export default function Element({data, index, style}: Props) {
       onDoubleClick={handleDoubleClick}
       style={style}
       data-testname="ComponentTreeListItem"
-      data-depth={depth}>
+      data-depth={depth}
+    >
       {/* This wrapper is used by Tree for measurement purposes. */}
       <div
         className={styles.Wrapper}
@@ -148,7 +148,8 @@ export default function Element({data, index, style}: Props) {
           // Left offset presents the appearance of a nested tree structure.
           // We must use padding rather than margin/left because of the selected background color.
           transform: `translateX(calc(${depth} * var(--indentation-size)))`,
-        }}>
+        }}
+      >
         {ownerID === null ? (
           <ExpandCollapseToggle element={element} store={store} />
         ) : null}
@@ -161,7 +162,8 @@ export default function Element({data, index, style}: Props) {
             <span
               className={styles.KeyValue}
               title={key}
-              onDoubleClick={handleKeyDoubleClick}>
+              onDoubleClick={handleKeyDoubleClick}
+            >
               {key}
             </span>
             "
@@ -171,7 +173,8 @@ export default function Element({data, index, style}: Props) {
           <Badge
             className={styles.Badge}
             hocDisplayNames={hocDisplayNames}
-            type={type}>
+            type={type}
+          >
             <DisplayName
               displayName={hocDisplayNames[0]}
               id={((id: any): number)}
@@ -215,7 +218,7 @@ export default function Element({data, index, style}: Props) {
 }
 
 // Prevent double clicks on toggle from drilling into the owner list.
-const swallowDoubleClick = event => {
+const swallowDoubleClick = (event) => {
   event.preventDefault();
   event.stopPropagation();
 };
@@ -228,14 +231,14 @@ type ExpandCollapseToggleProps = {|
 function ExpandCollapseToggle({element, store}: ExpandCollapseToggleProps) {
   const {children, id, isCollapsed} = element;
 
-  const toggleCollapsed = event => {
+  const toggleCollapsed = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     store.toggleIsCollapsed(id, !isCollapsed);
   };
 
-  const stopPropagation = event => {
+  const stopPropagation = (event) => {
     // Prevent the row from selecting
     event.stopPropagation();
   };
@@ -249,7 +252,8 @@ function ExpandCollapseToggle({element, store}: ExpandCollapseToggleProps) {
       className={styles.ExpandCollapseToggle}
       onMouseDown={stopPropagation}
       onClick={toggleCollapsed}
-      onDoubleClick={swallowDoubleClick}>
+      onDoubleClick={swallowDoubleClick}
+    >
       <ButtonIcon type={isCollapsed ? 'collapsed' : 'expanded'} />
     </div>
   );
@@ -288,7 +292,8 @@ function DisplayName({displayName, id}: DisplayNameProps) {
   children.push(
     <mark
       key="middle"
-      className={isCurrentResult ? styles.CurrentHighlight : styles.Highlight}>
+      className={isCurrentResult ? styles.CurrentHighlight : styles.Highlight}
+    >
       {displayName.slice(startIndex, stopIndex)}
     </mark>,
   );

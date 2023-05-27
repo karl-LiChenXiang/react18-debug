@@ -77,7 +77,8 @@ function CanvasPage({profilerData, viewState}: Props) {
   return (
     <div
       className={styles.CanvasPage}
-      style={{backgroundColor: COLORS.BACKGROUND}}>
+      style={{backgroundColor: COLORS.BACKGROUND}}
+    >
       <AutoSizer>
         {({height, width}: {height: number, width: number}) => (
           <AutoSizedCanvas
@@ -161,10 +162,8 @@ function AutoSizedCanvas({
 
   const [isContextMenuShown, setIsContextMenuShown] = useState<boolean>(false);
   const [mouseLocation, setMouseLocation] = useState<Point>(zeroPoint); // DOM coordinates
-  const [
-    hoveredEvent,
-    setHoveredEvent,
-  ] = useState<ReactHoverContextInfo | null>(null);
+  const [hoveredEvent, setHoveredEvent] =
+    useState<ReactHoverContextInfo | null>(null);
 
   const resetHoveredEvent = useCallback(
     () => setHoveredEvent(EMPTY_CONTEXT_INFO),
@@ -219,7 +218,7 @@ function AutoSizedCanvas({
     const defaultFrame = {origin: zeroPoint, size: {width, height}};
 
     // Auto hide context menu when panning.
-    viewState.onHorizontalScrollStateChange(scrollState => {
+    viewState.onHorizontalScrollStateChange((scrollState) => {
       hideContextMenu();
     });
 
@@ -486,7 +485,7 @@ function AutoSizedCanvas({
     }
   }, [width, height]);
 
-  const interactor = useCallback(interaction => {
+  const interactor = useCallback((interaction) => {
     const canvas = canvasRef.current;
     if (canvas === null) {
       return;
@@ -531,7 +530,7 @@ function AutoSizedCanvas({
   useEffect(() => {
     const {current: userTimingMarksView} = userTimingMarksViewRef;
     if (userTimingMarksView) {
-      userTimingMarksView.onHover = userTimingMark => {
+      userTimingMarksView.onHover = (userTimingMark) => {
         if (!hoveredEvent || hoveredEvent.userTimingMark !== userTimingMark) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -543,7 +542,7 @@ function AutoSizedCanvas({
 
     const {current: nativeEventsView} = nativeEventsViewRef;
     if (nativeEventsView) {
-      nativeEventsView.onHover = nativeEvent => {
+      nativeEventsView.onHover = (nativeEvent) => {
         if (!hoveredEvent || hoveredEvent.nativeEvent !== nativeEvent) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -555,7 +554,7 @@ function AutoSizedCanvas({
 
     const {current: schedulingEventsView} = schedulingEventsViewRef;
     if (schedulingEventsView) {
-      schedulingEventsView.onHover = schedulingEvent => {
+      schedulingEventsView.onHover = (schedulingEvent) => {
         if (!hoveredEvent || hoveredEvent.schedulingEvent !== schedulingEvent) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -567,7 +566,7 @@ function AutoSizedCanvas({
 
     const {current: suspenseEventsView} = suspenseEventsViewRef;
     if (suspenseEventsView) {
-      suspenseEventsView.onHover = suspenseEvent => {
+      suspenseEventsView.onHover = (suspenseEvent) => {
         if (!hoveredEvent || hoveredEvent.suspenseEvent !== suspenseEvent) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -579,7 +578,7 @@ function AutoSizedCanvas({
 
     const {current: reactMeasuresView} = reactMeasuresViewRef;
     if (reactMeasuresView) {
-      reactMeasuresView.onHover = measure => {
+      reactMeasuresView.onHover = (measure) => {
         if (!hoveredEvent || hoveredEvent.measure !== measure) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -591,7 +590,7 @@ function AutoSizedCanvas({
 
     const {current: componentMeasuresView} = componentMeasuresViewRef;
     if (componentMeasuresView) {
-      componentMeasuresView.onHover = componentMeasure => {
+      componentMeasuresView.onHover = (componentMeasure) => {
         if (
           !hoveredEvent ||
           hoveredEvent.componentMeasure !== componentMeasure
@@ -606,7 +605,7 @@ function AutoSizedCanvas({
 
     const {current: snapshotsView} = snapshotsViewRef;
     if (snapshotsView) {
-      snapshotsView.onHover = snapshot => {
+      snapshotsView.onHover = (snapshot) => {
         if (!hoveredEvent || hoveredEvent.snapshot !== snapshot) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -618,7 +617,7 @@ function AutoSizedCanvas({
 
     const {current: flamechartView} = flamechartViewRef;
     if (flamechartView) {
-      flamechartView.setOnHover(flamechartStackFrame => {
+      flamechartView.setOnHover((flamechartStackFrame) => {
         if (
           !hoveredEvent ||
           hoveredEvent.flamechartStackFrame !== flamechartStackFrame
@@ -633,7 +632,7 @@ function AutoSizedCanvas({
 
     const {current: networkMeasuresView} = networkMeasuresViewRef;
     if (networkMeasuresView) {
-      networkMeasuresView.onHover = networkMeasure => {
+      networkMeasuresView.onHover = (networkMeasure) => {
         if (!hoveredEvent || hoveredEvent.networkMeasure !== networkMeasure) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -645,7 +644,7 @@ function AutoSizedCanvas({
 
     const {current: thrownErrorsView} = thrownErrorsViewRef;
     if (thrownErrorsView) {
-      thrownErrorsView.onHover = thrownError => {
+      thrownErrorsView.onHover = (thrownError) => {
         if (!hoveredEvent || hoveredEvent.thrownError !== thrownError) {
           setHoveredEvent({
             ...EMPTY_CONTEXT_INFO,
@@ -719,7 +718,7 @@ function AutoSizedCanvas({
     <Fragment>
       <canvas ref={canvasRef} height={height} width={width} />
       <ContextMenu id={CONTEXT_MENU_ID}>
-        {contextData => {
+        {(contextData) => {
           if (contextData.hoveredEvent == null) {
             return null;
           }
@@ -736,28 +735,32 @@ function AutoSizedCanvas({
               {componentMeasure !== null && (
                 <ContextMenuItem
                   onClick={() => copy(componentMeasure.componentName)}
-                  title="Copy component name">
+                  title="Copy component name"
+                >
                   Copy component name
                 </ContextMenuItem>
               )}
               {networkMeasure !== null && (
                 <ContextMenuItem
                   onClick={() => copy(networkMeasure.url)}
-                  title="Copy URL">
+                  title="Copy URL"
+                >
                   Copy URL
                 </ContextMenuItem>
               )}
               {schedulingEvent !== null && (
                 <ContextMenuItem
                   onClick={() => copy(schedulingEvent.componentName)}
-                  title="Copy component name">
+                  title="Copy component name"
+                >
                   Copy component name
                 </ContextMenuItem>
               )}
               {suspenseEvent !== null && (
                 <ContextMenuItem
                   onClick={() => copy(suspenseEvent.componentName)}
-                  title="Copy component name">
+                  title="Copy component name"
+                >
                   Copy component name
                 </ContextMenuItem>
               )}
@@ -766,21 +769,24 @@ function AutoSizedCanvas({
                   onClick={() =>
                     zoomToBatch(contextData.data, measure, viewState, width)
                   }
-                  title="Zoom to batch">
+                  title="Zoom to batch"
+                >
                   Zoom to batch
                 </ContextMenuItem>
               )}
               {measure !== null && (
                 <ContextMenuItem
                   onClick={() => copySummary(contextData.data, measure)}
-                  title="Copy summary">
+                  title="Copy summary"
+                >
                   Copy summary
                 </ContextMenuItem>
               )}
               {flamechartStackFrame !== null && (
                 <ContextMenuItem
                   onClick={() => copy(flamechartStackFrame.scriptUrl)}
-                  title="Copy file path">
+                  title="Copy file path"
+                >
                   Copy file path
                 </ContextMenuItem>
               )}
@@ -788,12 +794,13 @@ function AutoSizedCanvas({
                 <ContextMenuItem
                   onClick={() =>
                     copy(
-                      `line ${flamechartStackFrame.locationLine ??
-                        ''}, column ${flamechartStackFrame.locationColumn ??
-                        ''}`,
+                      `line ${
+                        flamechartStackFrame.locationLine ?? ''
+                      }, column ${flamechartStackFrame.locationColumn ?? ''}`,
                     )
                   }
-                  title="Copy location">
+                  title="Copy location"
+                >
                   Copy location
                 </ContextMenuItem>
               )}

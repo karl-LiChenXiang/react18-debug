@@ -16,7 +16,7 @@ export default function App() {
       <Counter />
       <Counter2 />
       <ul>
-        {todos.map(todo => (
+        {todos.map((todo) => (
           <li key={todo.id}>{todo.text}</li>
         ))}
       </ul>

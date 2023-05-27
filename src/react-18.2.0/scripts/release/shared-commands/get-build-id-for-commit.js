@@ -6,7 +6,7 @@ const POLLING_INTERVAL = 10 * 1000; // 10 seconds
 const RETRY_TIMEOUT = 4 * 60 * 1000; // 4 minutes
 
 function wait(ms) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => resolve(), ms);
   });
 }

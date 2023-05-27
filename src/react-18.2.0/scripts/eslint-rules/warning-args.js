@@ -15,7 +15,7 @@ const existingErrorMap = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../error-codes/codes.json'))
 );
 const messages = new Set();
-Object.keys(existingErrorMap).forEach(key =>
+Object.keys(existingErrorMap).forEach((key) =>
   messages.add(existingErrorMap[key])
 );
 
@@ -44,7 +44,7 @@ module.exports = {
     }
 
     return {
-      CallExpression: function(node) {
+      CallExpression: function (node) {
         // This could be a little smarter by checking context.getScope() to see
         // how warning/invariant was defined.
         const isWarning =

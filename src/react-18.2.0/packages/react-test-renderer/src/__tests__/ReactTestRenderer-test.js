@@ -47,11 +47,11 @@ describe('ReactTestRenderer', () => {
     beforeEach(() => {
       PendingResources = {};
       TextResource = ReactCache.unstable_createResource(
-        text =>
-          new Promise(resolve => {
+        (text) =>
+          new Promise((resolve) => {
             PendingResources[text] = resolve;
           }),
-        text => text,
+        (text) => text,
       );
 
       AsyncText = ({text}) => {

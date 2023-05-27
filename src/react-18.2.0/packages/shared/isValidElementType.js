@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow
+ *
  */
 
 import {
@@ -45,7 +45,7 @@ if (enableSymbolFallbackForWWW) {
   REACT_MODULE_REFERENCE = Symbol.for('react.module.reference');
 }
 
-export default function isValidElementType(type: mixed) {
+export default function isValidElementType(type) {
   if (typeof type === 'string' || typeof type === 'function') {
     return true;
   }

@@ -37,8 +37,9 @@ export function printElement(element: Element, includeWeight: boolean = false) {
     suffix = ` (${element.isCollapsed ? 1 : element.weight})`;
   }
 
-  return `${'  '.repeat(element.depth + 1)}${prefix} <${element.displayName ||
-    'null'}${key}>${hocs}${suffix}`;
+  return `${'  '.repeat(element.depth + 1)}${prefix} <${
+    element.displayName || 'null'
+  }${key}>${hocs}${suffix}`;
 }
 
 export function printOwnersList(
@@ -46,7 +47,7 @@ export function printOwnersList(
   includeWeight: boolean = false,
 ) {
   return elements
-    .map(element => printElement(element, includeWeight))
+    .map((element) => printElement(element, includeWeight))
     .join('\n');
 }
 
@@ -67,10 +68,8 @@ export function printStore(
   }
 
   function printErrorsAndWarnings(element: Element): string {
-    const {
-      errorCount,
-      warningCount,
-    } = store.getErrorAndWarningCountForElementID(element.id);
+    const {errorCount, warningCount} =
+      store.getErrorAndWarningCountForElementID(element.id);
     if (errorCount === 0 && warningCount === 0) {
       return '';
     }
@@ -95,7 +94,7 @@ export function printStore(
     if (errorsAndWarnings.size > 0) {
       let errorCount = 0;
       let warningCount = 0;
-      errorsAndWarnings.forEach(entry => {
+      errorsAndWarnings.forEach((entry) => {
         errorCount += entry.errorCount;
         warningCount += entry.warningCount;
       });
@@ -103,7 +102,7 @@ export function printStore(
       snapshotLines.push(`✕ ${errorCount}, ⚠ ${warningCount}`);
     }
 
-    store.roots.forEach(rootID => {
+    store.roots.forEach((rootID) => {
       const {weight} = ((store.getElementByID(rootID): any): Element);
       const maybeWeightLabel = includeWeight ? ` (${weight})` : '';
 

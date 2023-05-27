@@ -1641,10 +1641,12 @@ describe('ReactErrorBoundaries', () => {
     ReactDOM.render(
       <ErrorBoundary
         logName="OuterErrorBoundary"
-        renderError={renderOuterError}>
+        renderError={renderOuterError}
+      >
         <ErrorBoundary
           logName="InnerErrorBoundary"
-          renderError={renderInnerError}>
+          renderError={renderInnerError}
+        >
           <BrokenComponentWillUnmount />
         </ErrorBoundary>
       </ErrorBoundary>,
@@ -1655,7 +1657,8 @@ describe('ReactErrorBoundaries', () => {
     ReactDOM.render(
       <ErrorBoundary
         logName="OuterErrorBoundary"
-        renderError={renderOuterError}>
+        renderError={renderOuterError}
+      >
         <ErrorBoundary
           logName="InnerErrorBoundary"
           renderError={renderInnerError}
@@ -1869,7 +1872,7 @@ describe('ReactErrorBoundaries', () => {
     const container = document.createElement('div');
     ReactDOM.render(
       <ErrorBoundary>
-        <Stateful ref={inst => (statefulInst = inst)} />
+        <Stateful ref={(inst) => (statefulInst = inst)} />
       </ErrorBoundary>,
       container,
     );
@@ -2054,7 +2057,7 @@ describe('ReactErrorBoundaries', () => {
     ReactDOM.render(
       <ErrorBoundary>
         <BrokenComponentDidMountErrorBoundary
-          renderError={error => (
+          renderError={(error) => (
             <div>We should never catch our own error: {error.message}.</div>
           )}
         />
@@ -2098,13 +2101,15 @@ describe('ReactErrorBoundaries', () => {
       <ErrorBoundary logName="OuterErrorBoundary">
         <ErrorBoundary
           logName="InnerUnmountBoundary"
-          renderError={renderUnmountError}>
+          renderError={renderUnmountError}
+        >
           <BrokenComponentWillUnmount errorText="E1" />
           <BrokenComponentWillUnmount errorText="E2" />
         </ErrorBoundary>
         <ErrorBoundary
           logName="InnerUpdateBoundary"
-          renderError={renderUpdateError}>
+          renderError={renderUpdateError}
+        >
           <BrokenComponentDidUpdate errorText="E3" />
           <BrokenComponentDidUpdate errorText="E4" />
         </ErrorBoundary>
@@ -2121,7 +2126,8 @@ describe('ReactErrorBoundaries', () => {
         />
         <ErrorBoundary
           logName="InnerUpdateBoundary"
-          renderError={renderUpdateError}>
+          renderError={renderUpdateError}
+        >
           <BrokenComponentDidUpdate errorText="E3" />
           <BrokenComponentDidUpdate errorText="E4" />
         </ErrorBoundary>
@@ -2460,7 +2466,7 @@ describe('ReactErrorBoundaries', () => {
       throw evilError;
     };
     Object.defineProperty(Throws, 'displayName', {
-      get: function() {
+      get: function () {
         throw new Error('gotta catch em all');
       },
     });
@@ -2595,7 +2601,7 @@ describe('ReactErrorBoundaries', () => {
     }
 
     class LocalBrokenCallbackRef extends React.Component {
-      _ref = ref => {
+      _ref = (ref) => {
         Scheduler.unstable_yieldValue('LocalBrokenCallbackRef ref ' + !!ref);
         if (ref === null) {
           throw Error('Expected');

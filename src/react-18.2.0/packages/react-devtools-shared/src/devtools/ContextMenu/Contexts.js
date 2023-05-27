@@ -11,7 +11,7 @@ import {createContext} from 'react';
 
 export type ShowFn = ({|data: Object, pageX: number, pageY: number|}) => void;
 export type HideFn = () => void;
-export type OnChangeFn = boolean => void;
+export type OnChangeFn = (boolean) => void;
 
 const idToShowFnMap = new Map<string, ShowFn>();
 const idToHideFnMap = new Map<string, HideFn>();

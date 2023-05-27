@@ -66,7 +66,7 @@ function getESLintInstance(format) {
 async function lint(eslint, filepaths) {
   const results = await eslint.lintFiles(filepaths);
   if (
-    results.some(result => result.errorCount > 0 || result.warningCount > 0)
+    results.some((result) => result.errorCount > 0 || result.warningCount > 0)
   ) {
     process.exitCode = 1;
     console.log(`Lint failed`);
@@ -102,7 +102,7 @@ async function lintEverything() {
   await Promise.all(promises);
 }
 
-lintEverything().catch(error => {
+lintEverything().catch((error) => {
   process.exitCode = 1;
   console.error(error);
 });

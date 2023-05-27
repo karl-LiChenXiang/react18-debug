@@ -135,7 +135,7 @@ function recursivelyInitializeTree(
       type: node.type,
     });
 
-    node.children.forEach(childID =>
+    node.children.forEach((childID) =>
       recursivelyInitializeTree(childID, id, nodes, dataForRoot),
     );
   }
@@ -283,7 +283,7 @@ function updateTree(
             }
 
             parentNode.children = parentNode.children.filter(
-              childID => childID !== id,
+              (childID) => childID !== id,
             );
           }
         }
@@ -390,7 +390,7 @@ const __printTree = (commitTree: CommitTree) => {
         } (${node.treeBaseDuration})`,
       );
 
-      node.children.forEach(childID => {
+      node.children.forEach((childID) => {
         queue.push(childID, depth + 1);
       });
     }

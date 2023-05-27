@@ -54,7 +54,7 @@ export default function setupHighlighter(
   function stopInspectingNative() {
     hideOverlay();
     removeListenersOnWindow(window);
-    iframesListeningTo.forEach(function(frame) {
+    iframesListeningTo.forEach(function (frame) {
       try {
         removeListenersOnWindow(frame.contentWindow);
       } catch (error) {

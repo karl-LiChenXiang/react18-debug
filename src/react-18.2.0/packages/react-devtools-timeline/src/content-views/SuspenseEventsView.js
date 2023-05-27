@@ -64,7 +64,7 @@ export class SuspenseEventsView extends View {
 
     const {duration, suspenseEvents} = this._profilerData;
 
-    suspenseEvents.forEach(event => {
+    suspenseEvents.forEach((event) => {
       const depth = event.depth;
 
       this._maxDepth = Math.max(this._maxDepth, depth);
@@ -248,7 +248,7 @@ export class SuspenseEventsView extends View {
       frame,
     );
 
-    suspenseEvents.forEach(event => {
+    suspenseEvents.forEach((event) => {
       this._drawSingleSuspenseEvent(
         context,
         visibleArea,

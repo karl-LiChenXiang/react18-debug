@@ -45,9 +45,9 @@ let hookLog: Array<HookLogEntry> = [];
 
 // Primitives
 
-type BasicStateAction<S> = (S => S) | S;
+type BasicStateAction<S> = ((S) => S) | S;
 
-type Dispatch<A> = A => void;
+type Dispatch<A> = (A) => void;
 
 let primitiveStackCache: null | Map<string, Array<any>> = null;
 
@@ -137,7 +137,7 @@ function useState<S>(
 function useReducer<S, I, A>(
   reducer: (S, A) => S,
   initialArg: I,
-  init?: I => S,
+  init?: (I) => S,
 ): [S, Dispatch<A>] {
   const hook = nextHook();
   let state;
@@ -306,7 +306,7 @@ function useTransition(): [
     stackError: new Error(),
     value: undefined,
   });
-  return [false, callback => {}];
+  return [false, (callback) => {}];
 }
 
 function useDeferredValue<T>(value: T): T {
@@ -692,7 +692,7 @@ function handleRenderFunctionError(error: any): void {
 }
 
 export function inspectHooks<Props>(
-  renderFunction: Props => React$Node,
+  renderFunction: (Props) => React$Node,
   props: Props,
   currentDispatcher: ?CurrentDispatcherRef,
   includeHooksSource?: boolean = false,

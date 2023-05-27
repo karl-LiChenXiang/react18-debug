@@ -61,7 +61,7 @@ export default function EditableName({
   );
 
   const handleKeyDown = useCallback(
-    event => {
+    (event) => {
       // Prevent keydown events from e.g. change selected element in the tree
       event.stopPropagation();
 

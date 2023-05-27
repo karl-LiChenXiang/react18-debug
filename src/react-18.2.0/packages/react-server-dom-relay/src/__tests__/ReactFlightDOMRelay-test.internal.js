@@ -25,7 +25,7 @@ describe('ReactFlightDOMRelay', () => {
     ReactDOMFlightRelayServer = require('react-server-dom-relay/server');
     ReactDOMFlightRelayClient = require('react-server-dom-relay');
     JSResourceReferenceImpl = require('JSResourceReferenceImpl');
-    if (gate(flags => flags.enableSuspenseList)) {
+    if (gate((flags) => flags.enableSuspenseList)) {
       SuspenseList = React.SuspenseList;
     }
   });
@@ -217,7 +217,7 @@ describe('ReactFlightDOMRelay', () => {
     Foo.prototype = Object.create(Bar.prototype);
     // This is enumerable which some polyfills do.
     Foo.prototype.constructor = Foo;
-    Foo.prototype.method = function() {};
+    Foo.prototype.method = function () {};
 
     expect(() => {
       const transport = [];

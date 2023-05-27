@@ -305,7 +305,7 @@ export function dehydrate(
         return createDehydrated(type, true, data, cleaned, path);
       } else {
         const object = {};
-        getAllEnumerableKeys(data).forEach(key => {
+        getAllEnumerableKeys(data).forEach((key) => {
           const name = key.toString();
           object[name] = dehydrate(
             data[key],

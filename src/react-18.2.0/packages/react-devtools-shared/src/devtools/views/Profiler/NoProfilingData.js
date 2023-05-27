@@ -25,7 +25,8 @@ export default function NoProfilingData() {
           className={styles.LearnMoreLink}
           href="https://fb.me/react-devtools-profiling"
           rel="noopener noreferrer"
-          target="_blank">
+          target="_blank"
+        >
           here
         </a>{' '}
         to learn more about profiling.

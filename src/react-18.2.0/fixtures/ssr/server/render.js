@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default function render(url, res) {
-  res.socket.on('error', error => {
+  res.socket.on('error', (error) => {
     // Log fatal errors
     console.error('Fatal', error);
   });

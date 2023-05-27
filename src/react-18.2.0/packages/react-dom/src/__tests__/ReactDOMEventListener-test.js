@@ -24,7 +24,7 @@ describe('ReactDOMEventListener', () => {
   describe('Propagation', () => {
     it('should propagate events one level down', () => {
       const mouseOut = jest.fn();
-      const onMouseOut = event => mouseOut(event.currentTarget);
+      const onMouseOut = (event) => mouseOut(event.currentTarget);
 
       const childContainer = document.createElement('div');
       const parentContainer = document.createElement('div');
@@ -55,7 +55,7 @@ describe('ReactDOMEventListener', () => {
 
     it('should propagate events two levels down', () => {
       const mouseOut = jest.fn();
-      const onMouseOut = event => mouseOut(event.currentTarget);
+      const onMouseOut = (event) => mouseOut(event.currentTarget);
 
       const childContainer = document.createElement('div');
       const parentContainer = document.createElement('div');
@@ -190,7 +190,7 @@ describe('ReactDOMEventListener', () => {
 
   it('should not fire duplicate events for a React DOM tree', () => {
     const mouseOut = jest.fn();
-    const onMouseOut = event => mouseOut(event.target);
+    const onMouseOut = (event) => mouseOut(event.target);
 
     class Wrapper extends React.Component {
       getInner = () => {
@@ -300,9 +300,10 @@ describe('ReactDOMEventListener', () => {
         container,
       );
 
-      interimRef.current.onsubmit = nativeEvent =>
+      interimRef.current.onsubmit = (nativeEvent) =>
         nativeEvent.stopPropagation();
-      interimRef.current.onreset = nativeEvent => nativeEvent.stopPropagation();
+      interimRef.current.onreset = (nativeEvent) =>
+        nativeEvent.stopPropagation();
 
       formRef.current.dispatchEvent(
         new Event('submit', {
@@ -400,7 +401,7 @@ describe('ReactDOMEventListener', () => {
 
     const originalDocAddEventListener = document.addEventListener;
     const originalRootAddEventListener = container.addEventListener;
-    document.addEventListener = function(type) {
+    document.addEventListener = function (type) {
       switch (type) {
         case 'selectionchange':
           break;
@@ -410,7 +411,7 @@ describe('ReactDOMEventListener', () => {
           );
       }
     };
-    container.addEventListener = function(type, fn, options) {
+    container.addEventListener = function (type, fn, options) {
       if (options && (options === true || options.capture)) {
         return;
       }
@@ -668,7 +669,7 @@ describe('ReactDOMEventListener', () => {
     const container = document.createElement('div');
     const innerRef = React.createRef();
     const outerRef = React.createRef();
-    const onPlayCapture = jest.fn(e => log.push(e.currentTarget));
+    const onPlayCapture = jest.fn((e) => log.push(e.currentTarget));
     const log = [];
     document.body.appendChild(container);
     try {
@@ -715,10 +716,10 @@ describe('ReactDOMEventListener', () => {
     const container = document.createElement('div');
     const ref = React.createRef();
     const log = [];
-    const onScroll = jest.fn(e =>
+    const onScroll = jest.fn((e) =>
       log.push(['bubble', e.currentTarget.className]),
     );
-    const onScrollCapture = jest.fn(e =>
+    const onScrollCapture = jest.fn((e) =>
       log.push(['capture', e.currentTarget.className]),
     );
     document.body.appendChild(container);
@@ -727,11 +728,13 @@ describe('ReactDOMEventListener', () => {
         <div
           className="grand"
           onScroll={onScroll}
-          onScrollCapture={onScrollCapture}>
+          onScrollCapture={onScrollCapture}
+        >
           <div
             className="parent"
             onScroll={onScroll}
-            onScrollCapture={onScrollCapture}>
+            onScrollCapture={onScrollCapture}
+          >
             <div
               className="child"
               onScroll={onScroll}
@@ -765,10 +768,10 @@ describe('ReactDOMEventListener', () => {
     const container = document.createElement('div');
     const ref = React.createRef();
     const log = [];
-    const onScroll = jest.fn(e =>
+    const onScroll = jest.fn((e) =>
       log.push(['bubble', e.currentTarget.className]),
     );
-    const onScrollCapture = jest.fn(e =>
+    const onScrollCapture = jest.fn((e) =>
       log.push(['capture', e.currentTarget.className]),
     );
     document.body.appendChild(container);
@@ -777,11 +780,13 @@ describe('ReactDOMEventListener', () => {
         <div
           className="grand"
           onScroll={onScroll}
-          onScrollCapture={onScrollCapture}>
+          onScrollCapture={onScrollCapture}
+        >
           <div
             className="parent"
             onScroll={onScroll}
-            onScrollCapture={onScrollCapture}>
+            onScrollCapture={onScrollCapture}
+          >
             {/* Intentionally no handler on the child: */}
             <div className="child" ref={ref} />
           </div>
@@ -806,10 +811,10 @@ describe('ReactDOMEventListener', () => {
     const container = document.createElement('div');
     const ref = React.createRef();
     const log = [];
-    const onScroll = jest.fn(e =>
+    const onScroll = jest.fn((e) =>
       log.push(['bubble', e.currentTarget.className]),
     );
-    const onScrollCapture = jest.fn(e =>
+    const onScrollCapture = jest.fn((e) =>
       log.push(['capture', e.currentTarget.className]),
     );
     document.body.appendChild(container);
@@ -827,16 +832,18 @@ describe('ReactDOMEventListener', () => {
       ReactDOM.render(
         <div
           className="grand"
-          onScroll={e => onScroll(e)}
-          onScrollCapture={e => onScrollCapture(e)}>
+          onScroll={(e) => onScroll(e)}
+          onScrollCapture={(e) => onScrollCapture(e)}
+        >
           <div
             className="parent"
-            onScroll={e => onScroll(e)}
-            onScrollCapture={e => onScrollCapture(e)}>
+            onScroll={(e) => onScroll(e)}
+            onScrollCapture={(e) => onScrollCapture(e)}
+          >
             <div
               className="child"
-              onScroll={e => onScroll(e)}
-              onScrollCapture={e => onScrollCapture(e)}
+              onScroll={(e) => onScroll(e)}
+              onScrollCapture={(e) => onScrollCapture(e)}
               ref={ref}
             />
           </div>
@@ -862,16 +869,18 @@ describe('ReactDOMEventListener', () => {
           className="grand"
           // Note: these are intentionally inline functions so that
           // we hit the reattachment codepath instead of bailing out.
-          onScroll={e => onScroll(e)}
-          onScrollCapture={e => onScrollCapture(e)}>
+          onScroll={(e) => onScroll(e)}
+          onScrollCapture={(e) => onScrollCapture(e)}
+        >
           <div
             className="parent"
-            onScroll={e => onScroll(e)}
-            onScrollCapture={e => onScrollCapture(e)}>
+            onScroll={(e) => onScroll(e)}
+            onScrollCapture={(e) => onScrollCapture(e)}
+          >
             <div
               className="child"
-              onScroll={e => onScroll(e)}
-              onScrollCapture={e => onScrollCapture(e)}
+              onScroll={(e) => onScroll(e)}
+              onScrollCapture={(e) => onScrollCapture(e)}
               ref={ref}
             />
           </div>
@@ -916,21 +925,23 @@ describe('ReactDOMEventListener', () => {
     const container = document.createElement('div');
     const ref = React.createRef();
     const log = [];
-    const onScroll = jest.fn(e =>
+    const onScroll = jest.fn((e) =>
       log.push(['bubble', e.currentTarget.className]),
     );
-    const onScrollCapture = jest.fn(e =>
+    const onScrollCapture = jest.fn((e) =>
       log.push(['capture', e.currentTarget.className]),
     );
     const tree = (
       <div
         className="grand"
         onScroll={onScroll}
-        onScrollCapture={onScrollCapture}>
+        onScrollCapture={onScrollCapture}
+      >
         <div
           className="parent"
           onScroll={onScroll}
-          onScrollCapture={onScrollCapture}>
+          onScrollCapture={onScrollCapture}
+        >
           <div
             className="child"
             onScroll={onScroll}
@@ -980,7 +991,7 @@ describe('ReactDOMEventListener', () => {
     const log = [];
 
     const originalDocAddEventListener = document.addEventListener;
-    document.addEventListener = function(type, fn, options) {
+    document.addEventListener = function (type, fn, options) {
       switch (type) {
         case 'selectionchange':
           log.push(options);

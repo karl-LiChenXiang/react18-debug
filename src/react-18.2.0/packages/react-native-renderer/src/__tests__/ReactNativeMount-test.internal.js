@@ -34,12 +34,13 @@ describe('ReactNative', () => {
     StrictMode = React.StrictMode;
     ReactNative = require('react-native-renderer');
     ReactNativePrivateInterface = require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface');
-    UIManager = require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
-      .UIManager;
-    createReactNativeComponentClass = require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
-      .ReactNativeViewConfigRegistry.register;
-    TextInputState = require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
-      .TextInputState;
+    UIManager =
+      require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface').UIManager;
+    createReactNativeComponentClass =
+      require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
+        .ReactNativeViewConfigRegistry.register;
+    TextInputState =
+      require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface').TextInputState;
   });
 
   it('should be able to create and render a native component', () => {
@@ -113,7 +114,7 @@ describe('ReactNative', () => {
     let viewRef;
     ReactNative.render(
       <View
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -123,9 +124,11 @@ describe('ReactNative', () => {
     expect(UIManager.dispatchViewManagerCommand).not.toBeCalled();
     ReactNative.dispatchCommand(viewRef, 'updateCommand', [10, 20]);
     expect(UIManager.dispatchViewManagerCommand).toHaveBeenCalledTimes(1);
-    expect(
-      UIManager.dispatchViewManagerCommand,
-    ).toHaveBeenCalledWith(expect.any(Number), 'updateCommand', [10, 20]);
+    expect(UIManager.dispatchViewManagerCommand).toHaveBeenCalledWith(
+      expect.any(Number),
+      'updateCommand',
+      [10, 20],
+    );
   });
 
   it('should warn and no-op if calling dispatchCommand on non native refs', () => {
@@ -140,7 +143,7 @@ describe('ReactNative', () => {
     let viewRef;
     ReactNative.render(
       <BasicClass
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -168,7 +171,7 @@ describe('ReactNative', () => {
     let viewRef;
     ReactNative.render(
       <View
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -199,7 +202,7 @@ describe('ReactNative', () => {
     let viewRef;
     ReactNative.render(
       <BasicClass
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -228,7 +231,7 @@ describe('ReactNative', () => {
     ReactNative.render(
       <View
         foo="bar"
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -260,7 +263,7 @@ describe('ReactNative', () => {
     let viewRef;
     ReactNative.render(
       <View
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -286,7 +289,7 @@ describe('ReactNative', () => {
     let viewRef;
     ReactNative.render(
       <View
-        ref={ref => {
+        ref={(ref) => {
           viewRef = ref;
         }}
       />,
@@ -315,12 +318,12 @@ describe('ReactNative', () => {
       <View>
         <View
           foo="bar"
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />
         <View
-          ref={ref => {
+          ref={(ref) => {
             otherRef = ref;
           }}
         />
@@ -355,12 +358,12 @@ describe('ReactNative', () => {
       <View>
         <View
           foo="bar"
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />
         <View
-          ref={ref => {
+          ref={(ref) => {
             otherRef = ref;
           }}
         />
@@ -386,9 +389,9 @@ describe('ReactNative', () => {
     let a;
     let b;
     const c = ReactNative.render(
-      <View foo="foo" ref={v => (a = v)} />,
+      <View foo="foo" ref={(v) => (a = v)} />,
       11,
-      function() {
+      function () {
         b = this;
       },
     );
@@ -409,7 +412,7 @@ describe('ReactNative', () => {
         const chars = this.props.chars.split('');
         return (
           <View>
-            {chars.map(text => (
+            {chars.map((text) => (
               <View key={text} title={text} />
             ))}
           </View>
@@ -530,13 +533,16 @@ describe('ReactNative', () => {
       render() {
         return (
           <StrictMode>
-            <View ref={n => (child = n)} />
+            <View ref={(n) => (child = n)} />
           </StrictMode>
         );
       }
     }
 
-    ReactNative.render(<ContainsStrictModeChild ref={n => (parent = n)} />, 11);
+    ReactNative.render(
+      <ContainsStrictModeChild ref={(n) => (parent = n)} />,
+      11,
+    );
 
     let match;
     expect(
@@ -564,13 +570,13 @@ describe('ReactNative', () => {
 
     class IsInStrictMode extends React.Component {
       render() {
-        return <View ref={n => (child = n)} />;
+        return <View ref={(n) => (child = n)} />;
       }
     }
 
     ReactNative.render(
       <StrictMode>
-        <IsInStrictMode ref={n => (parent = n)} />
+        <IsInStrictMode ref={(n) => (parent = n)} />
       </StrictMode>,
       11,
     );
@@ -603,13 +609,16 @@ describe('ReactNative', () => {
       render() {
         return (
           <StrictMode>
-            <View ref={n => (child = n)} />
+            <View ref={(n) => (child = n)} />
           </StrictMode>
         );
       }
     }
 
-    ReactNative.render(<ContainsStrictModeChild ref={n => (parent = n)} />, 11);
+    ReactNative.render(
+      <ContainsStrictModeChild ref={(n) => (parent = n)} />,
+      11,
+    );
 
     let match;
     expect(() => (match = ReactNative.findNodeHandle(parent))).toErrorDev([
@@ -635,13 +644,13 @@ describe('ReactNative', () => {
 
     class IsInStrictMode extends React.Component {
       render() {
-        return <View ref={n => (child = n)} />;
+        return <View ref={(n) => (child = n)} />;
       }
     }
 
     ReactNative.render(
       <StrictMode>
-        <IsInStrictMode ref={n => (parent = n)} />
+        <IsInStrictMode ref={(n) => (parent = n)} />
       </StrictMode>,
       11,
     );

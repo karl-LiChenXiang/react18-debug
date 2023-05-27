@@ -186,7 +186,7 @@ function getCanonicalizedValue(value) {
         return (
           '[' +
           Array.from(value)
-            .map(v => getCanonicalizedValue(v))
+            .map((v) => getCanonicalizedValue(v))
             .join(', ') +
           ']'
         );
@@ -449,7 +449,7 @@ function prepareState(initGlobals) {
         hasSameBehaviorForAll = false;
       }
       rowPatternHash += [result.reactStable, result.reactNext]
-        .map(res =>
+        .map((res) =>
           [
             res.canonicalResult,
             res.canonicalDefaultValue,
@@ -529,7 +529,8 @@ function ResultPopover(props) {
       css={{
         padding: '1em',
         minWidth: '25em',
-      }}>
+      }}
+    >
       {JSON.stringify(
         {
           reactStable: props.reactStable,
@@ -596,7 +597,8 @@ class Result extends React.Component {
             position: 'absolute',
             top: '100%',
             zIndex: 999,
-          }}>
+          }}
+        >
           <ResultPopover {...this.props} />
         </div>
       );
@@ -609,7 +611,8 @@ class Result extends React.Component {
       <div
         css={style}
         onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}>
+        onMouseLeave={this.onMouseLeave}
+      >
         <div css={{position: 'absolute', width: '50%', height: '100%'}}>
           <RendererResult {...reactStable} />
         </div>
@@ -619,7 +622,8 @@ class Result extends React.Component {
             width: '50%',
             left: '50%',
             height: '100%',
-          }}>
+          }}
+        >
           <RendererResult {...reactNext} />
         </div>
         {highlight}
@@ -638,7 +642,8 @@ function ColumnHeader({children}) {
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-      }}>
+      }}
+    >
       {children}
     </div>
   );
@@ -653,7 +658,8 @@ function RowHeader({children, checked, onChange}) {
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-      }}>
+      }}
+    >
       <input type="checkbox" checked={checked} onChange={onChange} />
       {children}
     </div>
@@ -681,7 +687,8 @@ function CellContent(props) {
     return (
       <RowHeader
         checked={completedHashes.has(rowPatternHash)}
-        onChange={() => toggleAttribute(rowPatternHash)}>
+        onChange={() => toggleAttribute(rowPatternHash)}
+      >
         {row.hasSameBehaviorForAll ? (
           attribute.name
         ) : (
@@ -740,15 +747,15 @@ class App extends React.Component {
     );
   };
 
-  onUpdateSort = e => {
+  onUpdateSort = (e) => {
     this.setState({sortOrder: e.target.value});
   };
 
-  onUpdateFilter = e => {
+  onUpdateFilter = (e) => {
     this.setState({filter: e.target.value});
   };
 
-  toggleAttribute = rowPatternHash => {
+  toggleAttribute = (rowPatternHash) => {
     const completedHashes = new Set(this.state.completedHashes);
     if (completedHashes.has(rowPatternHash)) {
       completedHashes.delete(rowPatternHash);
@@ -769,8 +776,8 @@ class App extends React.Component {
       ReactDOMNext: '/react-dom.development.js',
       ReactDOMServerNext: '/react-dom-server-legacy.browser.development.js',
     };
-    const codePromises = Object.values(sources).map(src =>
-      fetch(src).then(res => res.text())
+    const codePromises = Object.values(sources).map((src) =>
+      fetch(src).then((res) => res.text())
     );
     const codesByIndex = await Promise.all(codePromises);
 
@@ -849,13 +856,13 @@ class App extends React.Component {
         filteredAttributes = attributes.filter(() => true);
         break;
       case COMPLETE:
-        filteredAttributes = attributes.filter(attribute => {
+        filteredAttributes = attributes.filter((attribute) => {
           const row = table.get(attribute);
           return completedHashes.has(row.rowPatternHash);
         });
         break;
       case INCOMPLETE:
-        filteredAttributes = attributes.filter(attribute => {
+        filteredAttributes = attributes.filter((attribute) => {
           const row = table.get(attribute);
           return !completedHashes.has(row.rowPatternHash);
         });
@@ -890,7 +897,7 @@ class App extends React.Component {
     }
   }
 
-  handleSaveClick = e => {
+  handleSaveClick = (e) => {
     e.preventDefault();
 
     if (useFastMode) {
@@ -902,8 +909,9 @@ class App extends React.Component {
 
     let log = '';
     for (let attribute of attributes) {
-      log += `## \`${attribute.name}\` (on \`<${attribute.tagName ||
-        'div'}>\` inside \`<${attribute.containerTagName || 'div'}>\`)\n`;
+      log += `## \`${attribute.name}\` (on \`<${
+        attribute.tagName || 'div'
+      }>\` inside \`<${attribute.containerTagName || 'div'}>\`)\n`;
       log += '| Test Case | Flags | Result |\n';
       log += '| --- | --- | --- |\n';
 
@@ -989,7 +997,7 @@ class App extends React.Component {
         <AutoSizer disableHeight={true}>
           {({width}) => (
             <MultiGrid
-              ref={input => {
+              ref={(input) => {
                 this.grid = input;
               }}
               cellRenderer={this.renderCell}

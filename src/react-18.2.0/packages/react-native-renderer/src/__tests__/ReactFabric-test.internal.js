@@ -37,8 +37,9 @@ describe('ReactFabric', () => {
     React = require('react');
     StrictMode = React.StrictMode;
     ReactFabric = require('react-native-renderer/fabric');
-    createReactNativeComponentClass = require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
-      .ReactNativeViewConfigRegistry.register;
+    createReactNativeComponentClass =
+      require('react-native/Libraries/ReactPrivate/ReactNativePrivateInterface')
+        .ReactNativeViewConfigRegistry.register;
 
     act = require('jest-react').act;
   });
@@ -230,7 +231,7 @@ describe('ReactFabric', () => {
     act(() => {
       ReactFabric.render(
         <View
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />,
@@ -241,9 +242,11 @@ describe('ReactFabric', () => {
     expect(nativeFabricUIManager.dispatchCommand).not.toBeCalled();
     ReactFabric.dispatchCommand(viewRef, 'updateCommand', [10, 20]);
     expect(nativeFabricUIManager.dispatchCommand).toHaveBeenCalledTimes(1);
-    expect(
-      nativeFabricUIManager.dispatchCommand,
-    ).toHaveBeenCalledWith(expect.any(Object), 'updateCommand', [10, 20]);
+    expect(nativeFabricUIManager.dispatchCommand).toHaveBeenCalledWith(
+      expect.any(Object),
+      'updateCommand',
+      [10, 20],
+    );
   });
 
   it('should warn and no-op if calling dispatchCommand on non native refs', () => {
@@ -259,7 +262,7 @@ describe('ReactFabric', () => {
     act(() => {
       ReactFabric.render(
         <BasicClass
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />,
@@ -289,7 +292,7 @@ describe('ReactFabric', () => {
     act(() => {
       ReactFabric.render(
         <View
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />,
@@ -321,7 +324,7 @@ describe('ReactFabric', () => {
     act(() => {
       ReactFabric.render(
         <BasicClass
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />,
@@ -348,9 +351,9 @@ describe('ReactFabric', () => {
     let a;
     let b;
     const c = ReactFabric.render(
-      <View foo="foo" ref={v => (a = v)} />,
+      <View foo="foo" ref={(v) => (a = v)} />,
       11,
-      function() {
+      function () {
         b = this;
       },
     );
@@ -371,7 +374,7 @@ describe('ReactFabric', () => {
         const chars = this.props.chars.split('');
         return (
           <View>
-            {chars.map(text => (
+            {chars.map((text) => (
               <View key={text} title={text} />
             ))}
           </View>
@@ -415,7 +418,7 @@ describe('ReactFabric', () => {
         const chars = this.state.chars.split('');
         return (
           <View>
-            {chars.map(text => (
+            {chars.map((text) => (
               <View key={text} title={text} />
             ))}
           </View>
@@ -471,7 +474,7 @@ describe('ReactFabric', () => {
     }));
 
     const snapshots = [];
-    nativeFabricUIManager.completeRoot.mockImplementation(function(
+    nativeFabricUIManager.completeRoot.mockImplementation(function (
       rootTag,
       newChildSet,
     ) {
@@ -597,16 +600,10 @@ describe('ReactFabric', () => {
       1,
     );
 
-    const [
-      ,
-      ,
-      ,
-      ,
-      instanceHandle,
-    ] = nativeFabricUIManager.createNode.mock.calls[0];
-    const [
-      dispatchEvent,
-    ] = nativeFabricUIManager.registerEventHandler.mock.calls[0];
+    const [, , , , instanceHandle] =
+      nativeFabricUIManager.createNode.mock.calls[0];
+    const [dispatchEvent] =
+      nativeFabricUIManager.registerEventHandler.mock.calls[0];
 
     const touchEvent = {
       touches: [],
@@ -676,7 +673,8 @@ describe('ReactFabric', () => {
             onBubblingEventCapture={ancestorCapture}
             onSkippedBubblingEvent={ancestorBubble}
             onDefaultBubblingEvent={ancestorBubble}
-            onBubblingEvent={ancestorBubble}>
+            onBubblingEvent={ancestorBubble}
+          >
             <View
               onSkippedBubblingEventCapture={targetCapture}
               onDefaultBubblingEventCapture={targetCapture}
@@ -694,16 +692,10 @@ describe('ReactFabric', () => {
       expect(nativeFabricUIManager.registerEventHandler.mock.calls.length).toBe(
         1,
       );
-      const [
-        ,
-        ,
-        ,
-        ,
-        childInstance,
-      ] = nativeFabricUIManager.createNode.mock.calls[0];
-      const [
-        dispatchEvent,
-      ] = nativeFabricUIManager.registerEventHandler.mock.calls[0];
+      const [, , , , childInstance] =
+        nativeFabricUIManager.createNode.mock.calls[0];
+      const [dispatchEvent] =
+        nativeFabricUIManager.registerEventHandler.mock.calls[0];
 
       dispatchEvent(childInstance, 'topDefaultBubblingEvent', event);
       expect(targetBubble).toHaveBeenCalledTimes(1);
@@ -750,15 +742,10 @@ describe('ReactFabric', () => {
     }));
 
     function getViewById(id) {
-      const [
-        reactTag,
-        ,
-        ,
-        ,
-        instanceHandle,
-      ] = nativeFabricUIManager.createNode.mock.calls.find(
-        args => args[3] && args[3].id === id,
-      );
+      const [reactTag, , , , instanceHandle] =
+        nativeFabricUIManager.createNode.mock.calls.find(
+          (args) => args[3] && args[3].id === id,
+        );
 
       return {reactTag, instanceHandle};
     }
@@ -772,7 +759,7 @@ describe('ReactFabric', () => {
           <View
             ref={ref1}
             id="one"
-            onResponderStart={event => {
+            onResponderStart={(event) => {
               expect(ref1.current).not.toBeNull();
               // Check for referential equality
               expect(ref1.current).toBe(event.target);
@@ -783,7 +770,7 @@ describe('ReactFabric', () => {
           <View
             ref={ref2}
             id="two"
-            onResponderStart={event => {
+            onResponderStart={(event) => {
               expect(ref2.current).not.toBeNull();
               // Check for referential equality
               expect(ref2.current).toBe(event.target);
@@ -796,9 +783,8 @@ describe('ReactFabric', () => {
       );
     });
 
-    const [
-      dispatchEvent,
-    ] = nativeFabricUIManager.registerEventHandler.mock.calls[0];
+    const [dispatchEvent] =
+      nativeFabricUIManager.registerEventHandler.mock.calls[0];
 
     dispatchEvent(getViewById('one').instanceHandle, 'topTouchStart', {
       target: getViewById('one').reactTag,
@@ -843,7 +829,7 @@ describe('ReactFabric', () => {
       render() {
         return (
           <StrictMode>
-            <View ref={n => (child = n)} />
+            <View ref={(n) => (child = n)} />
           </StrictMode>
         );
       }
@@ -851,7 +837,7 @@ describe('ReactFabric', () => {
 
     act(() => {
       ReactFabric.render(
-        <ContainsStrictModeChild ref={n => (parent = n)} />,
+        <ContainsStrictModeChild ref={(n) => (parent = n)} />,
         11,
       );
     });
@@ -882,14 +868,14 @@ describe('ReactFabric', () => {
 
     class IsInStrictMode extends React.Component {
       render() {
-        return <View ref={n => (child = n)} />;
+        return <View ref={(n) => (child = n)} />;
       }
     }
 
     act(() => {
       ReactFabric.render(
         <StrictMode>
-          <IsInStrictMode ref={n => (parent = n)} />
+          <IsInStrictMode ref={(n) => (parent = n)} />
         </StrictMode>,
         11,
       );
@@ -923,7 +909,7 @@ describe('ReactFabric', () => {
       render() {
         return (
           <StrictMode>
-            <View ref={n => (child = n)} />
+            <View ref={(n) => (child = n)} />
           </StrictMode>
         );
       }
@@ -931,7 +917,7 @@ describe('ReactFabric', () => {
 
     act(() => {
       ReactFabric.render(
-        <ContainsStrictModeChild ref={n => (parent = n)} />,
+        <ContainsStrictModeChild ref={(n) => (parent = n)} />,
         11,
       );
     });
@@ -960,14 +946,14 @@ describe('ReactFabric', () => {
 
     class IsInStrictMode extends React.Component {
       render() {
-        return <View ref={n => (child = n)} />;
+        return <View ref={(n) => (child = n)} />;
       }
     }
 
     act(() => {
       ReactFabric.render(
         <StrictMode>
-          <IsInStrictMode ref={n => (parent = n)} />
+          <IsInStrictMode ref={(n) => (parent = n)} />
         </StrictMode>,
         11,
       );
@@ -998,7 +984,7 @@ describe('ReactFabric', () => {
     act(() => {
       ReactFabric.render(
         <View
-          ref={ref => {
+          ref={(ref) => {
             viewRef = ref;
           }}
         />,

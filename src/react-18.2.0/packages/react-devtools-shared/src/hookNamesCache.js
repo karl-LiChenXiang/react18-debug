@@ -109,7 +109,7 @@ export function loadHookNames(
       }
 
       // This assumes they won't throw.
-      callbacks.forEach(callback => callback());
+      callbacks.forEach((callback) => callback());
       callbacks.clear();
     };
 
@@ -131,7 +131,7 @@ export function loadHookNames(
 
     withCallbackPerfMeasurements(
       'loadHookNames',
-      done => {
+      (done) => {
         loadHookNamesFunction(hooksTree, fetchFileWithCaching).then(
           function onSuccess(hookNames) {
             if (didTimeout) {
@@ -143,7 +143,8 @@ export function loadHookNames(
             }
 
             if (hookNames) {
-              const resolvedRecord = ((newRecord: any): ResolvedRecord<HookNames>);
+              const resolvedRecord =
+                ((newRecord: any): ResolvedRecord<HookNames>);
               resolvedRecord.status = Resolved;
               resolvedRecord.value = hookNames;
             } else {

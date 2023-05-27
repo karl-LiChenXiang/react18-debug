@@ -102,7 +102,7 @@ async function getCommitLog(sha) {
   const rawLog = await execRead(`
     git log --topo-order --pretty=format:'%s' ${sha}...HEAD -- packages/react-devtools*
   `);
-  rawLog.split('\n').forEach(line => {
+  rawLog.split('\n').forEach((line) => {
     line = line.replace('[DevTools] ', '');
 
     const match = line.match(/(.+) \(#([0-9]+)\)/);
@@ -226,7 +226,7 @@ function updateChangelog(nextVersion, commitLog) {
 }
 
 function updateManifestVersions(previousVersion, nextVersion) {
-  MANIFEST_PATHS.forEach(partialPath => {
+  MANIFEST_PATHS.forEach((partialPath) => {
     const path = join(ROOT_PATH, partialPath);
     const json = readJsonSync(path);
     json.version = nextVersion;
@@ -244,7 +244,7 @@ function updateManifestVersions(previousVersion, nextVersion) {
 }
 
 function updatePackageVersions(previousVersion, nextVersion) {
-  PACKAGE_PATHS.forEach(partialPath => {
+  PACKAGE_PATHS.forEach((partialPath) => {
     const path = join(ROOT_PATH, partialPath);
     const json = readJsonSync(path);
     json.version = nextVersion;

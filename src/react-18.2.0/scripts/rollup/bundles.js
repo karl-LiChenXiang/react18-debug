@@ -276,7 +276,7 @@ const bundles = [
     minifyWithProdErrorCodes: true,
     wrapWithModuleBoundaries: false,
     externals: ['react'],
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -291,7 +291,7 @@ const bundles = [
     externals: ['react', 'stream'],
     minifyWithProdErrorCodes: false,
     wrapWithModuleBoundaries: false,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -484,7 +484,7 @@ const bundles = [
     externals: ['react'],
     minifyWithProdErrorCodes: true,
     wrapWithModuleBoundaries: true,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         // Include JSX
         presets: opts.presets.concat([
@@ -508,7 +508,7 @@ const bundles = [
     externals: ['react-native', 'ReactNativeInternalFeatureFlags'],
     minifyWithProdErrorCodes: false,
     wrapWithModuleBoundaries: true,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -523,7 +523,7 @@ const bundles = [
     externals: ['react-native'],
     minifyWithProdErrorCodes: false,
     wrapWithModuleBoundaries: true,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -542,7 +542,7 @@ const bundles = [
     externals: ['react-native', 'ReactNativeInternalFeatureFlags'],
     minifyWithProdErrorCodes: false,
     wrapWithModuleBoundaries: true,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -557,7 +557,7 @@ const bundles = [
     externals: ['react-native'],
     minifyWithProdErrorCodes: false,
     wrapWithModuleBoundaries: true,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -588,7 +588,7 @@ const bundles = [
     ],
     minifyWithProdErrorCodes: false,
     wrapWithModuleBoundaries: false,
-    babel: opts =>
+    babel: (opts) =>
       Object.assign({}, opts, {
         plugins: opts.plugins.concat([
           [require.resolve('@babel/plugin-transform-classes'), {loose: true}],
@@ -945,7 +945,7 @@ const bundles = [
 // Based on deep-freeze by substack (public domain)
 function deepFreeze(o) {
   Object.freeze(o);
-  Object.getOwnPropertyNames(o).forEach(function(prop) {
+  Object.getOwnPropertyNames(o).forEach(function (prop) {
     if (
       o[prop] !== null &&
       (typeof o[prop] === 'object' || typeof o[prop] === 'function') &&

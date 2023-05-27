@@ -30,9 +30,12 @@ function loadModules({
 
   ReactFeatureFlags.enableProfilerTimer = enableProfilerTimer;
   ReactFeatureFlags.enableProfilerCommitHooks = enableProfilerCommitHooks;
-  ReactFeatureFlags.enableProfilerNestedUpdatePhase = enableProfilerNestedUpdatePhase;
-  ReactFeatureFlags.enableProfilerNestedUpdateScheduledHook = enableProfilerNestedUpdateScheduledHook;
-  ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = replayFailedUnitOfWorkWithInvokeGuardedCallback;
+  ReactFeatureFlags.enableProfilerNestedUpdatePhase =
+    enableProfilerNestedUpdatePhase;
+  ReactFeatureFlags.enableProfilerNestedUpdateScheduledHook =
+    enableProfilerNestedUpdateScheduledHook;
+  ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback =
+    replayFailedUnitOfWorkWithInvokeGuardedCallback;
 
   React = require('react');
   Scheduler = require('scheduler');
@@ -64,7 +67,7 @@ function loadModules({
 
 describe('Profiler', () => {
   describe('works in profiling and non-profiling bundles', () => {
-    [true, false].forEach(enableProfilerTimer => {
+    [true, false].forEach((enableProfilerTimer) => {
       describe(`enableProfilerTimer:${
         enableProfilerTimer ? 'enabled' : 'disabled'
       }`, () => {
@@ -152,7 +155,7 @@ describe(`onRender`, () => {
   });
 
   it('should handle errors thrown', () => {
-    const callback = jest.fn(id => {
+    const callback = jest.fn((id) => {
       if (id === 'throw') {
         throw Error('expected');
       }
@@ -193,7 +196,7 @@ describe(`onRender`, () => {
       return null;
     };
 
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         ReactTestRenderer.create(
           <React.Profiler id="test" onRender={callback}>
@@ -227,7 +230,7 @@ describe(`onRender`, () => {
   it('does not record times for components outside of Profiler tree', () => {
     // Mock the Scheduler module so we can track how many times the current
     // time is read
-    jest.mock('scheduler', obj => {
+    jest.mock('scheduler', (obj) => {
       const ActualScheduler = jest.requireActual('scheduler/unstable_mock');
       return {
         ...ActualScheduler,
@@ -319,7 +322,7 @@ describe(`onRender`, () => {
 
     renderer.update(<App />);
 
-    if (gate(flags => flags.enableUseJSStackToTrackPassiveDurations)) {
+    if (gate((flags) => flags.enableUseJSStackToTrackPassiveDurations)) {
       // None of the Profiler's subtree was rendered because App bailed out before the Profiler.
       // So we expect onRender not to be called.
       expect(callback).not.toHaveBeenCalled();
@@ -741,7 +744,7 @@ describe(`onRender`, () => {
       Scheduler.unstable_advanceTime(5); // 0 -> 5
 
       // Render partially, but run out of time before completing.
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           ReactTestRenderer.create(
             <React.Profiler id="test" onRender={callback}>
@@ -788,7 +791,7 @@ describe(`onRender`, () => {
 
       // Render partially, but don't finish.
       // This partial render should take 5ms of simulated time.
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           ReactTestRenderer.create(
             <React.Profiler id="outer" onRender={callback}>
@@ -854,7 +857,7 @@ describe(`onRender`, () => {
       // Render a partially update, but don't finish.
       // This partial render should take 10ms of simulated time.
       let renderer;
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           renderer = ReactTestRenderer.create(
             <React.Profiler id="test" onRender={callback}>
@@ -941,7 +944,7 @@ describe(`onRender`, () => {
 
       // Render a partially update, but don't finish.
       // This partial render should take 3ms of simulated time.
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           renderer.update(
             <React.Profiler id="test" onRender={callback}>
@@ -1065,7 +1068,7 @@ describe(`onRender`, () => {
 
       // Render a partially update, but don't finish.
       // This partial render will take 10ms of actual render time.
-      if (gate(flags => flags.enableSyncDefaultUpdates)) {
+      if (gate((flags) => flags.enableSyncDefaultUpdates)) {
         React.startTransition(() => {
           first.setState({renderTime: 10});
         });
@@ -1114,7 +1117,7 @@ describe(`onRender`, () => {
       expect(call[5]).toBe(380); // commit time
     });
 
-    [true, false].forEach(replayFailedUnitOfWorkWithInvokeGuardedCallback => {
+    [true, false].forEach((replayFailedUnitOfWorkWithInvokeGuardedCallback) => {
       describe(`replayFailedUnitOfWorkWithInvokeGuardedCallback ${
         replayFailedUnitOfWorkWithInvokeGuardedCallback ? 'enabled' : 'disabled'
       }`, () => {
@@ -1567,7 +1570,7 @@ describe(`onCommit`, () => {
   it('should include time spent in ref callbacks', () => {
     const callback = jest.fn();
 
-    const refSetter = ref => {
+    const refSetter = (ref) => {
       if (ref !== null) {
         Scheduler.unstable_advanceTime(10);
       } else {
@@ -1667,7 +1670,7 @@ describe(`onCommit`, () => {
     expect(call[2]).toBe(1010); // durations
     expect(call[3]).toBe(2); // commit start time (before mutations or effects)
 
-    act(() => setCountRef.current(count => count + 1));
+    act(() => setCountRef.current((count) => count + 1));
 
     expect(callback).toHaveBeenCalledTimes(2);
 
@@ -1748,7 +1751,8 @@ describe(`onCommit`, () => {
                 effectDuration={100000000}
                 cleanupDuration={1000000000}
               />
-            }>
+            }
+          >
             <ComponentWithEffects
               duration={10}
               effectDuration={100}
@@ -1834,7 +1838,8 @@ describe(`onCommit`, () => {
                 effectDuration={100000000}
                 cleanupDuration={1000000000}
               />
-            }>
+            }
+          >
             <ComponentWithEffects
               duration={10}
               effectDuration={100}
@@ -1876,7 +1881,8 @@ describe(`onCommit`, () => {
                 effectDuration={100000000}
                 cleanupDuration={1000000000}
               />
-            }>
+            }
+          >
             <ComponentWithEffects
               duration={10}
               effectDuration={100}
@@ -2110,7 +2116,7 @@ describe(`onPostCommit`, () => {
     expect(call[2]).toBe(1010); // durations
     expect(call[3]).toBe(2); // commit start time (before mutations or effects)
 
-    act(() => setCountRef.current(count => count + 1));
+    act(() => setCountRef.current((count) => count + 1));
 
     expect(callback).toHaveBeenCalledTimes(2);
 
@@ -2191,7 +2197,8 @@ describe(`onPostCommit`, () => {
                 effectDuration={100000000}
                 cleanupDuration={1000000000}
               />
-            }>
+            }
+          >
             <ComponentWithEffects
               duration={10}
               effectDuration={100}
@@ -2278,7 +2285,8 @@ describe(`onPostCommit`, () => {
                 effectDuration={100000000}
                 cleanupDuration={1000000000}
               />
-            }>
+            }
+          >
             <ComponentWithEffects
               duration={10}
               effectDuration={100}
@@ -2320,7 +2328,8 @@ describe(`onPostCommit`, () => {
                 effectDuration={100000000}
                 cleanupDuration={1000000000}
               />
-            }>
+            }
+          >
             <ComponentWithEffects
               duration={10}
               effectDuration={100}
@@ -2377,7 +2386,8 @@ describe(`onNestedUpdateScheduled`, () => {
     ReactNoop.renderLegacySyncRoot(
       <React.Profiler
         id="test"
-        onNestedUpdateScheduled={onNestedUpdateScheduled}>
+        onNestedUpdateScheduled={onNestedUpdateScheduled}
+      >
         <div>initial</div>
       </React.Profiler>,
     );
@@ -2385,7 +2395,8 @@ describe(`onNestedUpdateScheduled`, () => {
     ReactNoop.renderLegacySyncRoot(
       <React.Profiler
         id="test"
-        onNestedUpdateScheduled={onNestedUpdateScheduled}>
+        onNestedUpdateScheduled={onNestedUpdateScheduled}
+      >
         <div>update</div>
       </React.Profiler>,
     );
@@ -2399,7 +2410,8 @@ describe(`onNestedUpdateScheduled`, () => {
     ReactNoop.render(
       <React.Profiler
         id="test"
-        onNestedUpdateScheduled={onNestedUpdateScheduled}>
+        onNestedUpdateScheduled={onNestedUpdateScheduled}
+      >
         <div>initial</div>
       </React.Profiler>,
     );
@@ -2407,7 +2419,8 @@ describe(`onNestedUpdateScheduled`, () => {
     ReactNoop.render(
       <React.Profiler
         id="test"
-        onNestedUpdateScheduled={onNestedUpdateScheduled}>
+        onNestedUpdateScheduled={onNestedUpdateScheduled}
+      >
         <div>update</div>
       </React.Profiler>,
     );
@@ -2431,7 +2444,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component />
         </React.Profiler>,
       );
@@ -2461,7 +2475,8 @@ describe(`onNestedUpdateScheduled`, () => {
       <React.Profiler
         id="root"
         onNestedUpdateScheduled={onNestedUpdateScheduled}
-        onRender={onRender}>
+        onRender={onRender}
+      >
         <Component />
       </React.Profiler>,
     );
@@ -2492,10 +2507,12 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="one"
-          onNestedUpdateScheduled={onNestedUpdateScheduledOne}>
+          onNestedUpdateScheduled={onNestedUpdateScheduledOne}
+        >
           <React.Profiler
             id="two"
-            onNestedUpdateScheduled={onNestedUpdateScheduledTwo}>
+            onNestedUpdateScheduled={onNestedUpdateScheduledTwo}
+          >
             <>
               <Component />
               <React.Profiler
@@ -2540,7 +2557,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.renderToRootWithID(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <ComponentRootOne />
         </React.Profiler>,
         1,
@@ -2549,7 +2567,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.renderToRootWithID(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <ComponentRootTwo />
         </React.Profiler>,
         2,
@@ -2580,7 +2599,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component />
         </React.Profiler>,
       );
@@ -2606,7 +2626,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component />
         </React.Profiler>,
       );
@@ -2636,7 +2657,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component />
         </React.Profiler>,
       );
@@ -2650,7 +2672,7 @@ describe(`onNestedUpdateScheduled`, () => {
     function Component({mountChild}) {
       const [refAttached, setRefAttached] = React.useState(false);
       const [refDetached, setRefDetached] = React.useState(false);
-      const refSetter = React.useCallback(ref => {
+      const refSetter = React.useCallback((ref) => {
         if (ref !== null) {
           setRefAttached(true);
         } else {
@@ -2667,7 +2689,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component mountChild={true} />
         </React.Profiler>,
       );
@@ -2684,7 +2707,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component mountChild={false} />
         </React.Profiler>,
       );
@@ -2719,7 +2743,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component />
         </React.Profiler>,
       );
@@ -2759,7 +2784,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component scheduleNestedUpdate={false} />
         </React.Profiler>,
       );
@@ -2771,7 +2797,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component scheduleNestedUpdate={true} />
         </React.Profiler>,
       );
@@ -2806,7 +2833,8 @@ describe(`onNestedUpdateScheduled`, () => {
       ReactNoop.render(
         <React.Profiler
           id="test"
-          onNestedUpdateScheduled={onNestedUpdateScheduled}>
+          onNestedUpdateScheduled={onNestedUpdateScheduled}
+        >
           <Component />
         </React.Profiler>,
       );

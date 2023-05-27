@@ -33,13 +33,8 @@ import {TimelineSearchContextController} from './TimelineSearchContext';
 import styles from './Timeline.css';
 
 export function Timeline(_: {||}) {
-  const {
-    file,
-    inMemoryTimelineData,
-    isTimelineSupported,
-    setFile,
-    viewState,
-  } = useContext(TimelineContext);
+  const {file, inMemoryTimelineData, isTimelineSupported, setFile, viewState} =
+    useContext(TimelineContext);
   const {didRecordCommits, isProfiling} = useContext(ProfilerContext);
 
   const ref = useRef(null);
@@ -79,7 +74,8 @@ export function Timeline(_: {||}) {
     content = (
       <TimelineSearchContextController
         profilerData={timelineData}
-        viewState={viewState}>
+        viewState={viewState}
+      >
         <TimelineSearchInput />
         <CanvasPage profilerData={timelineData} viewState={viewState} />
       </TimelineSearchContextController>
@@ -162,7 +158,8 @@ const FileLoader = ({
   return (
     <TimelineSearchContextController
       profilerData={dataOrError}
-      viewState={viewState}>
+      viewState={viewState}
+    >
       <TimelineSearchInput />
       <CanvasPage profilerData={dataOrError} viewState={viewState} />
     </TimelineSearchContextController>

@@ -132,7 +132,7 @@ export class SourceMapMetadataConsumer {
     if (sourcemap.mappings === undefined) {
       const indexSourceMap: IndexSourceMap = sourcemap;
       const metadataMap = new Map();
-      indexSourceMap.sections.forEach(section => {
+      indexSourceMap.sections.forEach((section) => {
         const metadataMapForIndexMap = this._getMetadataObjectsBySourceNames(
           section.map,
         );

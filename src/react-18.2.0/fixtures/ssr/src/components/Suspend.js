@@ -6,7 +6,7 @@ export default function Suspend({children}) {
   // This is used to demo a slow loading app.
   if (!isResolved) {
     if (promise === null) {
-      promise = new Promise(resolve => {
+      promise = new Promise((resolve) => {
         setTimeout(
           () => {
             isResolved = true;

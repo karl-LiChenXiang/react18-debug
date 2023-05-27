@@ -118,7 +118,7 @@ export default class ReactFlightWebpackPlugin {
           contextResolver,
           compiler.inputFileSystem,
           contextModuleFactory,
-          function(err, resolvedClientRefs) {
+          function (err, resolvedClientRefs) {
             if (err) {
               callback(err);
               return;
@@ -143,7 +143,7 @@ export default class ReactFlightWebpackPlugin {
           new NullDependency.Template(),
         );
 
-        const handler = parser => {
+        const handler = (parser) => {
           // We need to add all client references as dependency of something in the graph so
           // Webpack knows which entries need to know about the relevant chunks and include the
           // map in their runtime. The things that actually resolves the dependency is the Flight
@@ -195,13 +195,13 @@ export default class ReactFlightWebpackPlugin {
       },
     );
 
-    compiler.hooks.make.tap(PLUGIN_NAME, compilation => {
+    compiler.hooks.make.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.processAssets.tap(
         {
           name: PLUGIN_NAME,
           stage: Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
-        function() {
+        function () {
           if (clientFileNameFound === false) {
             compilation.warnings.push(
               new WebpackError(
@@ -212,8 +212,8 @@ export default class ReactFlightWebpackPlugin {
           }
 
           const json = {};
-          compilation.chunkGroups.forEach(function(chunkGroup) {
-            const chunkIds = chunkGroup.chunks.map(function(c) {
+          compilation.chunkGroups.forEach(function (chunkGroup) {
+            const chunkIds = chunkGroup.chunks.map(function (c) {
               return c.id;
             });
 
@@ -237,7 +237,7 @@ export default class ReactFlightWebpackPlugin {
                     ? moduleProvidedExports
                     : [],
                 )
-                .forEach(function(name) {
+                .forEach(function (name) {
                   moduleExports[name] = {
                     id,
                     chunks: chunkIds,
@@ -251,18 +251,17 @@ export default class ReactFlightWebpackPlugin {
               }
             }
 
-            chunkGroup.chunks.forEach(function(chunk) {
-              const chunkModules = compilation.chunkGraph.getChunkModulesIterable(
-                chunk,
-              );
+            chunkGroup.chunks.forEach(function (chunk) {
+              const chunkModules =
+                compilation.chunkGraph.getChunkModulesIterable(chunk);
 
-              Array.from(chunkModules).forEach(function(module) {
+              Array.from(chunkModules).forEach(function (module) {
                 const moduleId = compilation.chunkGraph.getModuleId(module);
 
                 recordModule(moduleId, module);
                 // If this is a concatenation, register each child to the parent ID.
                 if (module.modules) {
-                  module.modules.forEach(concatenatedMod => {
+                  module.modules.forEach((concatenatedMod) => {
                     recordModule(moduleId, concatenatedMod);
                   });
                 }
@@ -305,7 +304,8 @@ export default class ReactFlightWebpackPlugin {
           cb(null, [new ClientReferenceDependency(clientReferencePath)]);
           return;
         }
-        const clientReferenceSearch: ClientReferenceSearchPath = clientReferencePath;
+        const clientReferenceSearch: ClientReferenceSearchPath =
+          clientReferencePath;
         contextResolver.resolve(
           {},
           context,
@@ -329,7 +329,7 @@ export default class ReactFlightWebpackPlugin {
               options,
               (err2: null | Error, deps: Array<ModuleDependency>) => {
                 if (err2) return cb(err2);
-                const clientRefDeps = deps.map(dep => {
+                const clientRefDeps = deps.map((dep) => {
                   // use userRequest instead of request. request always end with undefined which is wrong
                   const request = join(resolvedDirectory, dep.userRequest);
                   const clientRefDep = new ClientReferenceDependency(request);

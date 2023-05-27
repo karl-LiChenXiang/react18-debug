@@ -50,12 +50,12 @@ function setup(hook) {
   const Agent = require('react-devtools-shared/src/backend/agent').default;
   const Bridge = require('react-devtools-shared/src/bridge').default;
   const {initBackend} = require('react-devtools-shared/src/backend');
-  const setupNativeStyleEditor = require('react-devtools-shared/src/backend/NativeStyleEditor/setupNativeStyleEditor')
-    .default;
+  const setupNativeStyleEditor =
+    require('react-devtools-shared/src/backend/NativeStyleEditor/setupNativeStyleEditor').default;
 
   const bridge = new Bridge({
     listen(fn) {
-      const listener = event => {
+      const listener = (event) => {
         if (
           event.source !== window ||
           !event.data ||

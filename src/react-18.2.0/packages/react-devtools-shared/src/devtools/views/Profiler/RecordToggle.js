@@ -20,9 +20,8 @@ export type Props = {|
 |};
 
 export default function RecordToggle({disabled}: Props) {
-  const {isProfiling, startProfiling, stopProfiling} = useContext(
-    ProfilerContext,
-  );
+  const {isProfiling, startProfiling, stopProfiling} =
+    useContext(ProfilerContext);
 
   let className = styles.InactiveRecordToggle;
   if (disabled) {
@@ -37,7 +36,8 @@ export default function RecordToggle({disabled}: Props) {
       disabled={disabled}
       onClick={isProfiling ? stopProfiling : startProfiling}
       testName="ProfilerToggleButton"
-      title={isProfiling ? 'Stop profiling' : 'Start profiling'}>
+      title={isProfiling ? 'Stop profiling' : 'Start profiling'}
+    >
       <ButtonIcon type="record" />
     </Button>
   );

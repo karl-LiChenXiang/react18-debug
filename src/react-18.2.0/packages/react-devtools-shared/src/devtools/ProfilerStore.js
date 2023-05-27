@@ -217,7 +217,7 @@ export default class ProfilerStore extends EventEmitter<{|
       };
       profilingSnapshots.set(elementID, snapshotNode);
 
-      element.children.forEach(childID =>
+      element.children.forEach((childID) =>
         this._takeProfilingSnapshotRecursive(childID, profilingSnapshots),
       );
     }
@@ -306,7 +306,7 @@ export default class ProfilerStore extends EventEmitter<{|
 
       // Record snapshot of tree at the time profiling is started.
       // This info is required to handle cases of e.g. nodes being removed during profiling.
-      this._store.roots.forEach(rootID => {
+      this._store.roots.forEach((rootID) => {
         const profilingSnapshots = new Map();
         this._initialSnapshotsByRootID.set(rootID, profilingSnapshots);
         this._takeProfilingSnapshotRecursive(rootID, profilingSnapshots);
@@ -333,7 +333,7 @@ export default class ProfilerStore extends EventEmitter<{|
         // Only request data from renderers that actually logged it.
         // This avoids unnecessary bridge requests and also avoids edge case mixed renderer bugs.
         // (e.g. when v15 and v16 are both present)
-        this._rendererIDsThatReportedProfilingData.forEach(rendererID => {
+        this._rendererIDsThatReportedProfilingData.forEach((rendererID) => {
           if (!this._rendererQueue.has(rendererID)) {
             this._rendererQueue.add(rendererID);
 

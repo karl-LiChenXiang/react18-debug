@@ -10,14 +10,15 @@
 'use strict';
 
 // Polyfills for test environment
-global.ReadableStream = require('web-streams-polyfill/ponyfill/es6').ReadableStream;
+global.ReadableStream =
+  require('web-streams-polyfill/ponyfill/es6').ReadableStream;
 global.TextEncoder = require('util').TextEncoder;
 global.TextDecoder = require('util').TextDecoder;
 
 let webpackModuleIdx = 0;
 let webpackModules = {};
 let webpackMap = {};
-global.__webpack_require__ = function(id) {
+global.__webpack_require__ = function (id) {
   return webpackModules[id];
 };
 
@@ -90,7 +91,7 @@ describe('ReactFlightDOMBrowser', () => {
         promise = null;
         resolve();
       };
-      _reject = e => {
+      _reject = (e) => {
         error = e;
         promise = null;
         reject(e);
@@ -202,7 +203,7 @@ describe('ReactFlightDOMBrowser', () => {
 
     function MyErrorBoundary({children}) {
       return (
-        <ErrorBoundary fallback={e => <p>{e.message}</p>}>
+        <ErrorBoundary fallback={(e) => <p>{e.message}</p>}>
           {children}
         </ErrorBoundary>
       );

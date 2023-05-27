@@ -63,13 +63,10 @@ export default function Tree(props: Props) {
   const bridge = useContext(BridgeContext);
   const store = useContext(StoreContext);
   const {hideSettings} = useContext(OptionsContext);
-  const [isNavigatingWithKeyboard, setIsNavigatingWithKeyboard] = useState(
-    false,
-  );
-  const {
-    highlightNativeElement,
-    clearHighlightNativeElement,
-  } = useHighlightNativeElement();
+  const [isNavigatingWithKeyboard, setIsNavigatingWithKeyboard] =
+    useState(false);
+  const {highlightNativeElement, clearHighlightNativeElement} =
+    useHighlightNativeElement();
   const treeRef = useRef<HTMLDivElement | null>(null);
   const focusTargetRef = useRef<HTMLDivElement | null>(null);
 
@@ -89,7 +86,7 @@ export default function Tree(props: Props) {
   // meaning the scroll action would be skipped (since ref updates don't re-run effects).
   // Using a callback ref accounts for this case...
   const listCallbackRef = useCallback(
-    list => {
+    (list) => {
       if (list != null && selectedElementIndex !== null) {
         list.scrollToItem(selectedElementIndex, 'smart');
       }
@@ -224,7 +221,7 @@ export default function Tree(props: Props) {
   }, [dispatch, numElements, selectedElementIndex]);
 
   const handleKeyPress = useCallback(
-    event => {
+    (event) => {
       switch (event.key) {
         case 'Enter':
         case ' ':
@@ -270,7 +267,7 @@ export default function Tree(props: Props) {
 
   // Highlight last hovered element.
   const handleElementMouseEnter = useCallback(
-    id => {
+    (id) => {
       // Ignore hover while we're navigating with keyboard.
       // This avoids flicker from the hovered nodes under the mouse.
       if (!isNavigatingWithKeyboard) {
@@ -371,17 +368,20 @@ export default function Tree(props: Props) {
                 )}
                 <Button
                   onClick={handlePreviousErrorOrWarningClick}
-                  title="Scroll to previous error or warning">
+                  title="Scroll to previous error or warning"
+                >
                   <ButtonIcon type="up" />
                 </Button>
                 <Button
                   onClick={handleNextErrorOrWarningClick}
-                  title="Scroll to next error or warning">
+                  title="Scroll to next error or warning"
+                >
                   <ButtonIcon type="down" />
                 </Button>
                 <Button
                   onClick={clearErrorsAndWarnings}
-                  title="Clear all errors and warnings">
+                  title="Clear all errors and warnings"
+                >
                   <ButtonIcon type="clear" />
                 </Button>
               </React.Fragment>
@@ -401,7 +401,8 @@ export default function Tree(props: Props) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           ref={focusTargetRef}
-          tabIndex={0}>
+          tabIndex={0}
+        >
           <AutoSizer>
             {({height, width}) => (
               // $FlowFixMe https://github.com/facebook/flow/issues/7341
@@ -414,7 +415,8 @@ export default function Tree(props: Props) {
                 itemKey={itemKey}
                 itemSize={lineHeight}
                 ref={listCallbackRef}
-                width={width}>
+                width={width}
+              >
                 {Element}
               </FixedSizeList>
             )}
@@ -568,7 +570,8 @@ function InnerElementType({children, style, ...rest}) {
       className={styles.InnerElementType}
       ref={divRef}
       style={style}
-      {...rest}>
+      {...rest}
+    >
       <SelectedTreeHighlight />
       {children}
     </div>

@@ -67,7 +67,7 @@ env.beforeEach(() => {
       return false;
     }
     const shouldFilter = global._ignoredErrorOrWarningMessages.some(
-      errorOrWarningMessage => {
+      (errorOrWarningMessage) => {
         return firstArg.indexOf(errorOrWarningMessage) !== -1;
       },
     );
@@ -139,7 +139,7 @@ env.beforeEach(() => {
       };
     },
     send(event: string, payload: any, transferable?: Array<any>) {
-      bridgeListeners.forEach(callback => callback({event, payload}));
+      bridgeListeners.forEach((callback) => callback({event, payload}));
     },
   });
 

@@ -48,7 +48,7 @@ describe('Timeline profiler', () => {
           markName = filterMarkData(markName);
 
           clearedMarks.push(markName);
-          marks = marks.filter(mark => mark !== markName);
+          marks = marks.filter((mark) => mark !== markName);
         },
         mark(markName, markOptions) {
           markName = filterMarkData(markName);
@@ -80,8 +80,8 @@ describe('Timeline profiler', () => {
       ReactDOMClient = require('react-dom/client');
       Scheduler = require('scheduler');
 
-      setPerformanceMock = require('react-devtools-shared/src/backend/profilingHooks')
-        .setPerformanceMock_ONLY_FOR_TESTING;
+      setPerformanceMock =
+        require('react-devtools-shared/src/backend/profilingHooks').setPerformanceMock_ONLY_FOR_TESTING;
       setPerformanceMock(createUserTimingPolyfill());
 
       const store = global.store;
@@ -103,8 +103,8 @@ describe('Timeline profiler', () => {
       let getLanesFromTransportDecimalBitmask;
 
       beforeEach(() => {
-        getLanesFromTransportDecimalBitmask = require('react-devtools-timeline/src/import-worker/preprocessData')
-          .getLanesFromTransportDecimalBitmask;
+        getLanesFromTransportDecimalBitmask =
+          require('react-devtools-timeline/src/import-worker/preprocessData').getLanesFromTransportDecimalBitmask;
       });
 
       // @reactVersion >= 18.0
@@ -113,11 +113,7 @@ describe('Timeline profiler', () => {
         expect(getLanesFromTransportDecimalBitmask('512')).toEqual([9]);
         expect(getLanesFromTransportDecimalBitmask('3')).toEqual([0, 1]);
         expect(getLanesFromTransportDecimalBitmask('1234')).toEqual([
-          1,
-          4,
-          6,
-          7,
-          10,
+          1, 4, 6, 7, 10,
         ]); // 2 + 16 + 64 + 128 + 1024
         expect(
           getLanesFromTransportDecimalBitmask('1073741824'), // 0b1000000000000000000000000000000
@@ -137,8 +133,8 @@ describe('Timeline profiler', () => {
 
       // @reactVersion >= 18.0
       it('should ignore lanes outside REACT_TOTAL_NUM_LANES', () => {
-        const REACT_TOTAL_NUM_LANES = require('react-devtools-timeline/src/constants')
-          .REACT_TOTAL_NUM_LANES;
+        const REACT_TOTAL_NUM_LANES =
+          require('react-devtools-timeline/src/constants').REACT_TOTAL_NUM_LANES;
 
         // Sanity check; this test may need to be updated when the no. of fiber lanes are changed.
         expect(REACT_TOTAL_NUM_LANES).toBe(31);
@@ -155,8 +151,8 @@ describe('Timeline profiler', () => {
       let preprocessData;
 
       beforeEach(() => {
-        preprocessData = require('react-devtools-timeline/src/import-worker/preprocessData')
-          .default;
+        preprocessData =
+          require('react-devtools-timeline/src/import-worker/preprocessData').default;
       });
 
       // These should be dynamic to mimic a real profile,
@@ -175,8 +171,8 @@ describe('Timeline profiler', () => {
       }
 
       function createProfilerVersionEntry() {
-        const SCHEDULING_PROFILER_VERSION = require('react-devtools-timeline/src/constants')
-          .SCHEDULING_PROFILER_VERSION;
+        const SCHEDULING_PROFILER_VERSION =
+          require('react-devtools-timeline/src/constants').SCHEDULING_PROFILER_VERSION;
         return createUserTimingEntry({
           cat: 'blink.user_timing',
           name: '--profiler-version-' + SCHEDULING_PROFILER_VERSION,
@@ -193,8 +189,7 @@ describe('Timeline profiler', () => {
       function createLaneLabelsEntry() {
         return createUserTimingEntry({
           cat: 'blink.user_timing',
-          name:
-            '--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen',
+          name: '--react-lane-labels-Sync,InputContinuousHydration,InputContinuous,DefaultHydration,Default,TransitionHydration,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Transition,Retry,Retry,Retry,Retry,Retry,SelectiveHydration,IdleHydration,Idle,Offscreen',
         });
       }
 
@@ -240,7 +235,7 @@ describe('Timeline profiler', () => {
 
         const userTimingData = [cpuProfilerSample, randomSample];
 
-        sampleMarks.forEach(markName => {
+        sampleMarks.forEach((markName) => {
           userTimingData.push({
             pid: ++pid,
             tid: ++tid,
@@ -1136,7 +1131,7 @@ describe('Timeline profiler', () => {
         utils.legacyRender(<div />, container);
 
         const invalidMarks = clearedMarks.filter(
-          mark => !mark.includes('render-stop'),
+          (mark) => !mark.includes('render-stop'),
         );
         const invalidUserTimingData = createUserTimingData(invalidMarks);
 
@@ -1154,7 +1149,7 @@ describe('Timeline profiler', () => {
         utils.legacyRender(<div />, container);
 
         const invalidMarks = clearedMarks.filter(
-          mark => !mark.includes('render-start'),
+          (mark) => !mark.includes('render-start'),
         );
         const invalidUserTimingData = createUserTimingData(invalidMarks);
 
@@ -1324,7 +1319,7 @@ describe('Timeline profiler', () => {
 
             utils.legacyRender(<App />, document.createElement('div'));
 
-            clearedMarks.forEach(markName => {
+            clearedMarks.forEach((markName) => {
               if (markName === '--render-stop') {
                 // Fake a long running render
                 startTime += 20000;
@@ -1515,7 +1510,7 @@ describe('Timeline profiler', () => {
             ]);
 
             const testMarks = [];
-            clearedMarks.forEach(markName => {
+            clearedMarks.forEach((markName) => {
               if (markName === '--component-render-start-Component') {
                 // Fake a long running render
                 startTime += 20000;
@@ -1578,7 +1573,7 @@ describe('Timeline profiler', () => {
             ]);
 
             const testMarks = [];
-            clearedMarks.forEach(markName => {
+            clearedMarks.forEach((markName) => {
               if (markName === '--component-render-start-Component') {
                 // Fake a long running render
                 startTime += 20000;
@@ -1652,7 +1647,7 @@ describe('Timeline profiler', () => {
             ]);
 
             const testMarks = [];
-            clearedMarks.forEach(markName => {
+            clearedMarks.forEach((markName) => {
               if (markName === '--component-render-start-Component') {
                 // Fake a long running render
                 startTime += 20000;
@@ -1675,7 +1670,7 @@ describe('Timeline profiler', () => {
               ...testMarks,
             ]);
 
-            data.schedulingEvents.forEach(event => {
+            data.schedulingEvents.forEach((event) => {
               expect(event.warning).toBeNull();
             });
           });
@@ -1721,7 +1716,7 @@ describe('Timeline profiler', () => {
             ]);
 
             const testMarks = [];
-            clearedMarks.forEach(markName => {
+            clearedMarks.forEach((markName) => {
               if (markName === '--component-render-start-Component') {
                 // Fake a long running render
                 startTime += 20000;
@@ -1744,7 +1739,7 @@ describe('Timeline profiler', () => {
               ...testMarks,
             ]);
 
-            data.schedulingEvents.forEach(event => {
+            data.schedulingEvents.forEach((event) => {
               expect(event.warning).toBeNull();
             });
           });

@@ -39,7 +39,8 @@ describe('ReactSchedulerIntegration', () => {
     return (
       <div hidden={mode === 'hidden'}>
         <React.unstable_LegacyHidden
-          mode={mode === 'hidden' ? 'unstable-defer-without-hiding' : mode}>
+          mode={mode === 'hidden' ? 'unstable-defer-without-hiding' : mode}
+        >
           {children}
         </React.unstable_LegacyHidden>
       </div>
@@ -102,7 +103,7 @@ describe('ReactSchedulerIntegration', () => {
     scheduleCallback(NormalPriority, () => Scheduler.unstable_yieldValue('C'));
 
     // Schedule a React render. React will request a paint after committing it.
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         root.render('Update');
       });

@@ -149,7 +149,7 @@ describe('ReactFlight', () => {
 
     let load = null;
     const loadSharedComponent = () => {
-      return new Promise(res => {
+      return new Promise((res) => {
         load = () => res({default: SharedComponent});
       });
     };
@@ -196,7 +196,7 @@ describe('ReactFlight', () => {
     let load = null;
 
     const LazyElementDisguisedAsComponent = React.lazy(() => {
-      return new Promise(res => {
+      return new Promise((res) => {
         load = () => res({default: <SharedComponent text={'a'} />});
       });
     });
@@ -233,7 +233,7 @@ describe('ReactFlight', () => {
     let load = null;
 
     const lazySharedElement = React.lazy(() => {
-      return new Promise(res => {
+      return new Promise((res) => {
         load = () => res({default: <SharedComponent text={'a'} />});
       });
     });
@@ -278,7 +278,7 @@ describe('ReactFlight', () => {
     let load = null;
 
     const componentDisguisedAsElement = React.lazy(() => {
-      return new Promise(res => {
+      return new Promise((res) => {
         load = () => res({default: SharedComponent});
       });
     });
@@ -312,7 +312,7 @@ describe('ReactFlight', () => {
 
     let load = null;
     const loadClientComponentReference = () => {
-      return new Promise(res => {
+      return new Promise((res) => {
         load = () => res({default: ClientComponentReference});
       });
     };
@@ -348,7 +348,7 @@ describe('ReactFlight', () => {
   it('should error if a non-serializable value is passed to a host component', () => {
     function EventHandlerProp() {
       return (
-        <div className="foo" onClick={function() {}}>
+        <div className="foo" onClick={function () {}}>
           Test
         </div>
       );
@@ -674,7 +674,8 @@ describe('ReactFlight', () => {
                 foo: {
                   bar: <span>hi this is server</span>,
                 },
-              }}>
+              }}
+            >
               <Bar />
             </ServerContext.Provider>
           </div>
@@ -759,7 +760,7 @@ describe('ReactFlight', () => {
       }
 
       let resolve;
-      const promise = new Promise(res => {
+      const promise = new Promise((res) => {
         resolve = () => {
           promise.unsuspend = true;
           res();

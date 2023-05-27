@@ -95,7 +95,8 @@ export default function SearchInput({
         <React.Fragment>
           <span
             className={styles.IndexLabel}
-            data-testname={testName ? `${testName}-ResultsCount` : undefined}>
+            data-testname={testName ? `${testName}-ResultsCount` : undefined}
+          >
             {Math.min(searchIndex + 1, searchResultsCount)} |{' '}
             {searchResultsCount}
           </span>
@@ -110,7 +111,8 @@ export default function SearchInput({
                 Scroll to previous search result (<kbd>Shift</kbd> +{' '}
                 <kbd>Enter</kbd>)
               </React.Fragment>
-            }>
+            }
+          >
             <ButtonIcon type="up" />
           </Button>
           <Button
@@ -122,7 +124,8 @@ export default function SearchInput({
               <React.Fragment>
                 Scroll to next search result (<kbd>Enter</kbd>)
               </React.Fragment>
-            }>
+            }
+          >
             <ButtonIcon type="down" />
           </Button>
           <Button
@@ -130,7 +133,8 @@ export default function SearchInput({
             className={styles.IconButton}
             disabled={!searchText}
             onClick={resetSearch}
-            title="Reset search">
+            title="Reset search"
+          >
             <ButtonIcon type="close" />
           </Button>
         </React.Fragment>

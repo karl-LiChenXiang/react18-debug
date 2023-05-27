@@ -34,7 +34,7 @@ export default function SnapshotSelector(_: Props) {
 
   const totalDurations: Array<number> = [];
   const commitTimes: Array<number> = [];
-  commitData.forEach(commitDatum => {
+  commitData.forEach((commitDatum) => {
     totalDurations.push(
       commitDatum.duration +
         (commitDatum.effectDuration || 0) +
@@ -86,7 +86,7 @@ export default function SnapshotSelector(_: Props) {
 
   let label = null;
   if (numFilteredCommits > 0) {
-    const handleCommitInputChange = event => {
+    const handleCommitInputChange = (event) => {
       const value = parseInt(event.currentTarget.value, 10);
       if (!isNaN(value)) {
         const filteredIndex = Math.min(
@@ -100,11 +100,11 @@ export default function SnapshotSelector(_: Props) {
       }
     };
 
-    const handleClick = event => {
+    const handleClick = (event) => {
       event.currentTarget.select();
     };
 
-    const handleKeyDown = event => {
+    const handleKeyDown = (event) => {
       switch (event.key) {
         case 'ArrowDown':
           viewPrevCommit();
@@ -156,7 +156,7 @@ export default function SnapshotSelector(_: Props) {
     selectCommitIndex(filteredCommitIndices[nextCommitIndex]);
   };
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event) => {
     switch (event.key) {
       case 'ArrowLeft':
         viewPrevCommit();
@@ -179,7 +179,8 @@ export default function SnapshotSelector(_: Props) {
     <Fragment>
       <span
         className={styles.IndexLabel}
-        data-testname="SnapshotSelector-Label">
+        data-testname="SnapshotSelector-Label"
+      >
         {label}
       </span>
       <Button
@@ -187,7 +188,8 @@ export default function SnapshotSelector(_: Props) {
         data-testname="SnapshotSelector-PreviousButton"
         disabled={numFilteredCommits === 0}
         onClick={viewPrevCommit}
-        title="Select previous commit">
+        title="Select previous commit"
+      >
         <ButtonIcon type="previous" />
       </Button>
       <div
@@ -200,7 +202,8 @@ export default function SnapshotSelector(_: Props) {
               ? numFilteredCommits * maxBarWidth
               : undefined,
         }}
-        tabIndex={0}>
+        tabIndex={0}
+      >
         {numFilteredCommits > 0 && (
           <SnapshotCommitList
             commitData={commitData}
@@ -221,7 +224,8 @@ export default function SnapshotSelector(_: Props) {
         data-testname="SnapshotSelector-NextButton"
         disabled={numFilteredCommits === 0}
         onClick={viewNextCommit}
-        title="Select next commit">
+        title="Select next commit"
+      >
         <ButtonIcon type="next" />
       </Button>
     </Fragment>

@@ -84,7 +84,7 @@ describe('DOMPropertyOperations', () => {
       // Browsers default to this behavior, but some test environments do not.
       // This ensures that we have consistent behavior.
       const obj = {
-        toString: function() {
+        toString: function () {
           return 'css-class';
         },
       };
@@ -152,7 +152,7 @@ describe('DOMPropertyOperations', () => {
       expect(container.firstChild.hasAttribute('hidden')).toBe(false);
     });
 
-    it('should always assign the value attribute for non-inputs', function() {
+    it('should always assign the value attribute for non-inputs', function () {
       const container = document.createElement('div');
       ReactDOM.render(<progress />, container);
       spyOnDevAndProd(container.firstChild, 'setAttribute');
@@ -277,10 +277,10 @@ describe('DOMPropertyOperations', () => {
     it('custom elements should still have onClick treated like regular elements', () => {
       let syntheticClickEvent = null;
       const syntheticEventHandler = jest.fn(
-        event => (syntheticClickEvent = event),
+        (event) => (syntheticClickEvent = event),
       );
       let nativeClickEvent = null;
-      const nativeEventHandler = jest.fn(event => (nativeClickEvent = event));
+      const nativeEventHandler = jest.fn((event) => (nativeClickEvent = event));
       function Test() {
         return <my-custom-element onClick={syntheticEventHandler} />;
       }
@@ -301,7 +301,7 @@ describe('DOMPropertyOperations', () => {
     // @gate enableCustomElementPropertySupport
     it('custom elements should have working onChange event listeners', () => {
       let reactChangeEvent = null;
-      const eventHandler = jest.fn(event => (reactChangeEvent = event));
+      const eventHandler = jest.fn((event) => (reactChangeEvent = event));
       const container = document.createElement('div');
       document.body.appendChild(container);
       ReactDOM.render(<my-custom-element onChange={eventHandler} />, container);
@@ -326,7 +326,7 @@ describe('DOMPropertyOperations', () => {
 
     it('custom elements should have working onInput event listeners', () => {
       let reactInputEvent = null;
-      const eventHandler = jest.fn(event => (reactInputEvent = event));
+      const eventHandler = jest.fn((event) => (reactInputEvent = event));
       const container = document.createElement('div');
       document.body.appendChild(container);
       ReactDOM.render(<my-custom-element onInput={eventHandler} />, container);
@@ -664,7 +664,8 @@ describe('DOMPropertyOperations', () => {
         <div
           onChange={onChangeHandler}
           onInput={onInputHandler}
-          onClick={onClickHandler}>
+          onClick={onClickHandler}
+        >
           <my-custom-element />
           <input />
           <input is="my-custom-element" />
@@ -738,7 +739,8 @@ describe('DOMPropertyOperations', () => {
         <my-custom-element
           onChange={onChangeHandler}
           onInput={onInputHandler}
-          onClick={onClickHandler}>
+          onClick={onClickHandler}
+        >
           <input />
         </my-custom-element>,
         container,
@@ -773,7 +775,8 @@ describe('DOMPropertyOperations', () => {
         <my-custom-element
           onChange={onChangeHandler}
           onInput={onInputHandler}
-          onClick={onClickHandler}>
+          onClick={onClickHandler}
+        >
           <div />
         </my-custom-element>,
         container,
@@ -808,7 +811,8 @@ describe('DOMPropertyOperations', () => {
         <div
           onChange={onChangeHandler}
           onInput={onInputHandler}
-          onClick={onClickHandler}>
+          onClick={onClickHandler}
+        >
           <div />
         </div>,
         container,
@@ -844,7 +848,8 @@ describe('DOMPropertyOperations', () => {
         <my-custom-element
           onChange={onChangeHandler}
           onInput={onInputHandler}
-          onClick={onClickHandler}>
+          onClick={onClickHandler}
+        >
           <other-custom-element />
         </my-custom-element>,
         container,
@@ -875,7 +880,8 @@ describe('DOMPropertyOperations', () => {
         return (
           <my-custom-element
             oncustomeventCapture={oncustomeventCapture}
-            oncustomevent={oncustomevent}>
+            oncustomevent={oncustomevent}
+          >
             <div />
           </my-custom-element>
         );
@@ -1041,10 +1047,10 @@ describe('DOMPropertyOperations', () => {
       const customelement = container.querySelector('my-custom-element');
       // Install a setter to activate the `in` heuristic
       Object.defineProperty(customelement, 'oncustomevent', {
-        set: function(x) {
+        set: function (x) {
           this._oncustomevent = x;
         },
-        get: function() {
+        get: function () {
           return this._oncustomevent;
         },
       });
@@ -1095,10 +1101,10 @@ describe('DOMPropertyOperations', () => {
 
       // Install a setter to activate the `in` heuristic
       Object.defineProperty(customElement, 'foo', {
-        set: function(x) {
+        set: function (x) {
           this._foo = x;
         },
-        get: function() {
+        get: function () {
           return this._foo;
         },
       });
@@ -1116,10 +1122,10 @@ describe('DOMPropertyOperations', () => {
 
       // Install a setter to activate the `in` heuristic
       Object.defineProperty(customElement, 'foo', {
-        set: function(x) {
+        set: function (x) {
           this._foo = x;
         },
-        get: function() {
+        get: function () {
           return this._foo;
         },
       });
@@ -1149,7 +1155,7 @@ describe('DOMPropertyOperations', () => {
     it('should not remove attributes for special properties', () => {
       const container = document.createElement('div');
       ReactDOM.render(
-        <input type="text" value="foo" onChange={function() {}} />,
+        <input type="text" value="foo" onChange={function () {}} />,
         container,
       );
       if (disableInputAttributeSyncing) {
@@ -1160,7 +1166,7 @@ describe('DOMPropertyOperations', () => {
       expect(container.firstChild.value).toBe('foo');
       expect(() =>
         ReactDOM.render(
-          <input type="text" onChange={function() {}} />,
+          <input type="text" onChange={function () {}} />,
           container,
         ),
       ).toErrorDev(

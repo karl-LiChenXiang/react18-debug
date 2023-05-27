@@ -254,10 +254,10 @@ it('does not warn for arrays of elements with keys', () => {
 
 it('does not warn for iterable elements with keys', () => {
   const iterable = {
-    '@@iterator': function() {
+    '@@iterator': function () {
       let i = 0;
       return {
-        next: function() {
+        next: function () {
           const done = ++i > 2;
           return {
             value: done ? undefined : <Component key={'#' + i} />,
@@ -273,10 +273,10 @@ it('does not warn for iterable elements with keys', () => {
 
 it('does not warn for numeric keys in entry iterable as a child', () => {
   const iterable = {
-    '@@iterator': function() {
+    '@@iterator': function () {
       let i = 0;
       return {
-        next: function() {
+        next: function () {
           const done = ++i > 2;
           return {value: done ? undefined : [i, <Component />], done: done};
         },
@@ -330,9 +330,7 @@ it('gives a helpful error when passing null, undefined, or boolean', () => {
   const Null = null;
   const True = true;
   const Div = 'div';
-  expect(
-    () => void (<Undefined />)
-  ).toErrorDev(
+  expect(() => void (<Undefined />)).toErrorDev(
     'Warning: React.jsx: type is invalid -- expected a string ' +
       '(for built-in components) or a class/function (for composite ' +
       'components) but got: undefined. You likely forgot to export your ' +
@@ -343,9 +341,7 @@ it('gives a helpful error when passing null, undefined, or boolean', () => {
         : ''),
     {withoutStack: true}
   );
-  expect(
-    () => void (<Null />)
-  ).toErrorDev(
+  expect(() => void (<Null />)).toErrorDev(
     'Warning: React.jsx: type is invalid -- expected a string ' +
       '(for built-in components) or a class/function (for composite ' +
       'components) but got: null.' +
@@ -354,9 +350,7 @@ it('gives a helpful error when passing null, undefined, or boolean', () => {
         : ''),
     {withoutStack: true}
   );
-  expect(
-    () => void (<True />)
-  ).toErrorDev(
+  expect(() => void (<True />)).toErrorDev(
     'Warning: React.jsx: type is invalid -- expected a string ' +
       '(for built-in components) or a class/function (for composite ' +
       'components) but got: boolean.' +
@@ -475,9 +469,10 @@ it('warns for fragments with refs', () => {
     render() {
       return (
         <React.Fragment
-          ref={bar => {
+          ref={(bar) => {
             this.foo = bar;
-          }}>
+          }}
+        >
           hello
         </React.Fragment>
       );
@@ -586,10 +581,10 @@ it('should support callback-style refs', () => {
   class Component extends React.Component {
     render() {
       const inner = (
-        <Wrapper object={innerObj} ref={c => (this.innerRef = c)} />
+        <Wrapper object={innerObj} ref={(c) => (this.innerRef = c)} />
       );
       const outer = (
-        <Wrapper object={outerObj} ref={c => (this.outerRef = c)}>
+        <Wrapper object={outerObj} ref={(c) => (this.outerRef = c)}>
           {inner}
         </Wrapper>
       );
@@ -667,14 +662,14 @@ it('should support new-style refs with mixed-up owners', () => {
     getInner = () => {
       // (With old-style refs, it's impossible to get a ref to this div
       // because Wrapper is the current owner when this function is called.)
-      return <div className="inner" ref={c => (this.innerRef = c)} />;
+      return <div className="inner" ref={(c) => (this.innerRef = c)} />;
     };
 
     render() {
       return (
         <Wrapper
           title="wrapper"
-          ref={c => (this.wrapperRef = c)}
+          ref={(c) => (this.wrapperRef = c)}
           getContent={this.getInner}
         />
       );

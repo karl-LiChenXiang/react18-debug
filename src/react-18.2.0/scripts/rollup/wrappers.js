@@ -40,9 +40,7 @@ function registerInternalModuleStop(globalName) {
 
   // Remove the 'use strict' directive from the footer.
   // This directive is only meaningful when it is the first statement in a file or function.
-  return String(file)
-    .replace(USE_STRICT_HEADER_REGEX, '')
-    .trim();
+  return String(file).replace(USE_STRICT_HEADER_REGEX, '').trim();
 }
 
 const license = ` * Copyright (c) Facebook, Inc. and its affiliates.

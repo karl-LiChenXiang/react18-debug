@@ -147,9 +147,10 @@ function extractAndLoadSourceMapJSON(
   }
 
   const setterPromises = [];
-  locationKeyToHookSourceAndMetadata.forEach(hookSourceAndMetadata => {
+  locationKeyToHookSourceAndMetadata.forEach((hookSourceAndMetadata) => {
     const sourceMapRegex = / ?sourceMappingURL=([^\s'"]+)/gm;
-    const runtimeSourceCode = ((hookSourceAndMetadata.runtimeSourceCode: any): string);
+    const runtimeSourceCode =
+      ((hookSourceAndMetadata.runtimeSourceCode: any): string);
 
     // TODO (named hooks) Search for our custom metadata first.
     // If it's found, we should use it rather than source maps.
@@ -265,7 +266,7 @@ function extractAndLoadSourceMapJSON(
           const fetchPromise =
             dedupedFetchPromises.get(url) ||
             fetchFile(url).then(
-              sourceMapContents => {
+              (sourceMapContents) => {
                 const sourceMapJSON = withSyncPerfMeasurements(
                   'JSON.parse(sourceMapContents)',
                   () => JSON.parse(sourceMapContents),
@@ -277,7 +278,7 @@ function extractAndLoadSourceMapJSON(
               // In this case, we fall back to the assumption that the source has no source map.
               // This might indicate an (unlikely) edge case that had no source map,
               // but contained the string "sourceMappingURL".
-              error => null,
+              (error) => null,
             );
 
           if (__DEBUG__) {
@@ -291,7 +292,7 @@ function extractAndLoadSourceMapJSON(
           dedupedFetchPromises.set(url, fetchPromise);
 
           setterPromises.push(
-            fetchPromise.then(sourceMapJSON => {
+            fetchPromise.then((sourceMapJSON) => {
               if (sourceMapJSON !== null) {
                 hookSourceAndMetadata.sourceMapJSON = sourceMapJSON;
 
@@ -316,18 +317,18 @@ function fetchFile(
   url: string,
   markName?: string = 'fetchFile',
 ): Promise<string> {
-  return withCallbackPerfMeasurements(`${markName}("${url}")`, done => {
+  return withCallbackPerfMeasurements(`${markName}("${url}")`, (done) => {
     return new Promise((resolve, reject) => {
       fetch(url, FETCH_OPTIONS).then(
-        response => {
+        (response) => {
           if (response.ok) {
             response
               .text()
-              .then(text => {
+              .then((text) => {
                 done();
                 resolve(text);
               })
-              .catch(error => {
+              .catch((error) => {
                 if (__DEBUG__) {
                   console.log(
                     `${markName}() Could not read text for url "${url}"`,
@@ -344,7 +345,7 @@ function fetchFile(
             reject(null);
           }
         },
-        error => {
+        (error) => {
           if (__DEBUG__) {
             console.log(`${markName}() Could not fetch file: ${error.message}`);
           }
@@ -415,7 +416,8 @@ function initializeHookSourceAndMetadata(
   hooksList: Array<HooksNode>,
 ): LocationKeyToHookSourceAndMetadata {
   // Create map of unique source locations (file names plus line and column numbers) to metadata about hooks.
-  const locationKeyToHookSourceAndMetadata: LocationKeyToHookSourceAndMetadata = new Map();
+  const locationKeyToHookSourceAndMetadata: LocationKeyToHookSourceAndMetadata =
+    new Map();
   for (let i = 0; i < hooksList.length; i++) {
     const hook = hooksList[i];
 
@@ -464,14 +466,14 @@ function loadSourceFiles(
   const dedupedFetchPromises = new Map();
 
   const setterPromises = [];
-  locationKeyToHookSourceAndMetadata.forEach(hookSourceAndMetadata => {
+  locationKeyToHookSourceAndMetadata.forEach((hookSourceAndMetadata) => {
     const {runtimeSourceURL} = hookSourceAndMetadata;
 
     let fetchFileFunction = fetchFile;
     if (fetchFileWithCaching != null) {
       // If a helper function has been injected to fetch with caching,
       // use it to fetch the (already loaded) source file.
-      fetchFileFunction = url => {
+      fetchFileFunction = (url) => {
         return withAsyncPerfMeasurements(
           `fetchFileWithCaching("${url}")`,
           () => {
@@ -483,7 +485,7 @@ function loadSourceFiles(
 
     const fetchPromise =
       dedupedFetchPromises.get(runtimeSourceURL) ||
-      fetchFileFunction(runtimeSourceURL).then(runtimeSourceCode => {
+      fetchFileFunction(runtimeSourceURL).then((runtimeSourceCode) => {
         // TODO (named hooks) Re-think this; the main case where it matters is when there's no source-maps,
         // because then we need to parse the full source file as an AST.
         if (runtimeSourceCode.length > MAX_SOURCE_LENGTH) {
@@ -503,7 +505,7 @@ function loadSourceFiles(
     dedupedFetchPromises.set(runtimeSourceURL, fetchPromise);
 
     setterPromises.push(
-      fetchPromise.then(runtimeSourceCode => {
+      fetchPromise.then((runtimeSourceCode) => {
         hookSourceAndMetadata.runtimeSourceCode = runtimeSourceCode;
       }),
     );

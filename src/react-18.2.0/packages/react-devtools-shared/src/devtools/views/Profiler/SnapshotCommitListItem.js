@@ -84,7 +84,8 @@ function SnapshotCommitListItem({data: itemData, index, style}: Props) {
         borderBottom: isSelected
           ? '3px solid var(--color-tab-selected-border)'
           : undefined,
-      }}>
+      }}
+    >
       <div
         className={isSelected ? styles.InnerSelected : styles.Inner}
         style={{

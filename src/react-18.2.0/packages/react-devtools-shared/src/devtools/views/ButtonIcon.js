@@ -147,7 +147,8 @@ export default function ButtonIcon({className = '', type}: Props) {
       className={`${styles.ButtonIcon} ${className}`}
       width="24"
       height="24"
-      viewBox="0 0 24 24">
+      viewBox="0 0 24 24"
+    >
       <path d="M0 0h24v24H0z" fill="none" />
       {typeof pathData === 'string' ? (
         <path fill="currentColor" d={pathData} />

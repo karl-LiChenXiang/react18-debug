@@ -127,8 +127,7 @@ ruleTester.run('eslint-rules/safe-string-coercion', rule, {
       ],
     },
     {
-      code:
-        "if (typeof obj === 'string') { } else if (typeof obj === 'object') {'' + obj}",
+      code: "if (typeof obj === 'string') { } else if (typeof obj === 'object') {'' + obj}",
       errors: [
         {
           message: missingDevCheckMessage + '\n' + message,

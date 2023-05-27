@@ -122,8 +122,8 @@ function compile(fileName) {
   // Each array has also been encoded first as VLQs (variable-length quantities)
   // and then as base64 because this makes them more compact overall.
   // https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/view#
-  const decodedMappings = decode(sourceMap.mappings).map(entries =>
-    entries.map(entry => {
+  const decodedMappings = decode(sourceMap.mappings).map((entries) =>
+    entries.map((entry) => {
       if (entry.length === 0) {
         return entry;
       }
@@ -336,14 +336,14 @@ async function bundle() {
 
 // Compile all files in the current directory
 const entries = readdirSync(sourceDir);
-entries.forEach(entry => {
+entries.forEach((entry) => {
   const stat = lstatSync(resolve(sourceDir, entry));
   if (!stat.isDirectory() && entry.endsWith('.js')) {
     compile(entry);
   }
 });
 
-bundle().catch(e => {
+bundle().catch((e) => {
   console.error(e);
   process.exit(1);
 });

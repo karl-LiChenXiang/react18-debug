@@ -28,7 +28,7 @@ export default function UnsupportedBridgeProtocolDialog(_: {||}) {
   const {dialogs, dispatch} = useContext(ModalDialogContext);
   const store = useContext(StoreContext);
 
-  const isVisible = !!dialogs.find(dialog => dialog.id === MODAL_DIALOG_ID);
+  const isVisible = !!dialogs.find((dialog) => dialog.id === MODAL_DIALOG_ID);
 
   useEffect(() => {
     const updateDialog = () => {
@@ -83,7 +83,8 @@ function DialogContent({
           {upgradeInstructions}
           <Button
             onClick={() => copy(upgradeInstructions)}
-            title="Copy upgrade command to clipboard">
+            title="Copy upgrade command to clipboard"
+          >
             <ButtonIcon type="copy" />
           </Button>
         </pre>
@@ -100,7 +101,8 @@ function DialogContent({
           {downgradeInstructions}
           <Button
             onClick={() => copy(downgradeInstructions)}
-            title="Copy downgrade command to clipboard">
+            title="Copy downgrade command to clipboard"
+          >
             <ButtonIcon type="copy" />
           </Button>
         </pre>

@@ -73,8 +73,10 @@ function writeStringChunk(destination: Destination, stringChunk: string) {
   if (read < stringChunk.length) {
     writeToDestination(destination, (currentView: any));
     currentView = new Uint8Array(VIEW_SIZE);
-    writtenBytes = textEncoder.encodeInto(stringChunk.slice(read), currentView)
-      .written;
+    writtenBytes = textEncoder.encodeInto(
+      stringChunk.slice(read),
+      currentView,
+    ).written;
   }
 
   if (writtenBytes === VIEW_SIZE) {

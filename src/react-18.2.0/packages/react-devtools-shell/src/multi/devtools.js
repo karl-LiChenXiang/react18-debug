@@ -40,7 +40,7 @@ function init(appIframe, devtoolsContainer, appSource) {
         console.log('[Shell] Wall.send()', {event, payload});
       }
 
-      wall._listeners.forEach(listener => listener({event, payload}));
+      wall._listeners.forEach((listener) => listener({event, payload}));
     },
   };
 

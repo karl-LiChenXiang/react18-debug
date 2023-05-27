@@ -265,12 +265,15 @@ export default function DevTools({
               <SettingsContextController
                 browserTheme={browserTheme}
                 componentsPortalContainer={componentsPortalContainer}
-                profilerPortalContainer={profilerPortalContainer}>
+                profilerPortalContainer={profilerPortalContainer}
+              >
                 <ViewElementSourceContext.Provider value={viewElementSource}>
                   <HookNamesModuleLoaderContext.Provider
-                    value={hookNamesModuleLoaderFunction || null}>
+                    value={hookNamesModuleLoaderFunction || null}
+                  >
                     <FetchFileWithCachingContext.Provider
-                      value={fetchFileWithCaching || null}>
+                      value={fetchFileWithCaching || null}
+                    >
                       <TreeContextController>
                         <ProfilerContextController>
                           <TimelineContextController>
@@ -278,7 +281,8 @@ export default function DevTools({
                               <div
                                 className={styles.DevTools}
                                 ref={devToolsRef}
-                                data-react-devtools-portal-root={true}>
+                                data-react-devtools-portal-root={true}
+                              >
                                 {showTabBar && (
                                   <div className={styles.TabBar}>
                                     <ReactLogo />
@@ -297,14 +301,16 @@ export default function DevTools({
                                 )}
                                 <div
                                   className={styles.TabContent}
-                                  hidden={tab !== 'components'}>
+                                  hidden={tab !== 'components'}
+                                >
                                   <Components
                                     portalContainer={componentsPortalContainer}
                                   />
                                 </div>
                                 <div
                                   className={styles.TabContent}
-                                  hidden={tab !== 'profiler'}>
+                                  hidden={tab !== 'profiler'}
+                                >
                                   <Profiler
                                     portalContainer={profilerPortalContainer}
                                   />

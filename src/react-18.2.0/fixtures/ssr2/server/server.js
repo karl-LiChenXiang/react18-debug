@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 app.use(compress());
 app.get(
   '/',
-  handleErrors(async function(req, res) {
+  handleErrors(async function (req, res) {
     await waitForWebpack();
     render(req.url, res);
   })
@@ -50,11 +50,11 @@ app
   .listen(PORT, () => {
     console.log(`Listening at ${PORT}...`);
   })
-  .on('error', function(error) {
+  .on('error', function (error) {
     if (error.syscall !== 'listen') {
       throw error;
     }
-    const isPipe = portOrPipe => Number.isNaN(portOrPipe);
+    const isPipe = (portOrPipe) => Number.isNaN(portOrPipe);
     const bind = isPipe(PORT) ? 'Pipe ' + PORT : 'Port ' + PORT;
     switch (error.code) {
       case 'EACCES':
@@ -71,7 +71,7 @@ app
   });
 
 function handleErrors(fn) {
-  return async function(req, res, next) {
+  return async function (req, res, next) {
     try {
       return await fn(req, res);
     } catch (x) {
@@ -89,7 +89,7 @@ async function waitForWebpack() {
       console.log(
         'Could not find webpack build output. Will retry in a second...'
       );
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
 }

@@ -44,14 +44,14 @@ function createRecordFromThenable<T>(thenable: Thenable<T>): Record<T> {
     cache: null,
   };
   thenable.then(
-    value => {
+    (value) => {
       if (record.status === Pending) {
         const resolvedRecord = ((record: any): ResolvedRecord<T>);
         resolvedRecord.status = Resolved;
         resolvedRecord.value = value;
       }
     },
-    err => {
+    (err) => {
       if (record.status === Pending) {
         const rejectedRecord = ((record: any): RejectedRecord);
         rejectedRecord.status = Rejected;

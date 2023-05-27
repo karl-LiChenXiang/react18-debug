@@ -89,7 +89,7 @@ describe('ReactTestRendererAsync', () => {
     }
 
     let renderer;
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         renderer = ReactTestRenderer.create(<Parent step={1} />, {
           unstable_isConcurrent: true,
@@ -135,7 +135,7 @@ describe('ReactTestRendererAsync', () => {
     }
 
     let renderer;
-    if (gate(flags => flags.enableSyncDefaultUpdates)) {
+    if (gate((flags) => flags.enableSyncDefaultUpdates)) {
       React.startTransition(() => {
         renderer = ReactTestRenderer.create(<Example step={1} />, {
           unstable_isConcurrent: true,

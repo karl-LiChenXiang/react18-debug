@@ -45,7 +45,7 @@ const resource: Resource<
     }
 
     let resolveFn = ((null: any): ResolveFn);
-    const promise = new Promise(resolve => {
+    const promise = new Promise((resolve) => {
       resolveFn = resolve;
     });
 
@@ -91,11 +91,9 @@ function OwnersListContextController({children}: Props) {
           request.resolveFn(
             ownersList.owners === null
               ? null
-              : ownersList.owners.map(owner => {
-                  const [
-                    displayNameWithoutHOCs,
-                    hocDisplayNames,
-                  ] = separateDisplayNameAndHOCs(owner.displayName, owner.type);
+              : ownersList.owners.map((owner) => {
+                  const [displayNameWithoutHOCs, hocDisplayNames] =
+                    separateDisplayNameAndHOCs(owner.displayName, owner.type);
 
                   return {
                     ...owner,

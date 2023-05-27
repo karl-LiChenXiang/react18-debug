@@ -51,7 +51,7 @@ export function copyToClipboard(value: any): void {
   // clipboardCopyText is an helper injected into the page from.
   // injectGlobalHook.
   if (typeof clipboardCopyText === 'function') {
-    clipboardCopyText(text).catch(err => {});
+    clipboardCopyText(text).catch((err) => {});
   } else {
     copy(text);
   }
