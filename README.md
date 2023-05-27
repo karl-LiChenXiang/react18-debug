@@ -1,70 +1,166 @@
-# Getting Started with Create React App
+# React18 v18.2.0 源码调试
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. 运行 `npm run eject` 暴露webpack配置
+2. 在src/下新建react/pacages 文件加，并将源码复制其下,
 
-## Available Scripts
+``` javascript
+  // 需要的几个重要的包
+  // react
+  // react-dom
+  // react-reconciler
+  // scheduler
+  // shared
+```
 
-In the project directory, you can run:
+3. 修改webpack.config.js配置
 
-### `npm start`
+原
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+``` javascript
+alias: {
+  // Support React Native Web
+  // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+  'react-native': 'react-native-web',
+  // Allows for better profiling with ReactDevTools
+  ...(isEnvProductionProfile && {
+    'react-dom$': 'react-dom/profiling',
+    'scheduler/tracing': 'scheduler/tracing-profiling',
+  }),
+  ...(modules.webpackAliases || {}),
+},
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
 
-### `npm test`
+新
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+alias: {
+  react: path.join(paths.appSrc, 'react/packages/react'),
+  'react-dom': path.join(paths.appSrc, 'react/packages/react-dom'),
+  shared: path.join(paths.appSrc, 'react/packages/shared'),
+  'react-reconciler': path.join(
+    paths.appSrc,
+    'react/packages/react-reconciler'
+  ),
+  scheduler: path.join(paths.appSrc, 'react/packages/scheduler'),
+}
+```
 
-### `npm run build`
+# 遇到问题
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. ReactBaseClasses.js:12 Uncaught ReferenceError: __DEV__ is not defined
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   解决方法：
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   找文件`config/env.js`
 
-### `npm run eject`
+   将
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```javascript
+     // const stringified = {
+     //   'process.env': Object.keys(raw).reduce((env, key) => {
+     //     env[key] = JSON.stringify(raw[key]);
+     //     return env;
+     //   }, {}),
+     // };
+   
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   修改为
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```javascript
+    const stringified = {
+       'process.env': Object.keys(raw).reduce((env, key) => {
+         env[key] = JSON.stringify(raw[key]);
+         return env;
+       }, {}),
+       __DEV__: true,
+       __EXPERIMENTAL__: true,
+       __PROFILE__: true,
+     };
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   
 
-## Learn More
+2. export 'default' (imported as 'ReactDOM') was not found in 'react-dom/client'
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image-20230527171125162](README.assets/image-20230527171125162.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   找到文件` src/index` 
 
-### Code Splitting
+```javascript
+//修改前
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+//修改后
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
 
-### Analyzing the Bundle Size
+3.  ERROR in ./src/react/packages/react-reconciler/src/Scheduler.js 30:35-64
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   Uncaught TypeError: Cannot read properties of undefined (reading '__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED')
 
-### Making a Progressive Web App
+   ![image-20230527171432907](README.assets/image-20230527171432907.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   ![image-20230527171439523](README.assets/image-20230527171439523.png)
 
-### Advanced Configuration
+解决方案：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```javascript
+// 文件位置: src/react/packages/shared/ReactSharedInternals.js
 
-### Deployment
+/* 注释掉 */
+// import * as React from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+// const ReactSharedInternals =
+//   React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+/* 添加 */
+import ReactSharedInternals from '../react/src/ReactSharedInternals';
 
-### `npm run build` fails to minify
+export default ReactSharedInternals;
+ 
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. This module must be shimmed by a specific renderer.
+
+   ![image-20230527172345248](README.assets/image-20230527172345248.png)
+
+   解决方案
+
+   ```javascript
+   // 打开报错的文件 src/react/packages/react-reconciler/src/ReactFiberHostConfig.js， 修改如下
+   // 修改前 
+   throw new Error('This module must be shimmed by a specific renderer.');
+   // 修改后 
+   export * from "./forks/ReactFiberHostConfig.dom";
+   
+   
+   ```
+
+4. Attempted import error: 'unstable_yieldValue' is not exported from 'scheduler' (imported as 'Scheduler').
+
+   ![image-20230527172735774](README.assets/image-20230527172735774.png)
+
+```javascript
+// 文件位置：src/react/packages/scheduler/index.js
+
+'use strict';
+
+export * from './src/forks/Scheduler';
+
+/* 添加 */
+export {
+    unstable_flushAllWithoutAsserting,
+    unstable_flushNumberOfYields,
+    unstable_flushExpired,
+    unstable_clearYields,
+    unstable_flushUntilNextPaint,
+    unstable_flushAll,
+    unstable_yieldValue,
+    unstable_advanceTime,
+    unstable_setDisableYieldValue
+} from './src/forks/SchedulerMock';
+```
+

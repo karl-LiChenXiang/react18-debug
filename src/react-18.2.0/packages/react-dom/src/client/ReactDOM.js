@@ -7,9 +7,9 @@
  * @flow
  */
 
-import type {ReactNodeList} from 'shared/ReactTypes';
-import type {Container} from './ReactDOMHostConfig';
-import type {
+import  {ReactNodeList} from 'shared/ReactTypes';
+import  {Container} from './ReactDOMHostConfig';
+import  {
   RootType,
   HydrateRootOptions,
   CreateRootOptions,
@@ -106,10 +106,10 @@ setBatchingImplementation(
 );
 
 function createPortal(
-  children: ReactNodeList,
-  container: Element | DocumentFragment,
-  key: ?string = null,
-): React$Portal {
+  children,
+  container,
+  key = null,
+) {
   if (!isValidContainer(container)) {
     throw new Error('Target container is not a DOM element.');
   }
@@ -120,10 +120,10 @@ function createPortal(
 }
 
 function renderSubtreeIntoContainer(
-  parentComponent: React$Component<any, any>,
-  element: React$Element<any>,
-  containerNode: Container,
-  callback: ?Function,
+  parentComponent,
+  element,
+  containerNode,
+  callback,
 ) {
   return unstable_renderSubtreeIntoContainer(
     parentComponent,
@@ -148,9 +148,9 @@ const Internals = {
 };
 
 function createRoot(
-  container: Element | Document | DocumentFragment,
-  options?: CreateRootOptions,
-): RootType {
+  container,
+  options,
+) {
   if (__DEV__) {
     if (!Internals.usingClientEntryPoint && !__UMD__) {
       console.error(
@@ -163,10 +163,10 @@ function createRoot(
 }
 
 function hydrateRoot(
-  container: Document | Element,
-  initialChildren: ReactNodeList,
-  options?: HydrateRootOptions,
-): RootType {
+  container,
+  initialChildren,
+  options,
+) {
   if (__DEV__) {
     if (!Internals.usingClientEntryPoint && !__UMD__) {
       console.error(
